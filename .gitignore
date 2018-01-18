@@ -4,4 +4,7 @@
 # testing
 /coverage
 
+# build
+/build
+
 npm-debug.log*
