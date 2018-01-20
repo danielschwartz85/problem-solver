@@ -13,50 +13,25 @@ const styles = theme => ({
 });
 
 class Transformation extends React.Component {
-  constructor(props) {
-    super(props);
-    this.state = {
-      verbs: this.props.verbs,
-      transformationVerbs: this.props.transformationVerbs
-    };
-  }
-
-  onBlur = (e, i) => {
-    this.props.onChange({
-      transformationVerbs: this.state.transformationVerbs
-    });
-  }
-
   onChange = (e, i) => {
-    const newVerbs = this.state.verbs.slice(0);
-    newVerbs[i] = e.target.value;
-    this.setState({ transformationVerbs: {
-      ...this.state.transformationVerbs,
+    const newVerbs = {
+      ...this.props.transformationVerbs,
       [i]: e.target.value
-    }});
-  }
-
-  componentWillReceiveProps = (nextProps) => {
-    if (nextProps.verbs !== this.state.verbs) {
-      this.setState({ verbs: nextProps.verbs });
-    }
-    if (nextProps.transformationVerbs !== this.state.transformationVerbs) {
-      this.setState({ transformationVerbs: nextProps.transformationVerbs });
-    }
+    };
+    this.props.onChange({ transformationVerbs: newVerbs });
   }
 
   render() {
     const { classes } = this.props;
     const placeholder = Config.pages.transformation.inputText;
-    const verbItems = this.state.verbs.filter(v => !!v).map((verb, i) => (
+    const verbItems = this.props.verbs.filter(v => !!v).map((verb, i) => (
       <div key={verb}>
         <ListItem>
           <Input
             className={classes.input}
             placeholder={placeholder.replace('$', verb)}
             onChange={e => this.onChange(e, i)}
-            onBlur={e => this.onBlur(e, i)}
-            value={this.state.transformationVerbs[i] || ""}
+            value={this.props.transformationVerbs[i] || ""}
           />
         </ListItem>
       </div>

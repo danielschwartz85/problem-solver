@@ -30,6 +30,32 @@ const Utils = {
   },
   objectToArr: (obj) => {
     return Object.keys(obj).map(k => obj[k]);
+  },
+  cleanArray: (actual) => {
+    var newArray = [];
+    for (var i = 0; i < actual.length; i++) {
+      if (actual[i]) {
+        newArray.push(actual[i]);
+      }
+    }
+    return newArray;
+  },
+  isValid: (problem, key) => {
+    return {
+      description: () => !!problem.description,
+      verbs: () => !!Utils.cleanArray(problem.verbs).length,
+      pastVerbs: () => true,
+      negativeVerbs: () => true,
+      transformationVerbs: () => {
+        const tVerbs = problem.transformationVerbs;
+        const cleanVerbs = Utils.cleanArray(problem.verbs);
+        return cleanVerbs.every((v, i) => !(v && !tVerbs[i]));
+      },
+      name: () => !!problem.name,
+      newName: () => !!problem.newName,
+      pastDomino: () => !!problem.pastDomino,
+      futureDomino: () => !!problem.futureDomino
+    }[key]();
   }
 }
 

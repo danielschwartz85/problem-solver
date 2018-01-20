@@ -67,7 +67,7 @@ export function updateProblem(id, changes) {
 };
 
 export function deleteProblem(id) {
-  const problems = getItem('problems');
+  const problems = JSON.parse(getItem('problems'));
   delete(problems[id]);
   setItem('problems', JSON.stringify(problems));
 

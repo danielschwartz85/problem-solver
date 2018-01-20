@@ -4,6 +4,7 @@ import { bindActionCreators } from 'redux';
 import { selectPage, PAGES } from '../actions/routingActions';
 import {
   deleteProblem,
+  fetchProblems,
   selectDraft
 } from '../actions/problemActions';
 
@@ -20,6 +21,7 @@ const matchDispatchToProps = (dispatch) => {
     ...matcher,
     deleteAndShowWelcome: (id) => {
       dispatch(deleteProblem(id));
+      dispatch(fetchProblems());
       dispatch(selectPage(PAGES['welcome'], null));
     },
     selectAndShowEditor: (id) => {

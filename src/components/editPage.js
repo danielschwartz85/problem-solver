@@ -6,6 +6,7 @@ import { withStyles } from 'material-ui/styles';
 import SecondaryTheme from './themes/secondaryTheme';
 import Typography from 'material-ui/Typography';
 import Config from '../config';
+import Utils from '../utils';
 import {
   ProblemStory,
   NegativeVerbSelect,
@@ -49,7 +50,10 @@ class EditPage extends React.Component {
   }
 
   saveCurrentProblem = () => {
-    const draft = this.props.draft;
+    const draft = {
+      ...this.props.draft,
+      verbs: Utils.cleanArray(this.props.draft.verbs)
+    };
     if (this.isNewProblem) {
       this.props.createProblemAndShow(draft);
     } else {
@@ -65,7 +69,8 @@ class EditPage extends React.Component {
                 description={this.props.draft.description}
                 onChange={this.onChange}
               />,
-        header: Config.pages.problem.description
+        header: Config.pages.problem.description,
+        valid: () => Utils.isValid(this.props.draft, 'description')
       },
       {
         page: <VerbExtract
@@ -73,7 +78,8 @@ class EditPage extends React.Component {
                 description={this.props.draft.description}
                 onChange={this.onChange}
               />,
-        header: Config.pages.verbExtract.description
+        header: Config.pages.verbExtract.description,
+        valid: () => Utils.isValid(this.props.draft, 'verbs')
       },
       {
         page: <PastVerbSelect
@@ -81,7 +87,8 @@ class EditPage extends React.Component {
                 verbs={this.props.draft.verbs}
                 pastVerbs={this.props.draft.pastVerbs}
               />,
-        header: Config.pages.pastVerbs.description
+        header: Config.pages.pastVerbs.description,
+        valid: () => Utils.isValid(this.props.draft, 'pastVerbs')
       },
       {
         page: <NegativeVerbSelect
@@ -89,7 +96,8 @@ class EditPage extends React.Component {
                 verbs={this.props.draft.verbs}
                 negativeVerbs={this.props.draft.negativeVerbs}
               />,
-        header: Config.pages.negativeVerbs.description
+        header: Config.pages.negativeVerbs.description,
+        valid: () => Utils.isValid(this.props.draft, 'negativeVerbs')
       },
       {
         page: <Transformation
@@ -97,38 +105,45 @@ class EditPage extends React.Component {
                 verbs={this.props.draft.verbs}
                 transformationVerbs={this.props.draft.transformationVerbs}
               />,
-        header: Config.pages.transformation.description
+        header: Config.pages.transformation.description,
+        valid: () => Utils.isValid(this.props.draft, 'transformationVerbs')
       },
       {
         page: <Name
                 onChange={this.onChange}
                 name={this.props.draft.name}
               />,
-        header: Config.pages.name.description
+        header: Config.pages.name.description,
+        valid: () => Utils.isValid(this.props.draft, 'name')
       },
       {
         page: <NewName
                 onChange={this.onChange}
                 newName={this.props.draft.newName}
               />,
-        header: Config.pages.newName.description
+        header: Config.pages.newName.description,
+        valid: () => Utils.isValid(this.props.draft, 'newName')
       },
       {
         page: <PastDomino
                 onChange={this.onChange}
                 pastDomino={this.props.draft.pastDomino}
               />,
-        header: Config.pages.pastDomino.description
+        header: Config.pages.pastDomino.description,
+        valid: () => Utils.isValid(this.props.draft, 'pastDomino')
       },
       {
         page: <FutureDomino
                 onChange={this.onChange}
                 futureDomino={this.props.draft.futureDomino}
               />,
-        header: Config.pages.futureDomino.description
+        header: Config.pages.futureDomino.description,
+        valid: () => Utils.isValid(this.props.draft, 'futureDomino')
       }
     ];
     const currentPage = pages[this.props.selectedPage];
+    const backEnabled = !!this.props.selectedPage;
+    const nextEnabled = currentPage.valid();
 
     return (
       <SecondaryTheme>
@@ -144,14 +159,11 @@ class EditPage extends React.Component {
             {currentPage.page}
           </CardContent>
           <CardActions>
-            <Button>חזור</Button>
-            <Button>הבא</Button>
-            <Button
-              onClick={this.saveCurrentProblem}
-              disabled={!this.saveEnabled}
-            >
-              שמור
-            </Button>
+            <Button disabled={!backEnabled}>חזור</Button>
+            <Button disabled={!nextEnabled}>הבא</Button>
+            {this.saveEnabled && (
+              <Button onClick={this.saveCurrentProblem}>שמור</Button>
+            )}
           </CardActions>
         </Card>
       </SecondaryTheme>

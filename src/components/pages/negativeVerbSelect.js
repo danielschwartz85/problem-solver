@@ -16,44 +16,26 @@ const styles = theme => ({
 });
 
 class NegativeVerbSelect extends React.Component {
-  constructor(props) {
-    super(props);
-    this.state = {
-      negativeVerbs: this.props.negativeVerbs,
-      verbs: this.props.verbs
-    };
-  }
-
   onChange = (i) => {
-    const newNegativeVerbs = this.state.negativeVerbs.slice(0);
-    const indexPosition = this.state.negativeVerbs.indexOf(i);
+    const newNegativeVerbs = this.props.negativeVerbs.slice(0);
+    const indexPosition = this.props.negativeVerbs.indexOf(i);
     if (indexPosition === -1) {
       newNegativeVerbs.push(i);
     } else {
       newNegativeVerbs.splice(indexPosition, 1);
     }
-    this.setState({ negativeVerbs: newNegativeVerbs });
     this.props.onChange({ negativeVerbs: newNegativeVerbs });
-  }
-
-  componentWillReceiveProps = (nextProps) => {
-    if (nextProps.negativeVerbs !== this.state.negativeVerbs) {
-      this.setState({ negativeVerbs: nextProps.negativeVerbs });
-    }
-    if (nextProps.verbs !== this.state.verbs) {
-      this.setState({ verbs: nextProps.verbs });
-    }
   }
 
   render() {
     const { classes } = this.props;
-    const verbItems = this.state.verbs.filter(v => !!v).map((verb, i) => (
+    const verbItems = this.props.verbs.filter(v => !!v).map((verb, i) => (
       <div key={verb}>
         <ListItem button onClick={() => this.onChange(i)}>
           <ListItemText primary={verb} />
           <ListItemSecondaryAction>
             <Checkbox
-              checked={this.state.negativeVerbs.includes(i)}
+              checked={this.props.negativeVerbs.includes(i)}
               onChange={() => this.onChange(i)}
               value={verb}
               className={classes.checked}

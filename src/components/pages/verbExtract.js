@@ -25,31 +25,13 @@ const styles = theme => ({
 });
 
 class VerbExtract extends React.Component {
-  constructor(props) {
-    super(props);
-    this.state = {
-      verbs: this.props.verbs,
-      description: this.props.description
-    };
-  }
-
   onBlur = (e, i) => {
-    this.props.onChange({ verbs: this.state.verbs });
   }
 
   onChange = (e, i) => {
-    const newVerbs = this.state.verbs.slice(0);
+    const newVerbs = this.props.verbs.slice(0);
     newVerbs[i] = e.target.value;
-    this.setState({ verbs: newVerbs });
-  }
-
-  componentWillReceiveProps = (nextProps) => {
-    if (nextProps.verbs !== this.state.verbs) {
-      this.setState({ verbs: nextProps.verbs });
-    }
-    if (nextProps.description !== this.state.description) {
-      this.setState({ description: nextProps.description });
-    }
+    this.props.onChange({ verbs: newVerbs });
   }
 
   render() {
@@ -67,7 +49,7 @@ class VerbExtract extends React.Component {
           component="p"
           className={classes.typography}
         >
-          {this.state.description || Config.pages.verbExtract.emptyProblem}
+          {this.props.description || Config.pages.verbExtract.emptyProblem}
         </Typography>
       </Paper>
 
@@ -76,9 +58,8 @@ class VerbExtract extends React.Component {
         <Input
           className={classes.input}
           placeholder={Config.pages.verbExtract.inputText}
-          onBlur={e => {this.onBlur(e, i)}}
           onChange={e => {this.onChange(e, i)}}
-          value={this.state.verbs[i] || ''}
+          value={this.props.verbs[i] || ''}
         />
       </ListItem>
     ));

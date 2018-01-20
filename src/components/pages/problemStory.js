@@ -4,25 +4,8 @@ import Config from '../../config';
 import Grid from 'material-ui/Grid';
 
 class ProblemStory extends React.Component {
-  constructor(props) {
-    super(props);
-    this.state = {
-      description: this.props.description
-    }
-  }
-
   onChange = (event) => {
-    this.setState({description: event.target.value});
-  }
-
-  onBlur = () => {
-    this.props.onChange({ description: this.state.description });
-  }
-
-  componentWillReceiveProps = (nextProps) => {
-    if (nextProps.description !== this.state.description) {
-      this.setState({ description: nextProps.description });
-    }
+    this.props.onChange({ description: event.target.value });
   }
 
   render() {
@@ -35,9 +18,8 @@ class ProblemStory extends React.Component {
             multiline
             rows="5"
             margin="normal"
-            value={this.state.description}
+            value={this.props.description}
             onChange={this.onChange}
-            onBlur={this.onBlur}
           />
         </Grid>
       </Grid>
