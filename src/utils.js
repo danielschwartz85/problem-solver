@@ -41,7 +41,8 @@ const Utils = {
     return newArray;
   },
   isValid: (problem, key) => {
-    return {
+    console.log(key)
+    const valid = {
       description: () => !!problem.description,
       verbs: () => !!Utils.cleanArray(problem.verbs).length,
       pastVerbs: () => true,
@@ -55,7 +56,11 @@ const Utils = {
       newName: () => !!problem.newName,
       pastDomino: () => !!problem.pastDomino,
       futureDomino: () => !!problem.futureDomino
-    }[key]();
+    }[key];
+    return valid !== undefined ? valid() : true
+  },
+  isValidProblem: (problem) => {
+    return Object.keys(problem).every(k => Utils.isValid(problem, k));
   }
 }
 

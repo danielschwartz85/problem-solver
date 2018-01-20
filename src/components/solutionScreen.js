@@ -8,9 +8,10 @@ class SolutionScreen extends React.Component {
   constructor(props) {
     super(props);
     this.manKeys = [
+      'problemType',
       'description',
-      'verbs',
       'negativeVerbs',
+      'verbs',
       'name',
       'pastDomino'
     ];
@@ -30,8 +31,20 @@ class SolutionScreen extends React.Component {
     let textProblem = {...problem};
     textProblem.verbs = Utils.joinWithCommas(problem.verbs);
     textProblem.negativeVerbs = Utils.indexToText(problem.negativeVerbs, problem.verbs);
-    const transformationVerbs = Utils.objectToArr(problem.transformationVerbs);
-    textProblem.transformationVerbs = Utils.joinWithCommas(transformationVerbs);
+    const tVerbs = problem.transformationVerbs;
+    const transformationVerbs = Object.keys(tVerbs).reduce((acc, id) => {
+      acc = `${acc}${acc ? ', ' : ''}${problem.transformationVerbs[id]} (במקום ${problem.verbs[id]})`
+      return acc;
+    }, "");
+    textProblem.transformationVerbs = transformationVerbs;
+
+    if(problem.verbs.length === problem.pastVerbs.length) {
+      textProblem.problemType = Config.solutionScreen.man.costumeConflict
+    } else if (problem.pastVerbs.length === 0) {
+      textProblem.problemType = Config.solutionScreen.man.newConflict
+    } else {
+      textProblem.problemType = Config.solutionScreen.man.hidingConflict
+    }
 
     const manTexts = this.manKeys.reduce((acc, item) => {
       acc[item] = textProblem[item];
@@ -47,6 +60,7 @@ class SolutionScreen extends React.Component {
         content={manTexts}
         header={Config.solutionScreen.man.header}
         subHeader={Config.solutionScreen.man.subHeader}
+        description={Config.solutionScreen.man.description}
         imageUrl="manCard.jpg"
       />
     );
@@ -56,6 +70,7 @@ class SolutionScreen extends React.Component {
         content={beeingTexts}
         header={Config.solutionScreen.beeing.header}
         subHeader={Config.solutionScreen.beeing.subHeader}
+        description={Config.solutionScreen.beeing.description}
         imageUrl="beeingCard.jpg"
       />
     );
@@ -63,10 +78,10 @@ class SolutionScreen extends React.Component {
     return (
       <Grid container>
         <Grid item xs={12} sm={6}>
-          {manCard}
+          {beeingCard}
         </Grid>
         <Grid item xs={12} sm={6}>
-          {beeingCard}
+          {manCard}
         </Grid>
       </Grid>
     );

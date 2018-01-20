@@ -6,9 +6,10 @@ import { withStyles } from 'material-ui/styles';
 import SecondaryTheme from './themes/secondaryTheme';
 import Typography from 'material-ui/Typography';
 import Snackbar from 'material-ui/Snackbar';
-import Fade from 'material-ui/transitions/Fade';
 import Config from '../config';
 import Utils from '../utils';
+import Fade from 'material-ui/transitions/Fade';
+
 import {
   ProblemStory,
   NegativeVerbSelect,
@@ -27,6 +28,9 @@ const styles = theme => ({
   },
   typography: {
     marginBottom: 20
+  },
+  snackbar: {
+    'margin-top': '72px'
   }
 });
 
@@ -56,18 +60,11 @@ class EditPage extends React.Component {
     } else {
       this.props.updateProblemAndFetch(this.props.selectedProblem, draft);
       this.setState({ showSavedMessage: true });
-      window.setTimeout(() => {
-        this.setState({ showSavedMessage: false });
-      }, 2000);
     }
   }
 
   get saveEnabled() {
-    const problem = this.props.draft;
-    let missingField = !problem.description || !problem.verbs.length;
-    missingField = missingField || !problem.name || !problem.newName;
-    missingField = missingField || !problem.pastDomino || !problem.futureDomino;
-    return !missingField
+    return Utils.isValidProblem(this.props.draft);
   }
 
   get isNewProblem() {
@@ -134,6 +131,7 @@ class EditPage extends React.Component {
         page: <NewName
                 onChange={this.onChange}
                 newName={this.props.draft.newName}
+                transformationVerbs={this.props.draft.transformationVerbs}
               />,
         header: Config.pages.newName.description,
         valid: () => Utils.isValid(this.props.draft, 'newName')
@@ -163,6 +161,14 @@ class EditPage extends React.Component {
 
     return (
       <SecondaryTheme>
+        <Snackbar className={classes.snackbar}
+          anchorOrigin={{ vertical: 'top', horizontal: 'left' }}
+          open={this.state.showSavedMessage}
+          onClose={() => this.setState({ showSavedMessage: false })}
+          autoHideDuration={1500}
+          transition={Fade}
+          message={<span id="message-id">{Config.pages.saveMessage}</span>}
+        />
         <Card className={classes.card}>
           <CardContent>
             <Typography
@@ -196,13 +202,6 @@ class EditPage extends React.Component {
               </Button>
             )}
           </CardActions>
-          <Snackbar
-            open={this.state.showSavedMessage}
-            onClose={() => this.setState({ showSavedMessage: false })}
-            transition={Fade}
-            SnackbarContentProps={{'aria-describedby': 'message-id'}}
-            message={<span id="message-id">{Config.pages.saveMessage}</span>}
-          />
         </Card>
       </SecondaryTheme>
     );

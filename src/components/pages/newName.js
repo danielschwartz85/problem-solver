@@ -1,7 +1,24 @@
 import React from 'react';
 import TextField from 'material-ui/TextField';
 import Config from '../../config';
+import Utils from '../../utils';
 import Grid from 'material-ui/Grid';
+import Paper from 'material-ui/Paper';
+import Typography from 'material-ui/Typography';
+import PropTypes from 'prop-types';
+import { withStyles } from 'material-ui/styles';
+
+const styles = theme => ({
+  secondaryPaper: theme.mixins.gutters({
+    background: theme.palette.secondaryPaper,
+    paddingTop: 16,
+    paddingBottom: 16,
+    marginTop: theme.spacing.unit * 3
+  }),
+  typography: {
+    color: 'black'
+  }
+});
 
 class NewName extends React.Component {
   onChange = (e) => {
@@ -9,20 +26,51 @@ class NewName extends React.Component {
   }
 
   render() {
+    const { classes } = this.props;
+    let verbArray = Utils.objectToArr(this.props.transformationVerbs);
+    const transformation = (
+      <Paper className={classes.secondaryPaper} elevation={4}>
+        <Typography
+          type="headline"
+          component="h3"
+          className={classes.typography}
+        >
+          {Config.pages.newName.cardHeader}
+        </Typography>
+        <Typography
+          component="p"
+          className={classes.typography}
+        >
+          {Utils.joinWithCommas(verbArray)}
+        </Typography>
+      </Paper>
+    );
+
     return (
       <Grid container>
-        <Grid item xs={12} sm={6}>
-          <TextField
-            value={this.props.newName}
-            onChange={this.onChange}
-            fullWidth={true}
-            placeholder={Config.pages.newName.inputText}
-            margin="normal"
-          />
+        <Grid item md={12} xs={12}>
+          <Grid item xs={12} md={6}>
+            {transformation}
+          </Grid>
+        </Grid>
+        <Grid item md={12} xs={12}>
+          <Grid item xs={12} md={6}>
+            <TextField
+              value={this.props.newName}
+              onChange={this.onChange}
+              fullWidth={true}
+              placeholder={Config.pages.newName.inputText}
+              margin="normal"
+            />
+          </Grid>
         </Grid>
       </Grid>
     );
   }
 }
 
-export default NewName;
+NewName.propTypes = {
+  classes: PropTypes.object.isRequired,
+};
+
+export default withStyles(styles)(NewName);

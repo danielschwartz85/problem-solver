@@ -1,3 +1,4 @@
+import Utils from '../utils'
 export const FETCH_PROBLEMS = 'FETCH_PROBLEMS';
 export const CREATE_PROBLEM = 'CREATE_PROBLEM';
 export const UPDATE_PROBLEM = 'UPDATE_PROBLEM';
@@ -23,6 +24,15 @@ const getItem = (key) => {
   }
 };
 
+const cleanProblem = (problem) => {
+  problem.verbs = Utils.cleanArray(problem.verbs);
+  Object.keys(problem.transformationVerbs).forEach(i => {
+    if (i >= problem.verbs.length) {
+      delete(problem.transformationVerbs[i]);
+    }
+  });
+}
+
 export function fetchProblems() {
   let problems = getItem('problems');
   problems = (problems && JSON.parse(problems)) || {};
@@ -38,6 +48,7 @@ export function createProblem(problem) {
   const ids = Object.keys(problems).sort();
   const newId = ((ids.length && Number(ids[ids.length -1])) || 0) + 1;
   problems[newId] = { ...problem, updatedAt: Date.now() };
+  cleanProblem(problems[newId])
   setItem('problems', JSON.stringify(problems));
 
   return {
@@ -56,6 +67,7 @@ export function updateProblem(id, changes) {
     ...changes,
     updatedAt: Date.now()
   };
+  cleanProblem(problems[id])
   setItem('problems', JSON.stringify(problems));
 
   return {

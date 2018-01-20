@@ -36,7 +36,7 @@ class VerbExtract extends React.Component {
 
   render() {
     const { classes } = this.props;
-    const userProblem =
+    const userProblem = (
       <Paper className={classes.secondaryPaper} elevation={4}>
         <Typography
           type="headline"
@@ -52,6 +52,7 @@ class VerbExtract extends React.Component {
           {this.props.description || Config.pages.verbExtract.emptyProblem}
         </Typography>
       </Paper>
+    );
 
     const verbItems = Array(6).fill(null).map((item, i) => (
       <ListItem key={i}>
@@ -68,11 +69,15 @@ class VerbExtract extends React.Component {
     return (
       <div className={classes.root}>
         <Grid container>
-          <Grid item xs={12} sm={6}>
-            {verbList}
+          <Grid item md={12} xs={12}>
+            <Grid item xs={12} md={6}>
+              {userProblem}
+            </Grid>
           </Grid>
-          <Grid item xs={12} sm={6}>
-            {userProblem}
+          <Grid item md={12} xs={12}>
+            <Grid item xs={12} md={6}>
+              {verbList}
+            </Grid>
           </Grid>
         </Grid>
       </div>

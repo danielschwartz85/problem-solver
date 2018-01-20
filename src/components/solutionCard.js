@@ -53,7 +53,7 @@ class SolutionCard extends React.Component {
         />
         <CardContent>
           <Typography component="p">
-            {Config.solutionScreen.man.description}
+            {this.props.description}
           </Typography>
         </CardContent>
         {contentPanels}
