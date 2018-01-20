@@ -50,7 +50,7 @@ export function createProblem(problem) {
 };
 
 export function updateProblem(id, changes) {
-  const problems = getItem('problems');
+  const problems = JSON.parse(getItem('problems'));
   problems[id] = {
     ...problems[id],
     ...changes,

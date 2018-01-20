@@ -70,7 +70,6 @@ const Config = {
     }
   },
   welcomeScreen: {
-    imageUrl: "http://www.drtamir.co.il/images/BGGal_20160808_143051108_3.jpg",
     header: "תהליכי חשיבה על בעיות",
     descriptions: [
       "לכל קונפליקט יש פתרון. הפתרון מתעכב או לא נמצא באותה עת רק בגלל חוסר הבשלות של האדם להבין את הפתרון מתוך עצמו.",
@@ -82,7 +81,6 @@ const Config = {
     newProblemText: "בעיה חדשה"
   },
   problemScreen: {
-    imageUrl: "http://www.drtamir.co.il/images/BGGal_20160808_143051108_3.jpg",
     showBookText: "צפה",
     editText: "ערוך",
     deleteText: "מחק"
@@ -94,7 +92,6 @@ const Config = {
   },
   solutionScreen: {
     man: {
-      imageUrl: 'https://cdn.pixabay.com/photo/2017/08/01/16/38/german-2566493_1280.jpg',
       header: "סיפור חיי האדם",
       subHeader: "קונפליקטים אדמיים",
       description: "לכל קונפליקט יש פתרון. הפתרון מתעכב או לא נמצא באותה עת רק בגלל חוסר הבשלות של האדם להבין את הפתרון מתוך עצמו." +
@@ -102,7 +99,6 @@ const Config = {
                    "כי הסוד של האדם הוא בהבנה. "
     },
     beeing :{
-      imageUrl: 'https://cdn.pixabay.com/photo/2015/10/23/11/09/meeting-1002800_1280.jpg',
       header: "פעולות פילוסופיות",
       subHeader: "קונפליקטים פילוסופיים",
       description: "לכל קונפליקט יש פתרון. הפתרון מתעכב או לא נמצא באותה עת רק בגלל חוסר הבשלות של האדם להבין את הפתרון מתוך עצמו." +

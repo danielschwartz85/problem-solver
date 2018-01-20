@@ -49,10 +49,11 @@ class EditPage extends React.Component {
   }
 
   saveCurrentProblem = () => {
+    const draft = this.props.draft;
     if (this.isNewProblem) {
-      this.props.createProblemAndShow(this.props.draft);
+      this.props.createProblemAndShow(draft);
     } else {
-      this.props.updateProblem(this.props.draft);
+      this.props.updateProblemAndFetch(this.props.selectedProblem, draft);
     }
   }
 

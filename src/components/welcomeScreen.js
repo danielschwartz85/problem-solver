@@ -31,10 +31,7 @@ class WelcomeScreen extends React.Component {
     );
     return (
       <Card className={classes.card}>
-        <CardMedia
-          className={classes.media}
-          image={Config.welcomeScreen.imageUrl}
-        />
+        <CardMedia className={classes.media} image="../cardBgrd.jpg" />
         <CardContent>
           <Typography type="headline" component="h2">
             {Config.welcomeScreen.header}

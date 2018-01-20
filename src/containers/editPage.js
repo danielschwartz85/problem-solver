@@ -20,7 +20,6 @@ const mapStateToProps = (state) => {
 
 const matchDispatchToProps = (dispatch) => {
   const matcher = bindActionCreators({
-    updateProblem,
     updateDraft
   }, dispatch);
 
@@ -32,6 +31,10 @@ const matchDispatchToProps = (dispatch) => {
       dispatch(fetchProblems());
       dispatch(clearDraft());
       dispatch(selectPage(PAGES['viewSavedProblem'], action.payload.id));
+    },
+    updateProblemAndFetch: (id, changes) => {
+      dispatch(updateProblem(id, changes));
+      dispatch(fetchProblems());
     }
   };
 };
