@@ -4,7 +4,7 @@ import Grid from 'material-ui/Grid';
 import { withStyles } from 'material-ui/styles';
 import PropTypes from 'prop-types';
 import ProblemAppBar from './problemAppBar';
-import TopMenu from './menus/topMenu';
+import TopMenuContainer from '../containers/topMenu';
 import EditPageContainer from '../containers/editPage';
 import SolutionScreenContainer from '../containers/solutionScreen';
 import ProblemScreenContainer from '../containers/problemScreen';
@@ -33,7 +33,7 @@ class App extends React.Component {
     this.props.fetchProblems();
   }
 
-  onEditorPageSelected = (event, value) => {
+  onEditorPageSelected = (value) => {
     this.setState({ editorPage: value });
   }
 
@@ -64,13 +64,16 @@ class App extends React.Component {
       <WelcomeScreen/>,
       <ProblemScreenContainer onEdit={this.onProblemEdit} />,
       <SolutionScreenContainer/>,
-      <EditPageContainer selectedPage={this.state.editorPage}/>
+      <EditPageContainer
+        selectedPage={this.state.editorPage}
+        onPageSelected={this.onEditorPageSelected}
+      />
     ][this.props.page];
 
     let topMenu;
     if (PAGES['editor'] === this.props.page) {
       topMenu = (
-        <TopMenu
+        <TopMenuContainer
           selectedPage={this.state.editorPage}
           onPageSelected={this.onEditorPageSelected}
         />

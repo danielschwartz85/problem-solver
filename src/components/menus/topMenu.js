@@ -12,6 +12,7 @@ import IconPermIdentity from 'material-ui-icons/PermIdentity';
 import IconSquare from 'material-ui-icons/CropSquare';
 import IconTriangle from 'material-ui-icons/ChangeHistory';
 import Config from '../../config';
+import Utils from '../../utils';
 
 const styles = theme => ({
   tabs: {
@@ -23,31 +24,41 @@ class TopMenu extends React.Component {
   constructor(props) {
     super(props);
     this.pages = [
-      {name: 'futureDomino', icon: IconTriangle},
-      {name: 'pastDomino', icon: IconSquare},
-      {name: 'newName', icon: IconPermIdentity},
-      {name: 'name', icon: IconAssignment},
-      {name: 'transformation', icon: IconTransfer},
-      {name: 'negativeVerbs', icon: IconMoodBad},
-      {name: 'pastVerbs', icon: IconHistory},
-      {name: 'verbExtract', icon: IconAccessibility},
-      {name: 'problem', icon: IconReportProblem}
+      {name: 'futureDomino', icon: IconTriangle, key: 'futureDomino'},
+      {name: 'pastDomino', icon: IconSquare, key: 'pastDomino'},
+      {name: 'newName', icon: IconPermIdentity, key: 'newName'},
+      {name: 'name', icon: IconAssignment, key: 'name'},
+      {name: 'transformation', icon: IconTransfer, key: 'transformationVerbs'},
+      {name: 'negativeVerbs', icon: IconMoodBad, key: 'negativeVerbs'},
+      {name: 'pastVerbs', icon: IconHistory, key: 'pastVerbs'},
+      {name: 'verbExtract', icon: IconAccessibility, key: 'verbs'},
+      {name: 'problem', icon: IconReportProblem, key: 'description'}
     ];
   }
 
   onPageSelected = (event, value) => {
-    this.props.onPageSelected(event, this.pages.length - value - 1);
+    this.props.onPageSelected(this.pages.length - value - 1);
   }
 
   render() {
     const { classes } = this.props;
-    const tabs = this.pages.map(page => {
+    let firstInvalid;
+    this.pages.some((page, i) => {
+      const reversedIndex = this.pages.length - i - 1;
+      firstInvalid = reversedIndex;
+      const reversedPage = this.pages[reversedIndex];
+      return !Utils.isValid(this.props.draft, reversedPage.key);
+    });
+
+    const tabs = this.pages.map((page, i) => {
       const TabIcon = page.icon;
+      const disabled = i < firstInvalid;
       return (
         <Tab
           key={Config.pages[page.name].tab.name}
           label={Config.pages[page.name].tab.name}
           icon={<TabIcon className={classes.icon}/>}
+          disabled={disabled}
         />
       );
     });

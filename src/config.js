@@ -63,11 +63,7 @@ const Config = {
         name: 'עתיד דומינו'
       }
     },
-    save: {
-      tab: {
-        name: 'שמור'
-      }
-    }
+    saveMessage: "נשמר"
   },
   welcomeScreen: {
     header: "תהליכי חשיבה על בעיות",

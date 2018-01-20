@@ -5,6 +5,8 @@ import PropTypes from 'prop-types';
 import { withStyles } from 'material-ui/styles';
 import SecondaryTheme from './themes/secondaryTheme';
 import Typography from 'material-ui/Typography';
+import Snackbar from 'material-ui/Snackbar';
+import Fade from 'material-ui/transitions/Fade';
 import Config from '../config';
 import Utils from '../utils';
 import {
@@ -29,11 +31,35 @@ const styles = theme => ({
 });
 
 class EditPage extends React.Component {
+  state = {
+    showSavedMessage: false
+  }
+
   onChange = (changes) => {
     const didChange = Object.keys(changes).some(k => (
       changes[k] !== this.props.draft[k]
     ));
     didChange && this.props.updateDraft(changes);
+  }
+
+  onPageSelected = (i) => {
+    this.props.onPageSelected(this.props.selectedPage + i)
+  }
+
+  saveCurrentProblem = () => {
+    const draft = {
+      ...this.props.draft,
+      verbs: Utils.cleanArray(this.props.draft.verbs)
+    };
+    if (this.isNewProblem) {
+      this.props.createProblemAndShow(draft);
+    } else {
+      this.props.updateProblemAndFetch(this.props.selectedProblem, draft);
+      this.setState({ showSavedMessage: true });
+      window.setTimeout(() => {
+        this.setState({ showSavedMessage: false });
+      }, 2000);
+    }
   }
 
   get saveEnabled() {
@@ -47,18 +73,6 @@ class EditPage extends React.Component {
   get isNewProblem() {
     const selectedProblem = this.props.selectedProblem;
     return selectedProblem === undefined || selectedProblem === null;
-  }
-
-  saveCurrentProblem = () => {
-    const draft = {
-      ...this.props.draft,
-      verbs: Utils.cleanArray(this.props.draft.verbs)
-    };
-    if (this.isNewProblem) {
-      this.props.createProblemAndShow(draft);
-    } else {
-      this.props.updateProblemAndFetch(this.props.selectedProblem, draft);
-    }
   }
 
   render() {
@@ -142,8 +156,10 @@ class EditPage extends React.Component {
       }
     ];
     const currentPage = pages[this.props.selectedPage];
-    const backEnabled = !!this.props.selectedPage;
-    const nextEnabled = currentPage.valid();
+    const isFirstPage = !!this.props.selectedPage;
+    const isLastPage = this.props.selectedPage === (pages.length - 1);
+    const nextEnabled = !isLastPage && currentPage.valid();
+    const showSave = !this.isNewProblem || isLastPage;
 
     return (
       <SecondaryTheme>
@@ -159,12 +175,34 @@ class EditPage extends React.Component {
             {currentPage.page}
           </CardContent>
           <CardActions>
-            <Button disabled={!backEnabled}>חזור</Button>
-            <Button disabled={!nextEnabled}>הבא</Button>
-            {this.saveEnabled && (
-              <Button onClick={this.saveCurrentProblem}>שמור</Button>
+            <Button
+              disabled={!isFirstPage}
+              onClick={() => this.onPageSelected(-1)}
+            >
+              חזור
+            </Button>
+            <Button
+              disabled={!nextEnabled}
+              onClick={() => this.onPageSelected(1)}
+            >
+              הבא
+            </Button>
+            {showSave && (
+              <Button
+                onClick={this.saveCurrentProblem}
+                disabled={!this.saveEnabled}
+              >
+                שמור
+              </Button>
             )}
           </CardActions>
+          <Snackbar
+            open={this.state.showSavedMessage}
+            onClose={() => this.setState({ showSavedMessage: false })}
+            transition={Fade}
+            SnackbarContentProps={{'aria-describedby': 'message-id'}}
+            message={<span id="message-id">{Config.pages.saveMessage}</span>}
+          />
         </Card>
       </SecondaryTheme>
     );
