@@ -99,7 +99,7 @@ class ProblemScreen extends React.Component {
 
     return (
       <Card className={classes.card}>
-        <CardMedia className={classes.media} image="../cardBgrd.jpg" >
+        <CardMedia className={classes.media} image="cardBgrd.jpg" >
           {menu}
         </CardMedia>
         <CardContent>
