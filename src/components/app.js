@@ -8,7 +8,7 @@ import TopMenuContainer from '../containers/topMenu';
 import EditPageContainer from '../containers/editPage';
 import SolutionScreenContainer from '../containers/solutionScreen';
 import ProblemScreenContainer from '../containers/problemScreen';
-import WelcomeScreen from './welcomeScreen';
+import WelcomeScreenContainer from '../containers/welcomeScreen';
 import { PAGES } from '../actions/routingActions';
 
 const styles = theme => ({
@@ -61,7 +61,7 @@ class App extends React.Component {
   render() {
     const { classes } = this.props;
     const page = [
-      <WelcomeScreen/>,
+      <WelcomeScreenContainer onNewProblemSelected={this.onNewProblemSelected}/>,
       <ProblemScreenContainer onEdit={this.onProblemEdit} />,
       <SolutionScreenContainer/>,
       <EditPageContainer

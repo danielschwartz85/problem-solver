@@ -16,6 +16,11 @@ const styles = theme => ({
 });
 
 class WelcomeScreen extends React.Component {
+  onNewProblemSelected = () => {
+    this.props.showNewProblem()
+    this.props.onNewProblemSelected();
+  }
+
   render() {
     const { classes } = this.props;
     let lastLineIndex = Config.welcomeScreen.descriptions.length - 1;
@@ -39,7 +44,7 @@ class WelcomeScreen extends React.Component {
           {descriptions}
         </CardContent>
         <CardActions>
-          <Button color="primary">
+          <Button color="primary" onClick={this.onNewProblemSelected}>
             {Config.welcomeScreen.newProblemText}
           </Button>
         </CardActions>
