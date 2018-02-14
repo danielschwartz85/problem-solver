@@ -31,20 +31,8 @@ class SolutionScreen extends React.Component {
     let textProblem = {...problem};
     textProblem.verbs = Utils.joinWithCommas(problem.verbs);
     textProblem.negativeVerbs = Utils.indexToText(problem.negativeVerbs, problem.verbs);
-    const tVerbs = problem.transformationVerbs;
-    const transformationVerbs = Object.keys(tVerbs).reduce((acc, id) => {
-      acc = `${acc}${acc ? ', ' : ''}${problem.transformationVerbs[id]} (במקום ${problem.verbs[id]})`
-      return acc;
-    }, "");
-    textProblem.transformationVerbs = transformationVerbs;
-
-    if(problem.verbs.length === problem.pastVerbs.length) {
-      textProblem.problemType = Config.solutionScreen.man.costumeConflict
-    } else if (problem.pastVerbs.length === 0) {
-      textProblem.problemType = Config.solutionScreen.man.newConflict
-    } else {
-      textProblem.problemType = Config.solutionScreen.man.hidingConflict
-    }
+    textProblem.transformationVerbs = Utils.transformationSentence(problem);
+    textProblem.problemType = Utils.problemTypeSentence(problem);
 
     const manTexts = this.manKeys.reduce((acc, item) => {
       acc[item] = textProblem[item];

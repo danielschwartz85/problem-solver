@@ -19,7 +19,8 @@ import {
   Name,
   NewName,
   PastDomino,
-  FutureDomino
+  FutureDomino,
+  ProblemPlanted
 } from './pages';
 
 const styles = theme => ({
@@ -151,6 +152,16 @@ class EditPage extends React.Component {
               />,
         header: Config.pages.futureDomino.description,
         valid: () => Utils.isValid(this.props.draft, 'futureDomino')
+      },
+      {
+        page: <ProblemPlanted
+                onChange={this.onChange}
+                transformationSentence={Utils.transformationSentence(this.props.draft)}
+                description={this.props.draft.description}
+                problemPlanted={this.props.draft.problemPlanted}
+              />,
+        header: Config.pages.problemPlanted.description,
+        valid: () => Utils.isValid(this.props.draft, 'problemPlanted')
       }
     ];
     const currentPage = pages[this.props.selectedPage];

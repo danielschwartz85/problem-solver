@@ -7,6 +7,7 @@ import Name from './name';
 import NewName from './newName';
 import PastDomino from './pastDomino';
 import FutureDomino from './futureDomino';
+import ProblemPlanted from './problemPlanted';
 
 export {
   ProblemStory,
@@ -17,5 +18,6 @@ export {
   Name,
   NewName,
   PastDomino,
-  FutureDomino
+  FutureDomino,
+  ProblemPlanted
 }

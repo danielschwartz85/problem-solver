@@ -41,8 +41,14 @@ class SideMenu extends React.Component {
 
   render() {
     const { classes, problems } = this.props;
-    const problemList = Object.keys(problems || {}).map(id => {
-      const problem = this.props.problems[id];
+    const sortedProblems = Object.keys(problems || {}).map(id => ({
+        problem: this.props.problems[id],
+        id: id,
+        updatedAt: this.props.problems[id].updatedAt
+      })).sort((p1, p2) => p1.updatedAt >= p2.updatedAt ? -1 : 1);
+    const problemList = sortedProblems.map(p => {
+      const problem = p.problem;
+      const id = p.id;
       return (
         <div key={id} onClick={() => {this.problemSelected(id)}}>
           <ListItem button>
@@ -50,7 +56,7 @@ class SideMenu extends React.Component {
               <LibraryBooks/>
             </ListItemIcon>
             <ListItemText
-              primary={Utils.joinWithCommas(problem.verbs, 3)}
+              primary={Utils.truncate(problem.description, 15)}
               secondary={new Date(problem.updatedAt).toDateString()}
             />
           </ListItem>

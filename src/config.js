@@ -64,7 +64,15 @@ const Config = {
         name: 'עתיד דומינו'
       }
     },
-    saveMessage: "נשמר"
+    problemPlanted : {
+      description: 'הגדר מחדש את הבעיה, החלף את פעולות הבעיה בפעולות הטרנספורמציה אשר בחרת',
+      cardHeader: 'פעולות הטרנספורמציה',
+      tab: {
+        name: 'פתרון בעיה'
+      }
+    },
+    saveMessage: "נשמר",
+    deletedMessage: "נמחק"
   },
   welcomeScreen: {
     header: "תהליכי חשיבה על בעיות",

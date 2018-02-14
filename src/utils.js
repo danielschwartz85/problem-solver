@@ -1,3 +1,5 @@
+import Config from './config';
+ 
 const Utils = {
   joinWithCommas: (arr, max = undefined) => {
     if (max) {
@@ -55,12 +57,30 @@ const Utils = {
       name: () => !!problem.name,
       newName: () => !!problem.newName,
       pastDomino: () => !!problem.pastDomino,
-      futureDomino: () => !!problem.futureDomino
+      futureDomino: () => !!problem.futureDomino,
+      problemPlanted: () => true
     }[key];
     return valid !== undefined ? valid() : true
   },
   isValidProblem: (problem) => {
     return Object.keys(problem).every(k => Utils.isValid(problem, k));
+  },
+  transformationSentence: (problem) => {
+    const tVerbs = problem.transformationVerbs;
+    const transformationVerbs = Object.keys(tVerbs).reduce((acc, id) => {
+      acc = `${acc}${acc ? ', ' : ''}${problem.transformationVerbs[id]} (במקום ${problem.verbs[id]})`
+      return acc;
+    }, "");
+    return transformationVerbs;
+  },
+  problemTypeSentence: (problem) => {
+    if(problem.verbs.length === problem.pastVerbs.length) {
+      return Config.solutionScreen.man.costumeConflict
+    } else if (problem.pastVerbs.length === 0) {
+      return Config.solutionScreen.man.newConflict
+    } else {
+      return Config.solutionScreen.man.hidingConflict
+    }
   }
 }
 

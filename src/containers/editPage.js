@@ -30,7 +30,7 @@ const matchDispatchToProps = (dispatch) => {
       dispatch(action);
       dispatch(fetchProblems());
       dispatch(clearDraft());
-      dispatch(selectPage(PAGES['viewSavedProblem'], action.payload.id));
+      dispatch(selectPage(PAGES['savedProblem'], action.payload.id));
     },
     updateProblemAndFetch: (id, changes) => {
       dispatch(updateProblem(id, changes));

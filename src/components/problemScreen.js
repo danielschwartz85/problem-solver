@@ -104,13 +104,13 @@ class ProblemScreen extends React.Component {
         </CardMedia>
         <CardContent>
           <Typography type="headline" component="h2">
-            {Utils.truncate(problem.description, 150)}
+            {Utils.truncate(problem.problemPlanted || problem.description, 150)}
           </Typography>
           <Typography type="subheading" color="secondary">
-            {`שונה לאחרונה ב ${new Date(problem.updatedAt).toDateString()}`}
+            {Utils.problemTypeSentence(problem)}
           </Typography>
           <Typography component="p">
-            {Utils.joinWithCommas(problem.verbs)}
+            {Utils.transformationSentence(problem)}
           </Typography>
         </CardContent>
         <CardActions>

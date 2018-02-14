@@ -11,6 +11,7 @@ import IconAssignment from 'material-ui-icons/AssignmentInd';
 import IconPermIdentity from 'material-ui-icons/PermIdentity';
 import IconSquare from 'material-ui-icons/CropSquare';
 import IconTriangle from 'material-ui-icons/ChangeHistory';
+import Visibility from 'material-ui-icons/Visibility';
 import Config from '../../config';
 import Utils from '../../utils';
 
@@ -24,6 +25,7 @@ class TopMenu extends React.Component {
   constructor(props) {
     super(props);
     this.pages = [
+      {name: 'problemPlanted', icon: Visibility, key: 'problemPlanted'},
       {name: 'futureDomino', icon: IconTriangle, key: 'futureDomino'},
       {name: 'pastDomino', icon: IconSquare, key: 'pastDomino'},
       {name: 'newName', icon: IconPermIdentity, key: 'newName'},

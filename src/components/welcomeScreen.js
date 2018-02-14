@@ -12,7 +12,7 @@ const styles = theme => ({
   },
   media: {
     height: 200,
-  },
+  }
 });
 
 class WelcomeScreen extends React.Component {
