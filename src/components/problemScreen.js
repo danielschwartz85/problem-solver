@@ -12,7 +12,7 @@ import MoreVertIcon from 'material-ui-icons/MoreVert';
 import { ListItemIcon, ListItemText } from 'material-ui/List';
 import DeleteForever from 'material-ui-icons/DeleteForever';
 import Edit from 'material-ui-icons/Edit';
-import Send from 'material-ui-icons/Email';
+import Send from 'material-ui-icons/Send';
 import { PAGES } from '../actions/routingActions';
 
 const styles = theme => ({
