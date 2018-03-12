@@ -61,26 +61,10 @@ class ProblemScreen extends React.Component {
     this.props.deleteAndShowWelcome(this.props.selectedProblemId);
   }
 
-  // NOTE: Temp feature
   handleSend = () => {
-    const { problem } = this.props;
-    Utils.transformationSentence(problem);
-    const past = problem.pastVerbs.reduce((acc,i) => (
-      acc += `, ${problem.verbs[i]}`
-    ), "");
-    const negative = problem.negativeVerbs.reduce((acc,i) => (
-      acc += `, ${problem.verbs[i]}`
-    ), "");
-    let mailBody = `בעיה: ${problem.description}\n`;
-    mailBody += `פעלים: ${problem.verbs.join(',')}\n`;
-    mailBody += `פעלי עבר: ${past}\nפעלים עם קונוטצייה שלילית: ${negative}\n`;
-    mailBody += `פעלי אתחול: ${Utils.transformationSentence(problem)}\n`;
-    mailBody += `שם: ${problem.name}\nשם חדש: ${problem.newName}\n`;
-    mailBody += `עבר דומינו: ${problem.pastDomino}\n`;
-    mailBody += `עתיד דומינו: ${problem.futureDomino}\n`;
-    mailBody += `פתרון בעיה: ${problem.problemPlanted}`;
-    const subject = `הבעיה של ${problem.name}`;
-    const lString = `mailto:berya3@gmail.com?subject=${subject}&body=${mailBody}`;
+    const mailBody = Utils.problemToText(this.props.problem);
+    const subject = Utils.problemToSubject(this.props.problem);
+    const lString = `mailto:?subject=${subject}&body=${mailBody}`;
     window.location = lString.replace(/\n/g, escape('\r\n')+escape('\r\n'));
   }
 
@@ -121,7 +105,7 @@ class ProblemScreen extends React.Component {
             <ListItemIcon>
               <Send/>
             </ListItemIcon>
-            <ListItemText inset primary={'שלח'} />
+            <ListItemText inset primary={Config.problemScreen.sendText} />
           </MenuItem>
         </Menu>
       </div>

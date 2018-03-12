@@ -19,27 +19,27 @@ const Config = {
     pastVerbs: {
       description: 'סמן פעלים שהופיעו בעברך',
       tab: {
-        name: 'זיהויי פעלי עבר'
+        name: 'פעולות עבר'
       }
     },
     negativeVerbs: {
       description: 'סמן פעולות עם קונוטצייה שלילית בעברך',
       tab: {
-        name: 'פעולות השרדותיות'
+        name: 'פעולות שליליות'
       }
     },
     transformation: {
       description: 'עבור כל פועל בחר פעולה אשר יותר נכונה לך',
       inputText: 'במקום $..',
       tab: {
-        name: 'טרנספורמציה'
+        name: 'פעולות אתחול'
       }
     },
     name: {
       description: 'שם פרטי',
       inputText: '',
       tab: {
-        name: 'שם'
+        name: 'שם לידה'
       }
     },
     newName: {
@@ -79,16 +79,19 @@ const Config = {
     descriptions: [
       "לכל קונפליקט יש פתרון. הפתרון מתעכב או לא נמצא באותה עת רק בגלל חוסר הבשלות של האדם להבין את הפתרון מתוך עצמו.",
       "אם ברצונכם לפתור בעיות בדרך הנכונה הגעתם לתפישה המדויקת ",
-      "כי הסוד של האדם הוא בהבנה. "
+      "כי הסוד של האדם הוא בהבנה. ",
+      "שלומית 2015."
     ],
-    descriptionSignature: "שלומית 2015.",
+    descriptionSignature: '© כל הזכויות שמורות לד"ר שלומית תמיר Ph.D בראייה אחרת, אירידוסופיה®',
     myProblemsText: "הבעיות שלי",
     newProblemText: "בעיה חדשה"
   },
   problemScreen: {
     showBookText: "צפה",
     editText: "ערוך",
-    deleteText: "מחק"
+    deleteText: "מחק",
+    sendText: "שלח",
+    problemSubject: "הבעיה של"
   },
   sideMenu: {
     newProblem: "בעיה חדשה",

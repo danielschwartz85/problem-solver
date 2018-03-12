@@ -1,5 +1,5 @@
 import Config from './config';
- 
+
 const Utils = {
   joinWithCommas: (arr, max = undefined) => {
     if (max) {
@@ -67,10 +67,9 @@ const Utils = {
   },
   transformationSentence: (problem) => {
     const tVerbs = problem.transformationVerbs;
-    const transformationVerbs = Object.keys(tVerbs).reduce((acc, id) => {
+    const transformationVerbs = Object.keys(tVerbs).reduce((acc, id) => (
       acc = `${acc}${acc ? ', ' : ''}${problem.transformationVerbs[id]} (במקום ${problem.verbs[id]})`
-      return acc;
-    }, "");
+    ), "");
     return transformationVerbs;
   },
   problemTypeSentence: (problem) => {
@@ -81,6 +80,30 @@ const Utils = {
     } else {
       return Config.solutionScreen.man.hidingConflict
     }
+  },
+  problemToText: (problem) => {
+    Utils.transformationSentence(problem);
+    const past = problem.pastVerbs.reduce((acc,i) => (
+      acc = `${acc}${acc ? ', ' : ''}${problem.verbs[i]}`
+    ), "");
+    const negative = problem.negativeVerbs.reduce((acc,i) => (
+      acc = `${acc}${acc ? ', ' : ''}${problem.verbs[i]}`
+    ), "");
+    const { pages } = Config;
+    let problemText = `${pages.problem.tab.name}: ${problem.description}\n`;
+    problemText += `${pages.verbExtract.tab.name}: ${problem.verbs.join(',')}\n`;
+    problemText += `${pages.pastVerbs.tab.name}: ${past}\n`;
+    problemText += `${pages.negativeVerbs.tab.name}: ${negative}\n`;
+    problemText += `${pages.transformation.tab.name}: ${Utils.transformationSentence(problem)}\n`;
+    problemText += `${pages.name.tab.name}: ${problem.name}\n`;
+    problemText += `${pages.newName.tab.name}: ${problem.newName}\n`;
+    problemText += `${pages.pastDomino.tab.name}: ${problem.pastDomino}\n`;
+    problemText += `${pages.futureDomino.tab.name}: ${problem.futureDomino}\n`;
+    problemText += `${pages.problemPlanted.tab.name}: ${problem.problemPlanted}\n`;
+    return problemText;
+  },
+  problemToSubject: (problem) => {
+    return `${Config.problemScreen.problemSubject} ${problem.name}`;
   }
 }
 

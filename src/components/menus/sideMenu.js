@@ -16,6 +16,9 @@ import { PAGES } from '../../actions/routingActions';
 const styles = theme => ({
   list: {
     width: 250
+  },
+  subheader: {
+    position: 'static'
   }
 });
 
@@ -68,7 +71,9 @@ class SideMenu extends React.Component {
     if (problemList.length) {
       myProblemsSection = (
         <div>
-          <ListSubheader>{Config.sideMenu.myProblems}</ListSubheader>
+          <ListSubheader className={classes.subheader}>
+            {Config.sideMenu.myProblems}
+          </ListSubheader>
           {problemList}
         </div>
       );

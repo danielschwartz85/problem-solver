@@ -69,7 +69,6 @@ class App extends React.Component {
         onPageSelected={this.onEditorPageSelected}
       />
     ][this.props.page];
-
     let topMenu;
     if (PAGES['editor'] === this.props.page) {
       topMenu = (
