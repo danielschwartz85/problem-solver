@@ -40,6 +40,13 @@ class EditPage extends React.Component {
     showSavedMessage: false
   }
 
+  componentWillMount() {
+    if (this.draft) return;
+    if (this.props.selectedProblemId) {
+      this.props.fetchAndSelectDraft(this.props.selectedProblemId);
+    }
+  }
+
   onChange = (changes) => {
     const didChange = Object.keys(changes).some(k => (
       changes[k] !== this.props.draft[k]
@@ -75,6 +82,7 @@ class EditPage extends React.Component {
 
   render() {
     const { classes } = this.props;
+    if (!this.props.draft) return null;
     const pages = [
       {
         page: <ProblemStory

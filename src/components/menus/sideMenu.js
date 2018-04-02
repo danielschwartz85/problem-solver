@@ -11,7 +11,6 @@ import LibraryAdd from 'material-ui-icons/LibraryAdd';
 import LibraryBooks from 'material-ui-icons/LibraryBooks';
 import Config from '../../config';
 import Utils from '../../utils';
-import { PAGES } from '../../actions/routingActions';
 
 const styles = theme => ({
   list: {
@@ -32,13 +31,13 @@ class SideMenu extends React.Component {
   }
 
   problemSelected = (id) => {
-    this.props.selectPage(PAGES['savedProblem'], id);
+    //svedProblem was here bu id
     this.props.onProblemSelected();
   }
 
   newProblemSelected = () => {
     this.props.clearDraft();
-    this.props.selectPage(PAGES['editor'], null);
+    // editor was here
     this.props.onNewProblemSelected();
   }
 

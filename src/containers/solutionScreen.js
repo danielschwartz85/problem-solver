@@ -3,7 +3,7 @@ import { connect } from 'react-redux';
 
 const mapStateToProps = (state) => {
   return {
-    problem: state.problems.savedProblems[state.routing.selectedProblem]
+    problems: state.problems.savedProblems
   };
 };
 

@@ -4,12 +4,11 @@ import Grid from 'material-ui/Grid';
 import { withStyles } from 'material-ui/styles';
 import PropTypes from 'prop-types';
 import ProblemAppBar from './problemAppBar';
-import TopMenuContainer from '../containers/topMenu';
 import EditPageContainer from '../containers/editPage';
 import SolutionScreenContainer from '../containers/solutionScreen';
 import ProblemScreenContainer from '../containers/problemScreen';
 import WelcomeScreenContainer from '../containers/welcomeScreen';
-import { PAGES } from '../actions/routingActions';
+import { BrowserRouter, Route } from 'react-router-dom';
 
 const styles = theme => ({
   root: {
@@ -60,40 +59,50 @@ class App extends React.Component {
 
   render() {
     const { classes } = this.props;
-    const page = [
-      <WelcomeScreenContainer onNewProblemSelected={this.onNewProblemSelected}/>,
-      <ProblemScreenContainer onEdit={this.onProblemEdit} />,
-      <SolutionScreenContainer/>,
-      <EditPageContainer
-        selectedPage={this.state.editorPage}
-        onPageSelected={this.onEditorPageSelected}
+    const problemScreen = ({match}) => (
+      <ProblemScreenContainer
+        onEdit={this.onProblemEdit}
+        selectedProblemId={match.params.id}
       />
-    ][this.props.page];
-    let topMenu;
-    if (PAGES['editor'] === this.props.page) {
-      topMenu = (
-        <TopMenuContainer
-          selectedPage={this.state.editorPage}
-          onPageSelected={this.onEditorPageSelected}
-        />
-      );
-    }
+    );
+    const solutionScreen = ({match}) => (
+      <SolutionScreenContainer selectedProblemId={match.params.id} />
+    );
+    const editor = ({match}) => (
+      <EditPageContainer
+        selectedPage={match.params.pageNum - 1}
+        onPageSelected={this.onEditorPageSelected}
+        selectedProblemId={match.params.id}
+      />
+    );
+    const welcomeScreen = () => (
+      <WelcomeScreenContainer onNewProblemSelected={this.onNewProblemSelected} />
+    );
+    const appBar = ({match}) => (
+      <ProblemAppBar
+        onProblemSelected={this.onProblemSelected}
+        onNewProblemSelected={this.onNewProblemSelected}
+        router={match}
+      />
+    );
+
     return (
       <MainTheme>
-        <div className={classes.root}>
-          <Grid container spacing={8}>
-            <Grid item xs={12}>
-              <ProblemAppBar
-                onProblemSelected={this.onProblemSelected}
-                onNewProblemSelected={this.onNewProblemSelected}
-                topComponent={topMenu}
-              />
+        <BrowserRouter>
+          <div className={classes.root}>
+            <Grid container spacing={8}>
+              <Grid item xs={12}>
+                <Route path="*" render={appBar}/>
+              </Grid>
+              <Grid item xs={12} className={classes.page}>
+               <Route path="/" exact={true} render={welcomeScreen}/>
+               <Route path="/problems/:id" exact={true} render={problemScreen}/>
+               <Route path="/problems/:id/solution" exact={true} render={solutionScreen}/>
+               <Route path="/problems/:id/edit/:pageNum" exact={true} render={editor}/>
+              </Grid>
             </Grid>
-            <Grid item xs={12} className={classes.page}>
-              {page}
-            </Grid>
-          </Grid>
-        </div>
+          </div>
+        </BrowserRouter>
       </MainTheme>
     );
   };

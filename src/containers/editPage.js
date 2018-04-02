@@ -1,26 +1,26 @@
 import EditPage from '../components/editPage';
 import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
-import { selectPage, PAGES } from '../actions/routingActions';
 import {
   createProblem,
   updateProblem,
   updateDraft,
   fetchProblems,
-  clearDraft
+  clearDraft,
+  selectDraft
 } from '../actions/problemActions';
 
 const mapStateToProps = (state) => {
   return {
     draft: state.problems.draftProblem,
-    problems: state.problems.savedProblems,
-    selectedProblem: state.routing.selectedProblem
+    problems: state.problems.savedProblems
   };
 };
 
 const matchDispatchToProps = (dispatch) => {
   const matcher = bindActionCreators({
-    updateDraft
+    updateDraft,
+    selectDraft
   }, dispatch);
 
   return {
@@ -30,11 +30,15 @@ const matchDispatchToProps = (dispatch) => {
       dispatch(action);
       dispatch(fetchProblems());
       dispatch(clearDraft());
-      dispatch(selectPage(PAGES['savedProblem'], action.payload.id));
+      // savedProblem was here
     },
     updateProblemAndFetch: (id, changes) => {
       dispatch(updateProblem(id, changes));
       dispatch(fetchProblems());
+    },
+    fetchAndSelectDraft: (id) => {
+      dispatch(fetchProblems());
+      dispatch(selectDraft(id));
     }
   };
 };

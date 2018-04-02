@@ -5,9 +5,7 @@ import { fetchProblems } from '../actions/problemActions';
 
 const mapStateToProps = (state) => {
   return {
-    problems: state.problems.savedProblems,
-    page: state.routing.page,
-    selectedProblem: state.routing.selectedProblem
+    problems: state.problems.savedProblems
   };
 };
 

@@ -27,8 +27,9 @@ class SolutionScreen extends React.Component {
   };
 
   render() {
-    const { problem } = this.props;
+    const problem = this.props.problems[this.props.selectedProblemId];
     let textProblem = {...problem};
+    if (!problem) return null;
     textProblem.verbs = Utils.joinWithCommas(problem.verbs);
     textProblem.negativeVerbs = Utils.indexToText(problem.negativeVerbs, problem.verbs);
     textProblem.transformationVerbs = Utils.transformationSentence(problem);

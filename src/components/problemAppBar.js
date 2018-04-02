@@ -4,6 +4,7 @@ import { withStyles } from 'material-ui/styles';
 import AppBar from 'material-ui/AppBar';
 import Toolbar from 'material-ui/Toolbar';
 import SideMenuContainer from '../containers/sideMenu';
+import TopMenuContainer from '../containers/topMenu';
 
 const styles = theme => ({
   root: {
@@ -32,8 +33,22 @@ class ProblemAppBar extends React.Component {
     this.props.onEditorPageSelected(event, value)
   }
 
+  // todo
+  // complete top menu routing (new and edit) .. maybe use regex path in App
+  // then tie listeners in app (i think) to make route changes
+  // stuff like user clicks next.. need to route change..
   render() {
-    const { classes } = this.props;
+    const { classes, router } = this.props;
+    let topMenu;
+    if (router.url.match(/edit|new/)) {
+      topMenu = (
+        <TopMenuContainer
+          selectedPage={router.params.editorPage}
+          onPageSelected={this.onEditorPageSelected}
+        />
+      );
+    }
+
     return (
       <div className={classes.root}>
         <AppBar position="fixed">
@@ -42,7 +57,7 @@ class ProblemAppBar extends React.Component {
               onProblemSelected={this.onProblemSelected}
               onNewProblemSelected={this.onNewProblemSelected}
             />
-            {this.props.topComponent}
+            {topMenu}
           </Toolbar>
         </AppBar>
       </div>

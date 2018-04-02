@@ -1,7 +1,5 @@
 import ProblemScreen from '../components/problemScreen';
 import { connect } from 'react-redux';
-import { bindActionCreators } from 'redux';
-import { selectPage, PAGES } from '../actions/routingActions';
 import {
   deleteProblem,
   fetchProblems,
@@ -10,23 +8,20 @@ import {
 
 const mapStateToProps = (state) => {
   return {
-    problem: state.problems.savedProblems[state.routing.selectedProblem],
-    selectedProblemId: state.routing.selectedProblem
+    problems: state.problems.savedProblems
   };
 };
 
 const matchDispatchToProps = (dispatch) => {
-  const matcher = bindActionCreators({ selectPage }, dispatch);
   return {
-    ...matcher,
     deleteAndShowWelcome: (id) => {
       dispatch(deleteProblem(id));
       dispatch(fetchProblems());
-      dispatch(selectPage(PAGES['welcome'], null));
+      // welcome was here
     },
     selectAndShowEditor: (id) => {
       dispatch(selectDraft(id));
-      dispatch(selectPage(PAGES['editor'], id));
+      // editor was here
     }
   }
 };

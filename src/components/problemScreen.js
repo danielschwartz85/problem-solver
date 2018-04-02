@@ -13,7 +13,6 @@ import { ListItemIcon, ListItemText } from 'material-ui/List';
 import DeleteForever from 'material-ui-icons/DeleteForever';
 import Edit from 'material-ui-icons/Edit';
 import Send from 'material-ui-icons/Send';
-import { PAGES } from '../actions/routingActions';
 
 const styles = theme => ({
   card: {
@@ -47,7 +46,7 @@ class ProblemScreen extends React.Component {
   }
 
   onViewProblemClicked = () => {
-    this.props.selectPage(PAGES['viewSavedProblem'], this.props.selectedProblemId);
+    // viewSavedProblem was here by id
   }
 
   handleEdit = () => {
@@ -69,8 +68,10 @@ class ProblemScreen extends React.Component {
   }
 
   render() {
-    const { classes, problem } = this.props;
+    const { classes } = this.props;
+    const problem = this.props.problems[this.props.selectedProblemId];
     const { anchorEl } = this.state;
+    if (!problem) return null;
     const menu = (
       <div>
         <IconButton
