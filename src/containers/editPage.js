@@ -20,17 +20,18 @@ const mapStateToProps = (state) => {
 const matchDispatchToProps = (dispatch) => {
   const matcher = bindActionCreators({
     updateDraft,
-    selectDraft
+    selectDraft,
+    clearDraft
   }, dispatch);
 
   return {
     ...matcher,
-    createProblemAndShow: (problem) => {
+    createProblemAndFetch: (problem) => {
       const action = createProblem(problem);
       dispatch(action);
       dispatch(fetchProblems());
       dispatch(clearDraft());
-      // savedProblem was here
+      return action.payload.id;
     },
     updateProblemAndFetch: (id, changes) => {
       dispatch(updateProblem(id, changes));

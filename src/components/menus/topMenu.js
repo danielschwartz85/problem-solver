@@ -38,11 +38,18 @@ class TopMenu extends React.Component {
     ];
   }
 
+  componentWillMount() {
+    if (!this.props.draft && this.selectedPage !== 0) {
+        this.props.onPageSelected(0);
+    }
+  }
+
   onPageSelected = (event, value) => {
     this.props.onPageSelected(this.pages.length - value - 1);
   }
 
   render() {
+    if(!this.props.draft) return null;
     const { classes } = this.props;
     let firstInvalid;
     this.pages.some((page, i) => {

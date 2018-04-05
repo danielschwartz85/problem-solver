@@ -31,13 +31,11 @@ class SideMenu extends React.Component {
   }
 
   problemSelected = (id) => {
-    //svedProblem was here bu id
-    this.props.onProblemSelected();
+    this.props.onProblemSelected(id);
   }
 
   newProblemSelected = () => {
     this.props.clearDraft();
-    // editor was here
     this.props.onNewProblemSelected();
   }
 

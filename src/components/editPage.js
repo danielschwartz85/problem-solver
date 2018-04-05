@@ -44,6 +44,8 @@ class EditPage extends React.Component {
     if (this.draft) return;
     if (this.props.selectedProblemId) {
       this.props.fetchAndSelectDraft(this.props.selectedProblemId);
+    } else  {
+      this.props.clearDraft();
     }
   }
 
@@ -63,8 +65,10 @@ class EditPage extends React.Component {
       ...this.props.draft,
       verbs: Utils.cleanArray(this.props.draft.verbs)
     };
+    let newId;
     if (this.isNewProblem) {
-      this.props.createProblemAndShow(draft);
+      newId = this.props.createProblemAndFetch(draft);
+      this.props.onProblemSelected(newId);
     } else {
       this.props.updateProblemAndFetch(this.props.selectedProblem, draft);
       this.setState({ showSavedMessage: true });
@@ -76,8 +80,7 @@ class EditPage extends React.Component {
   }
 
   get isNewProblem() {
-    const selectedProblem = this.props.selectedProblem;
-    return selectedProblem === undefined || selectedProblem === null;
+    return !this.props.selectedProblemId;
   }
 
   render() {

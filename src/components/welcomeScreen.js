@@ -17,7 +17,7 @@ const styles = theme => ({
 
 class WelcomeScreen extends React.Component {
   onNewProblemSelected = () => {
-    this.props.showNewProblem()
+    this.props.clearDraft();
     this.props.onNewProblemSelected();
   }
 

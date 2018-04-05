@@ -1,5 +1,6 @@
 import ProblemScreen from '../components/problemScreen';
 import { connect } from 'react-redux';
+import { bindActionCreators } from 'redux';
 import {
   deleteProblem,
   fetchProblems,
@@ -13,15 +14,15 @@ const mapStateToProps = (state) => {
 };
 
 const matchDispatchToProps = (dispatch) => {
+  const matcher = bindActionCreators({
+    selectDraft
+  }, dispatch);
+
   return {
-    deleteAndShowWelcome: (id) => {
+    ...matcher,
+    deleteAndFetch: (id) => {
       dispatch(deleteProblem(id));
       dispatch(fetchProblems());
-      // welcome was here
-    },
-    selectAndShowEditor: (id) => {
-      dispatch(selectDraft(id));
-      // editor was here
     }
   }
 };

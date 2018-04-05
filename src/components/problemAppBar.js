@@ -13,7 +13,7 @@ const styles = theme => ({
     },
     flexGrow: 1,
     width: '100%',
-    marginTop: '32px',
+    marginTop: '32px'
   },
   appbar: {
     height: '72px'
@@ -33,17 +33,13 @@ class ProblemAppBar extends React.Component {
     this.props.onEditorPageSelected(event, value)
   }
 
-  // todo
-  // complete top menu routing (new and edit) .. maybe use regex path in App
-  // then tie listeners in app (i think) to make route changes
-  // stuff like user clicks next.. need to route change..
   render() {
-    const { classes, router } = this.props;
+    const { classes, editorPage } = this.props;
     let topMenu;
-    if (router.url.match(/edit|new/)) {
+    if (editorPage !== undefined && editorPage !== null) {
       topMenu = (
         <TopMenuContainer
-          selectedPage={router.params.editorPage}
+          selectedPage={editorPage}
           onPageSelected={this.onEditorPageSelected}
         />
       );

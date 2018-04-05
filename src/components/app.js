@@ -21,70 +21,68 @@ const styles = theme => ({
 });
 
 class App extends React.Component {
-  constructor(props) {
-    super(props);
-    this.state = {
-      editorPage: null
-    };
-  }
-
   componentDidMount() {
     this.props.fetchProblems();
   }
 
-  onEditorPageSelected = (value) => {
-    this.setState({ editorPage: value });
+  onEditorPageSelected = (history) => (value) => {
+    history.push(`${value + 1}`);
   }
 
-  onNewProblemSelected = () => {
-    this.setState({ editorPage: 0 });
+  onNewProblemSelected = (history) => () => {
+    history.push('/problems/new/1');
   }
 
-  onProblemSelected = (id) => {
-    this.setState({ editorPage: null });
+  onProblemSelected = (history) => (id) => {
+    history.push(`/problems/${id}`);
   }
 
-  onProblemEdit = () => {
-    this.setState({ editorPage: 0 });
+  onEditorSelected = (history, id) => () => {
+    history.push(`/problems/${id}/edit/1`);
   }
 
-  get selectedProblem() {
-    let selectedProblemId = this.props.selectedProblem;
-    if (selectedProblemId === null || selectedProblemId === undefined) {
-      return null;
-    } else {
-      return this.props.problems[selectedProblemId];
-    }
+  onSolutionSelected = (history, id) => () => {
+    history.push(`/problems/${id}/solution`);
   }
 
   render() {
     const { classes } = this.props;
-    const problemScreen = ({match}) => (
+    const problemScreen = ({match, history}) => (
       <ProblemScreenContainer
-        onEdit={this.onProblemEdit}
+        onEditorSelected={this.onEditorSelected(history, match.params.id)}
         selectedProblemId={match.params.id}
+        onSolutionSelected={this.onSolutionSelected(history, match.params.id)}
+        onHomeSelected={() => history.push(`/`) }
       />
     );
     const solutionScreen = ({match}) => (
       <SolutionScreenContainer selectedProblemId={match.params.id} />
     );
-    const editor = ({match}) => (
+    const editor = ({match, history}) => (
       <EditPageContainer
         selectedPage={match.params.pageNum - 1}
-        onPageSelected={this.onEditorPageSelected}
+        onPageSelected={this.onEditorPageSelected(history)}
+        onProblemSelected={this.onProblemSelected(history)}
         selectedProblemId={match.params.id}
       />
     );
-    const welcomeScreen = () => (
-      <WelcomeScreenContainer onNewProblemSelected={this.onNewProblemSelected} />
-    );
-    const appBar = ({match}) => (
-      <ProblemAppBar
-        onProblemSelected={this.onProblemSelected}
-        onNewProblemSelected={this.onNewProblemSelected}
-        router={match}
+    const welcomeScreen = ({ history }) => (
+      <WelcomeScreenContainer
+        onNewProblemSelected={this.onNewProblemSelected(history)}
       />
     );
+    const appBar = ({match, history}) => {
+      let editorPage, reg = /(?:edit|new)\/(\d+)$/.exec(match.url);
+      if (reg && reg[1]) editorPage = parseInt(reg[1], 10) - 1;
+      return (
+        <ProblemAppBar
+          onProblemSelected={this.onProblemSelected(history)}
+          onNewProblemSelected={this.onNewProblemSelected(history)}
+          onEditorPageSelected={this.onEditorPageSelected(history)}
+          editorPage={editorPage}
+        />
+      );
+    };
 
     return (
       <MainTheme>
@@ -99,6 +97,7 @@ class App extends React.Component {
                <Route path="/problems/:id" exact={true} render={problemScreen}/>
                <Route path="/problems/:id/solution" exact={true} render={solutionScreen}/>
                <Route path="/problems/:id/edit/:pageNum" exact={true} render={editor}/>
+               <Route path="/problems/new/:pageNum" exact={true} render={editor}/>
               </Grid>
             </Grid>
           </div>

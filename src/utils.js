@@ -8,7 +8,7 @@ const Utils = {
       return arr.reduce((acc, i) => `${acc}, ${i}`);
     }
   },
-  truncate: (str = '', length) => {
+  truncate: (str, length) => {
     if (str.length > length) {
       return `${str.substring(0, length)} ..`;
     } else {
@@ -43,7 +43,6 @@ const Utils = {
     return newArray;
   },
   isValid: (problem, key) => {
-    console.log(key)
     const valid = {
       description: () => !!problem.description,
       verbs: () => !!Utils.cleanArray(problem.verbs).length,
@@ -72,7 +71,7 @@ const Utils = {
     ), "");
     return transformationVerbs;
   },
-  problemTypeSentence: (problem = {}) => {
+  problemTypeSentence: (problem) => {
     if(problem.verbs.length === problem.pastVerbs.length) {
       return Config.solutionScreen.man.costumeConflict
     } else if (problem.pastVerbs.length === 0) {

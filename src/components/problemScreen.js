@@ -37,6 +37,10 @@ class ProblemScreen extends React.Component {
     };
   }
 
+  get problem() {
+    return this.props.problems[this.props.selectedProblemId];
+  }
+
   handleClick = event => {
     this.setState({ anchorEl: event.currentTarget });
   }
@@ -46,32 +50,32 @@ class ProblemScreen extends React.Component {
   }
 
   onViewProblemClicked = () => {
-    // viewSavedProblem was here by id
+    this.props.onSolutionSelected();
   }
 
   handleEdit = () => {
     this.handleClose();
-    this.props.onEdit();
-    this.props.selectAndShowEditor(this.props.selectedProblemId);
+    this.props.selectDraft(this.props.selectedProblemId);
+    this.props.onEditorSelected();
   }
 
   handleDelete = () => {
     this.handleClose();
-    this.props.deleteAndShowWelcome(this.props.selectedProblemId);
+    this.props.deleteAndFetch(this.props.selectedProblemId);
+    this.props.onHomeSelected();
   }
 
   handleSend = () => {
-    const mailBody = Utils.problemToText(this.props.problem);
-    const subject = Utils.problemToSubject(this.props.problem);
+    const mailBody = Utils.problemToText(this.problem);
+    const subject = Utils.problemToSubject(this.problem);
     const lString = `mailto:?subject=${subject}&body=${mailBody}`;
     window.location = lString.replace(/\n/g, escape('\r\n')+escape('\r\n'));
   }
 
   render() {
     const { classes } = this.props;
-    const problem = this.props.problems[this.props.selectedProblemId];
     const { anchorEl } = this.state;
-    if (!problem) return null;
+    if (!this.problem) return null;
     const menu = (
       <div>
         <IconButton
@@ -114,18 +118,18 @@ class ProblemScreen extends React.Component {
 
     return (
       <Card className={classes.card}>
-        <CardMedia className={classes.media} image="cardBgrd.jpg" >
+        <CardMedia className={classes.media} image="/cardBgrd.jpg" >
           {menu}
         </CardMedia>
         <CardContent>
           <Typography type="headline" component="h2">
-            {Utils.truncate(problem.problemPlanted || problem.description, 150)}
+            {Utils.truncate(this.problem.problemPlanted || this.problem.description, 150)}
           </Typography>
           <Typography type="subheading" color="secondary">
-            {Utils.problemTypeSentence(problem)}
+            {Utils.problemTypeSentence(this.problem)}
           </Typography>
           <Typography component="p">
-            {Utils.transformationSentence(problem)}
+            {Utils.transformationSentence(this.problem)}
           </Typography>
         </CardContent>
         <CardActions>
