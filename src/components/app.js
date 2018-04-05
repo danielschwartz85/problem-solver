@@ -94,6 +94,7 @@ class App extends React.Component {
               </Grid>
               <Grid item xs={12} className={classes.page}>
                <Route path="/" exact={true} render={welcomeScreen}/>
+               <Route path="/action-therapy" exact={true} render={welcomeScreen}/>
                <Route path="/problems/:id" exact={true} render={problemScreen}/>
                <Route path="/problems/:id/solution" exact={true} render={solutionScreen}/>
                <Route path="/problems/:id/edit/:pageNum" exact={true} render={editor}/>
