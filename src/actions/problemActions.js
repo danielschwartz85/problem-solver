@@ -1,11 +1,23 @@
 import Utils from '../utils'
-export const FETCH_PROBLEMS = 'FETCH_PROBLEMS';
-export const CREATE_PROBLEM = 'CREATE_PROBLEM';
-export const UPDATE_PROBLEM = 'UPDATE_PROBLEM';
+export const FETCH_PROBLEMS_PENDING = 'FETCH_PROBLEMS_PENDING';
+export const FETCH_PROBLEMS_FULFILLED = 'FETCH_PROBLEMS_FULFILLED';
+export const FETCH_PROBLEMS_REJECTED = 'FETCH_PROBLEMS_REJECTED';
+export const CREATE_PROBLEM_PENDING = 'CREATE_PROBLEM_PENDING';
+export const CREATE_PROBLEM_FULFILLED = 'CREATE_PROBLEM_FULFILLED';
+export const CREATE_PROBLEM_REJECTED = 'CREATE_PROBLEM_REJECTED';
+export const UPDATE_PROBLEM_PENDING = 'UPDATE_PROBLEM_PENDING';
+export const UPDATE_PROBLEM_FULFILLED = 'UPDATE_PROBLEM_FULFILLED';
+export const UPDATE_PROBLEM_REJECTED = 'UPDATE_PROBLEM_REJECTED';
+export const DELETE_PROBLEM_PENDING = 'DELETE_DRAFT_PENDING';
+export const DELETE_PROBLEM_FULFILLED = 'DELETE_DRAFT_FULFILLED';
+export const DELETE_PROBLEM_REJECTED = 'DELETE_DRAFT_REJECTED';
 export const UPDATE_DRAFT = 'UPDATE_DRAFT';
 export const SELECT_DRAFT = 'SELECT_DRAFT';
 export const CLEAR_DRAFT = 'CLEAR_DRAFT';
-export const DELETE_PROBLEM = 'CLEAR_DRAFT';
+
+/*
+ * Utils :
+ */
 
 const tmpStore = {};
 const useLocalStorage = true;
@@ -33,14 +45,74 @@ const cleanProblem = (problem) => {
   });
 }
 
+/*
+ * Problem :
+ */
+
+export function fetchProblemsPending() {
+  return {
+    type: FETCH_PROBLEMS_PENDING,
+    payload: null
+  };
+}
+
+export function fetchProblemsFullfilled(problems) {
+  return {
+    type: FETCH_PROBLEMS_FULFILLED,
+    payload: problems
+  };
+}
+
+export function fetchProblemsRejected(error) {
+  return {
+    type: FETCH_PROBLEMS_REJECTED,
+    payload: error
+  };
+}
+
 export function fetchProblems() {
   let problems = getItem('problems');
   problems = (problems && JSON.parse(problems)) || {};
-  return {
-    type: 'FETCH_PROBLEMS',
-    payload: problems
-  }
+
+  return (dispatch) => {
+      dispatch(fetchProblemsPending());
+      const p = new Promise((res, rej) => {
+        setTimeout(() => res(problems), 4000);
+         // rej(new Error('USER_LOGGED_OUT'));
+      })
+      .then(res => {
+        dispatch(fetchProblemsFullfilled(res));
+      })
+      .catch(e => {
+        dispatch(fetchProblemsRejected(e));
+      });
+      return p;
+  };
 };
+
+// TODO - async all other actions
+// TODO - then handle in page startup with success / error
+
+export function createProblemPending() {
+  return {
+    type: CREATE_PROBLEM_PENDING,
+    payload: null
+  };
+}
+
+export function createProblemFullfilled(problems) {
+  return {
+    type: CREATE_PROBLEM_FULFILLED,
+    payload: problems
+  };
+}
+
+export function createProblemRejected(error) {
+  return {
+    type: CREATE_PROBLEM_REJECTED,
+    payload: error
+  };
+}
 
 export function createProblem(problem) {
   let problems = getItem('problems');
@@ -60,6 +132,27 @@ export function createProblem(problem) {
   };
 };
 
+export function updateProblemPending() {
+  return {
+    type: UPDATE_PROBLEM_PENDING,
+    payload: null
+  };
+}
+
+export function updateProblemFullfilled(problems) {
+  return {
+    type: UPDATE_PROBLEM_FULFILLED,
+    payload: problems
+  };
+}
+
+export function updateProblemRejected(error) {
+  return {
+    type: UPDATE_PROBLEM_REJECTED,
+    payload: error
+  };
+}
+
 export function updateProblem(id, changes) {
   const problems = JSON.parse(getItem('problems'));
   problems[id] = {
@@ -78,6 +171,27 @@ export function updateProblem(id, changes) {
   };
 };
 
+export function deleteProblemPending() {
+  return {
+    type: DELETE_PROBLEM_PENDING,
+    payload: null
+  };
+}
+
+export function deleteProblemFullfilled(problems) {
+  return {
+    type: DELETE_PROBLEM_FULFILLED,
+    payload: problems
+  };
+}
+
+export function deleteProblemRejected(error) {
+  return {
+    type: DELETE_PROBLEM_REJECTED,
+    payload: error
+  };
+}
+
 export function deleteProblem(id) {
   const problems = JSON.parse(getItem('problems'));
   delete(problems[id]);
@@ -90,6 +204,10 @@ export function deleteProblem(id) {
     }
   };
 };
+
+/*
+ * Draft Actions :
+ */
 
 export function updateDraft(changes) {
   return {

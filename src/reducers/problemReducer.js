@@ -21,6 +21,8 @@ const defaultDraftProblem = (savedProblems) => {
 
 const defaultState = {
   savedProblems: {},
+  fetchingProblems: false,
+  fetchProblemsError: null,
   draftProblem: null
 };
 
@@ -29,9 +31,22 @@ const problems = (state = defaultState, action) => {
     const savedProblems = state.savedProblems;
     const payload = action.payload;
     const newState = {
-      FETCH_PROBLEMS: () => ({
+      FETCH_PROBLEMS: () => (state),
+      FETCH_PROBLEMS_PENDING: () => ({
         ...state,
+        fetchingProblems: true,
+        fetchProblemsError: null
+      }),
+      FETCH_PROBLEMS_FULFILLED: () => ({
+        ...state,
+        fetchingProblems: false,
         savedProblems: payload
+      }),
+      FETCH_PROBLEMS_REJECTED: () => ({
+        ...state,
+        fetchingProblems: false,
+        fetchProblemsError: payload,
+        savedProblems: null
       }),
       SELECT_DRAFT: () => ({
         ...state,

@@ -38,8 +38,12 @@ const matchDispatchToProps = (dispatch) => {
       dispatch(fetchProblems());
     },
     fetchAndSelectDraft: (id) => {
-      dispatch(fetchProblems());
-      dispatch(selectDraft(id));
+      dispatch(fetchProblems()).then(() => (
+        dispatch(selectDraft(id))
+      )).catch(e => {
+        // TODO - startup page is editor and problem fetching etc..
+        console.log(`editor error: ${e}`);
+      });
     }
   };
 };

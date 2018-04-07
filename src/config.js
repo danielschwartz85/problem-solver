@@ -96,7 +96,9 @@ const Config = {
   sideMenu: {
     newProblem: "בעיה חדשה",
     myProblems: "הבעיות שלי",
-    emptyProblems: "כרגע הכל דבש, אין בעיות.."
+    emptyProblems: "כרגע הכל דבש, אין בעיות..",
+    errorProblems: "שגיאה בטעינת הבעיות :",
+    retryFetch: "נסה שוב"
   },
   solutionScreen: {
     man: {

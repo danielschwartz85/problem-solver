@@ -9,8 +9,10 @@ import ListSubheader from 'material-ui/List/ListSubheader';
 import Divider from 'material-ui/Divider';
 import LibraryAdd from 'material-ui-icons/LibraryAdd';
 import LibraryBooks from 'material-ui-icons/LibraryBooks';
+import Refresh from 'material-ui-icons/Refresh';
 import Config from '../../config';
 import Utils from '../../utils';
+import { CircularProgress } from 'material-ui/Progress';
 
 const styles = theme => ({
   list: {
@@ -18,7 +20,11 @@ const styles = theme => ({
   },
   subheader: {
     position: 'static'
-  }
+  },
+  progress: {
+    'margin-top': '10px',
+    'margin-right': '100px',
+  },
 });
 
 class SideMenu extends React.Component {
@@ -64,6 +70,8 @@ class SideMenu extends React.Component {
         </div>
       );
     });
+
+    // Problems fetched ok
     let myProblemsSection;
     if (problemList.length) {
       myProblemsSection = (
@@ -77,6 +85,34 @@ class SideMenu extends React.Component {
     } else {
       myProblemsSection = (
         <ListSubheader>{Config.sideMenu.emptyProblems}</ListSubheader>
+      );
+    }
+    // Loading problems
+    if(this.props.fetchingProblems) {
+      myProblemsSection = (
+          <CircularProgress
+            className={classes.progress}
+            thickness={5}
+            color="primary"
+          />
+      );
+    }
+    // Error
+    else if (this.props.fetchProblemsError) {
+      myProblemsSection = (
+        <div>
+          <ListSubheader>{Config.sideMenu.errorProblems}</ListSubheader>
+          <ListSubheader>{this.props.fetchProblemsError.message}</ListSubheader>
+          <div onClick={this.props.fetchProblems}>
+            <ListItem button>
+              <ListItemIcon>
+                <Refresh/>
+              </ListItemIcon>
+              <ListItemText primary={Config.sideMenu.retryFetch} />
+            </ListItem>
+            <Divider />
+          </div>
+        </div>
       );
     }
 
