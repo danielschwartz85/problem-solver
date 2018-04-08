@@ -102,7 +102,7 @@ class SideMenu extends React.Component {
       myProblemsSection = (
         <div>
           <ListSubheader>{Config.sideMenu.errorProblems}</ListSubheader>
-          <ListSubheader>{this.props.fetchProblemsError.message}</ListSubheader>
+          <ListSubheader>{this.props.fetchProblemsError}</ListSubheader>
           <div onClick={this.props.fetchProblems}>
             <ListItem button>
               <ListItemIcon>

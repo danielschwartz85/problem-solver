@@ -78,20 +78,20 @@ export function fetchProblems() {
       dispatch(fetchProblemsPending());
       const p = new Promise((res, rej) => {
         setTimeout(() => res(problems), 4000);
-         // rej(new Error('USER_LOGGED_OUT'));
+        // rej(new Error('USER_LOGGED_OUT'));
       })
       .then(res => {
         dispatch(fetchProblemsFullfilled(res));
       })
       .catch(e => {
         dispatch(fetchProblemsRejected(e));
-      });
+        return e;
+      }).then(e => (
+        !e ? Promise.resolve() : Promise.reject(e)
+      ));
       return p;
   };
 };
-
-// TODO - async all other actions
-// TODO - then handle in page startup with success / error
 
 export function createProblemPending() {
   return {
@@ -121,17 +121,35 @@ export function createProblem(problem) {
   const newId = ((ids.length && Number(ids[ids.length -1])) || 0) + 1;
   problems[newId] = { ...problem, updatedAt: Date.now() };
   cleanProblem(problems[newId])
-  setItem('problems', JSON.stringify(problems));
 
-  return {
-    type: 'CREATE_PROBLEM',
-    payload: {
-      status: 'SUCCESS',
-      id: newId
-    }
+  return (dispatch) => {
+    dispatch(createProblemPending());
+    const p = new Promise((res, rej) => {
+      setTimeout(() => {
+        setItem('problems', JSON.stringify(problems));
+        res(newId);
+      }, 4000);
+      // rej(new Error('USER_LOGGED_OUT'));
+    })
+    .then(res => (
+      Promise.all([null, res, dispatch(createProblemFullfilled(res))])
+    ))
+    .catch(e => {
+      dispatch(createProblemRejected(e));
+      return [e, null];
+    })
+    .then(([err, newId]) => (
+      !err ? Promise.resolve(newId) : Promise.reject(err)
+    ));
+    return p;
   };
 };
 
+// TODO
+// updates
+// deletes
+// then clicking stuff on save / update check (side menu)
+// then check first page is editor but getting error .. same for other pages..
 export function updateProblemPending() {
   return {
     type: UPDATE_PROBLEM_PENDING,

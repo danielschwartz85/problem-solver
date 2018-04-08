@@ -72,7 +72,12 @@ const Config = {
       }
     },
     saveMessage: "נשמר",
-    deletedMessage: "נמחק"
+    deletedMessage: "נמחק",
+    saveErrorMessage: "אופס..לא הצלחנו לשמור את הבעיה :",
+    retrySave: "נסה שוב",
+    back: "חזור",
+    next: "הבא",
+    save: "שמור"
   },
   welcomeScreen: {
     header: "תהליכי חשיבה על בעיות",

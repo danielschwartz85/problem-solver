@@ -23,6 +23,8 @@ const defaultState = {
   savedProblems: {},
   fetchingProblems: false,
   fetchProblemsError: null,
+  creatingProblem: false,
+  createProblemError: null,
   draftProblem: null
 };
 
@@ -45,8 +47,23 @@ const problems = (state = defaultState, action) => {
       FETCH_PROBLEMS_REJECTED: () => ({
         ...state,
         fetchingProblems: false,
-        fetchProblemsError: payload,
+        fetchProblemsError: payload.message,
         savedProblems: null
+      }),
+      CREATE_PROBLEM: () => (state),
+      CREATE_PROBLEM_PENDING: () => ({
+        ...state,
+        creatingProblem: true,
+        createProblemError: null
+      }),
+      CREATE_PROBLEM_FULFILLED: () => ({
+        ...state,
+        creatingProblem: false
+      }),
+      CREATE_PROBLEM_REJECTED : () => ({
+        ...state,
+        creatingProblem: false,
+        createProblemError: payload.message
       }),
       SELECT_DRAFT: () => ({
         ...state,
@@ -60,7 +77,6 @@ const problems = (state = defaultState, action) => {
         ...state,
         draftProblem: Utils.cloneProblem(draftProblem, payload)
       }),
-      CREATE_PROBLEM: () => (state),
       UPDATE_PROBLEM: () => (state),
       DELETE_PROBLEM: () => (state),
     }[action.type];

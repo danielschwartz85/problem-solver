@@ -9,6 +9,8 @@ import Snackbar from 'material-ui/Snackbar';
 import Config from '../config';
 import Utils from '../utils';
 import Fade from 'material-ui/transitions/Fade';
+import { CircularProgress } from 'material-ui/Progress';
+import Grid from 'material-ui/Grid';
 
 import {
   ProblemStory,
@@ -32,19 +34,27 @@ const styles = theme => ({
   },
   snackbar: {
     'margin-top': '72px'
-  }
+  },
+  progress: {
+    'margin-top': '10px'
+  },
 });
 
 class EditPage extends React.Component {
+  // We are using 'loading' and not redux 'creatingProblem'
+  // since we need to know when the fetch after save is done also.
   state = {
-    showSavedMessage: false
+    showSavedMessage: false,
+    loading: false
   }
 
   componentWillMount() {
     if (this.draft) return;
     if (this.props.selectedProblemId) {
+      // We fetch even though App fetches the problems
+      // but we don't know when it is done..
       this.props.fetchAndSelectDraft(this.props.selectedProblemId);
-    } else  {
+    } else {
       this.props.clearDraft();
     }
   }
@@ -65,10 +75,12 @@ class EditPage extends React.Component {
       ...this.props.draft,
       verbs: Utils.cleanArray(this.props.draft.verbs)
     };
-    let newId;
     if (this.isNewProblem) {
-      newId = this.props.createProblemAndFetch(draft);
-      this.props.onProblemSelected(newId);
+      this.setState({ loading: true });
+      this.props.createProblemAndFetch(draft).then(newId => {
+        this.setState({ loading: false });
+        newId && this.props.onProblemSelected(newId);
+      });
     } else {
       this.props.updateProblemAndFetch(this.props.selectedProblem, draft);
       this.setState({ showSavedMessage: true });
@@ -181,6 +193,85 @@ class EditPage extends React.Component {
     const nextEnabled = !isLastPage && currentPage.valid();
     const showSave = !this.isNewProblem || isLastPage;
 
+    // Waiting problem creation
+    let creatingSection;
+    if(this.state.loading) {
+      creatingSection = (
+        <Grid container direction="column" align="center">
+          <Grid item>
+            <CircularProgress
+              className={classes.progress}
+              thickness={5}
+              color="primary"
+            />
+          </Grid>
+        </Grid>
+      );
+    }
+    // Error creating problem
+    else if (this.props.createProblemError) {
+      creatingSection = (
+        <Grid container direction="column" align="center">
+          <Grid item>
+            <Typography
+              type="headline"
+              component="h2"
+              className={classes.typography}
+            >
+              {Config.pages.saveErrorMessage}
+            </Typography>
+            <Typography
+              type="headline"
+              component="h3"
+              className={classes.typography}
+            >
+              {this.props.createProblemError}
+            </Typography>
+            <Button onClick={this.saveCurrentProblem}>
+              {Config.pages.retrySave}
+            </Button>
+          </Grid>
+        </Grid>
+      );
+    }
+
+    const card = (
+      <Card className={classes.card}>
+        <CardContent>
+          <Typography
+            type="headline"
+            component="h2"
+            className={classes.typography}
+          >
+            {currentPage.header}
+          </Typography>
+          {currentPage.page}
+        </CardContent>
+        <CardActions>
+          <Button
+            disabled={!isFirstPage}
+            onClick={() => this.onPageSelected(-1)}
+          >
+            {Config.pages.back}
+          </Button>
+          <Button
+            disabled={!nextEnabled}
+            onClick={() => this.onPageSelected(1)}
+          >
+            {Config.pages.next}
+          </Button>
+          {showSave && (
+            <Button
+              onClick={this.saveCurrentProblem}
+              disabled={!this.saveEnabled}
+            >
+              {Config.pages.save}
+            </Button>
+          )}
+        </CardActions>
+      </Card>
+    );
+
     return (
       <SecondaryTheme>
         <Snackbar className={classes.snackbar}
@@ -191,40 +282,7 @@ class EditPage extends React.Component {
           transition={Fade}
           message={<span id="message-id">{Config.pages.saveMessage}</span>}
         />
-        <Card className={classes.card}>
-          <CardContent>
-            <Typography
-              type="headline"
-              component="h2"
-              className={classes.typography}
-            >
-              {currentPage.header}
-            </Typography>
-            {currentPage.page}
-          </CardContent>
-          <CardActions>
-            <Button
-              disabled={!isFirstPage}
-              onClick={() => this.onPageSelected(-1)}
-            >
-              חזור
-            </Button>
-            <Button
-              disabled={!nextEnabled}
-              onClick={() => this.onPageSelected(1)}
-            >
-              הבא
-            </Button>
-            {showSave && (
-              <Button
-                onClick={this.saveCurrentProblem}
-                disabled={!this.saveEnabled}
-              >
-                שמור
-              </Button>
-            )}
-          </CardActions>
-        </Card>
+        {creatingSection || card}
       </SecondaryTheme>
     );
   }

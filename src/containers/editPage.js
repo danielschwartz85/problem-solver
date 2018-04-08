@@ -13,7 +13,9 @@ import {
 const mapStateToProps = (state) => {
   return {
     draft: state.problems.draftProblem,
-    problems: state.problems.savedProblems
+    problems: state.problems.savedProblems,
+    creatingProblem: state.problems.creatingProblem,
+    createProblemError: state.problems.createProblemError
   };
 };
 
@@ -27,11 +29,14 @@ const matchDispatchToProps = (dispatch) => {
   return {
     ...matcher,
     createProblemAndFetch: (problem) => {
-      const action = createProblem(problem);
-      dispatch(action);
-      dispatch(fetchProblems());
-      dispatch(clearDraft());
-      return action.payload.id;
+      const p = dispatch(createProblem(problem)).then(newId => (
+        Promise.all([newId, dispatch(fetchProblems())])
+      )).then(([newId]) => (
+        Promise.all([newId, dispatch(clearDraft())])
+      )).catch(e => {
+        return [null];
+      }).then(([newId]) => newId);
+      return p;
     },
     updateProblemAndFetch: (id, changes) => {
       dispatch(updateProblem(id, changes));
@@ -41,8 +46,7 @@ const matchDispatchToProps = (dispatch) => {
       dispatch(fetchProblems()).then(() => (
         dispatch(selectDraft(id))
       )).catch(e => {
-        // TODO - startup page is editor and problem fetching etc..
-        console.log(`editor error: ${e}`);
+        // TODO - startup page is editor and error
       });
     }
   };

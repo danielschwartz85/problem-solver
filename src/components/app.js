@@ -21,23 +21,31 @@ const styles = theme => ({
 });
 
 class App extends React.Component {
-  componentDidMount() {
+  get isCreatingProblem () {
+    return this.props.creatingProblem;
+  }
+
+  componentWillMount() {
     this.props.fetchProblems();
   }
 
   onEditorPageSelected = (history) => (value) => {
+    if (this.isCreatingProblem) return;
     history.push(`${value + 1}`);
   }
 
   onNewProblemSelected = (history) => () => {
+    if (this.isCreatingProblem) return;
     history.push('/problems/new/1');
   }
 
   onProblemSelected = (history) => (id) => {
+    if (this.isCreatingProblem) return;
     history.push(`/problems/${id}`);
   }
 
   onEditorSelected = (history, id) => () => {
+    if (this.isCreatingProblem) return;
     history.push(`/problems/${id}/edit/1`);
   }
 
