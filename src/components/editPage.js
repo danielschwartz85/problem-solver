@@ -90,7 +90,7 @@ class EditPage extends React.Component {
         this.setState({ loading: false, showErrorMessage: true });
       });
     } else {
-      this.props.updateProblemAndFetch(this.props.selectedProblem, draft).then(() => {
+      this.props.updateProblemAndFetch(this.props.selectedProblemId, draft).then(() => {
         this.setState({
           loading: false,
           showSavedMessage: true,

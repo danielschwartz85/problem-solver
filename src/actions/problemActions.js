@@ -77,7 +77,7 @@ export function fetchProblems() {
   return (dispatch) => {
       dispatch(fetchProblemsPending());
       const p = new Promise((res, rej) => {
-        setTimeout(() => res(problems), 4000);
+        setTimeout(() => res(problems), 1000);
         // rej(new Error('USER_LOGGED_OUT'));
       })
       .then(res => {
@@ -132,7 +132,7 @@ export function createProblem(problem) {
         setItem('problems', JSON.stringify(problems));
         // rej(new Error('USER_LOGGED_OUT'));
         res(newId);
-      }, 4000);
+      }, 1000);
     })
     .then(res => (
       Promise.all([null, res, dispatch(createProblemFullfilled(res))])
@@ -185,7 +185,7 @@ export function updateProblem(id, changes) {
         setItem('problems', JSON.stringify(problems));
         // rej(new Error('USER_LOGGED_OUT'));
         res();
-      }, 4000);
+      }, 1000);
     })
     .then(() => (
       dispatch(updateProblemFullfilled())
@@ -234,7 +234,7 @@ export function deleteProblem(id) {
         // rej(new Error('USER_LOGGED_OUT'));return;
         setItem('problems', JSON.stringify(problems));
         res();
-      }, 4000);
+      }, 1000);
     })
     .then(() => (
       dispatch(deleteProblemFullfilled())
