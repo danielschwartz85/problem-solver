@@ -13,6 +13,9 @@ import { ListItemIcon, ListItemText } from 'material-ui/List';
 import DeleteForever from 'material-ui-icons/DeleteForever';
 import Edit from 'material-ui-icons/Edit';
 import Send from 'material-ui-icons/Send';
+import { CircularProgress } from 'material-ui/Progress';
+import Grid from 'material-ui/Grid';
+import Snackbar from 'material-ui/Snackbar';
 
 const styles = theme => ({
   card: {
@@ -26,19 +29,23 @@ const styles = theme => ({
   },
   menu: {
     'margin-top': '20px'
-  }
+  },
+  progress: {
+    marginTop: 50
+  },
+  snackbar: {
+    'margin-top': '72px',
+    'z-index': 1
+  },
 });
 
 class ProblemScreen extends React.Component {
-  constructor(props) {
-    super(props);
-    this.state = {
-      anchorEl: null
-    };
-  }
-
-  get problem() {
-    return this.props.problems[this.props.selectedProblemId];
+  // We are using 'loading' and not redux 'deletingProblem'
+  // since we need to know when the fetch after delete is done also.
+  state = {
+    anchorEl: null,
+    showErrorMessage: false,
+    loading: false
   }
 
   handleClick = event => {
@@ -61,8 +68,13 @@ class ProblemScreen extends React.Component {
 
   handleDelete = () => {
     this.handleClose();
-    this.props.deleteAndFetch(this.props.selectedProblemId);
-    this.props.onHomeSelected();
+    this.setState({ loading: true });
+    this.props.deleteAndFetch(this.props.selectedProblemId).then(() => {
+      this.setState({ showErrorMessage: false, loading: false });
+      this.props.onHomeSelected();
+    }).catch(e => {
+      this.setState({ showErrorMessage: true, loading: false });
+    });
   }
 
   handleSend = () => {
@@ -70,6 +82,10 @@ class ProblemScreen extends React.Component {
     const subject = Utils.problemToSubject(this.problem);
     const lString = `mailto:?subject=${subject}&body=${mailBody}`;
     window.location = lString.replace(/\n/g, escape('\r\n')+escape('\r\n'));
+  }
+
+  get problem() {
+    return this.props.problems && this.props.problems[this.props.selectedProblemId];
   }
 
   render() {
@@ -116,8 +132,24 @@ class ProblemScreen extends React.Component {
       </div>
     );
 
-    return (
+    const retryButton = (
+      <Button color="accent" size="small" onClick={this.handleDelete}>
+        {Config.problemScreen.retryDeleteText}
+      </Button>
+    );
+    let snackbarMessage = Config.problemScreen.deleteErrorMessage;
+    snackbarMessage += ` ${this.props.deleteProblemError}`;
+
+    let card = (
       <Card className={classes.card}>
+        <Snackbar className={classes.snackbar}
+          anchorOrigin={{ vertical: 'top', horizontal: 'left' }}
+          open={this.state.showErrorMessage}
+          onClose={() => { this.setState({ showErrorMessage: false }) }}
+          autoHideDuration={10000}
+          message={<span id="message-id">{snackbarMessage}</span>}
+          action={retryButton}
+        />
         <CardMedia className={classes.media} image="/cardBgrd.jpg" >
           {menu}
         </CardMedia>
@@ -139,6 +171,23 @@ class ProblemScreen extends React.Component {
         </CardActions>
       </Card>
     );
+
+    // Loading indicator for delete
+    if(this.state.loading) {
+      card = (
+        <Grid container direction="column" align="center">
+          <Grid item>
+            <CircularProgress
+              className={classes.progress}
+              thickness={5}
+              color="accent"
+            />
+          </Grid>
+        </Grid>
+      );
+    }
+
+    return card;
   }
 }
 

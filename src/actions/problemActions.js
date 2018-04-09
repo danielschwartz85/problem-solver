@@ -8,9 +8,9 @@ export const CREATE_PROBLEM_REJECTED = 'CREATE_PROBLEM_REJECTED';
 export const UPDATE_PROBLEM_PENDING = 'UPDATE_PROBLEM_PENDING';
 export const UPDATE_PROBLEM_FULFILLED = 'UPDATE_PROBLEM_FULFILLED';
 export const UPDATE_PROBLEM_REJECTED = 'UPDATE_PROBLEM_REJECTED';
-export const DELETE_PROBLEM_PENDING = 'DELETE_DRAFT_PENDING';
-export const DELETE_PROBLEM_FULFILLED = 'DELETE_DRAFT_FULFILLED';
-export const DELETE_PROBLEM_REJECTED = 'DELETE_DRAFT_REJECTED';
+export const DELETE_PROBLEM_PENDING = 'DELETE_PROBLEM_PENDING';
+export const DELETE_PROBLEM_FULFILLED = 'DELETE_PROBLEM_FULFILLED';
+export const DELETE_PROBLEM_REJECTED = 'DELETE_PROBLEM_REJECTED';
 export const UPDATE_DRAFT = 'UPDATE_DRAFT';
 export const SELECT_DRAFT = 'SELECT_DRAFT';
 export const CLEAR_DRAFT = 'CLEAR_DRAFT';
@@ -46,7 +46,7 @@ const cleanProblem = (problem) => {
 }
 
 /*
- * Problem :
+ * Problem Actions :
  */
 
 export function fetchProblemsPending() {
@@ -83,6 +83,9 @@ export function fetchProblems() {
       .then(res => {
         dispatch(fetchProblemsFullfilled(res));
       })
+      .then(() => (
+        Promise.resolve()
+      ))
       .catch(e => {
         dispatch(fetchProblemsRejected(e));
         return e;
@@ -127,9 +130,9 @@ export function createProblem(problem) {
     const p = new Promise((res, rej) => {
       setTimeout(() => {
         setItem('problems', JSON.stringify(problems));
+        // rej(new Error('USER_LOGGED_OUT'));
         res(newId);
       }, 4000);
-      // rej(new Error('USER_LOGGED_OUT'));
     })
     .then(res => (
       Promise.all([null, res, dispatch(createProblemFullfilled(res))])
@@ -145,11 +148,6 @@ export function createProblem(problem) {
   };
 };
 
-// TODO
-// updates
-// deletes
-// then clicking stuff on save / update check (side menu)
-// then check first page is editor but getting error .. same for other pages..
 export function updateProblemPending() {
   return {
     type: UPDATE_PROBLEM_PENDING,
@@ -157,10 +155,10 @@ export function updateProblemPending() {
   };
 }
 
-export function updateProblemFullfilled(problems) {
+export function updateProblemFullfilled(problem) {
   return {
     type: UPDATE_PROBLEM_FULFILLED,
-    payload: problems
+    payload: problem
   };
 }
 
@@ -179,13 +177,28 @@ export function updateProblem(id, changes) {
     updatedAt: Date.now()
   };
   cleanProblem(problems[id])
-  setItem('problems', JSON.stringify(problems));
 
-  return {
-    type: 'UPDATE_PROBLEM',
-    payload: {
-      status: 'SUCCESS'
-    }
+  return (dispatch) => {
+    dispatch(updateProblemPending());
+    const p = new Promise((res, rej) => {
+      setTimeout(() => {
+        setItem('problems', JSON.stringify(problems));
+        // rej(new Error('USER_LOGGED_OUT'));
+        res();
+      }, 4000);
+    })
+    .then(() => (
+      dispatch(updateProblemFullfilled())
+    )).then(() => (
+      Promise.resolve()
+    )).catch(e => {
+      dispatch(updateProblemRejected(e));
+      return e;
+    })
+    .then(e => (
+      !e ? Promise.resolve() : Promise.reject(e)
+    ));
+    return p;
   };
 };
 
@@ -213,13 +226,28 @@ export function deleteProblemRejected(error) {
 export function deleteProblem(id) {
   const problems = JSON.parse(getItem('problems'));
   delete(problems[id]);
-  setItem('problems', JSON.stringify(problems));
 
-  return {
-    type: 'DELETE_PROBLEM',
-    payload: {
-      status: 'SUCCESS'
-    }
+  return (dispatch) => {
+    dispatch(deleteProblemPending());
+    const p = new Promise((res, rej) => {
+      setTimeout(() => {
+        // rej(new Error('USER_LOGGED_OUT'));return;
+        setItem('problems', JSON.stringify(problems));
+        res();
+      }, 4000);
+    })
+    .then(() => (
+      dispatch(deleteProblemFullfilled())
+    )).then(() => (
+      Promise.resolve()
+    )).catch(e => {
+      dispatch(deleteProblemRejected(e));
+      return e;
+    })
+    .then(e => (
+      !e ? Promise.resolve() : Promise.reject(e)
+    ));
+    return p;
   };
 };
 

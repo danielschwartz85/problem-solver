@@ -96,7 +96,9 @@ const Config = {
     editText: "ערוך",
     deleteText: "מחק",
     sendText: "שלח",
-    problemSubject: "הבעיה של"
+    problemSubject: "הבעיה של",
+    retryDeleteText: "נסה שוב",
+    deleteErrorMessage: "אופס..לא הצלחנו למחוק את הבעייה :"
   },
   sideMenu: {
     newProblem: "בעיה חדשה",

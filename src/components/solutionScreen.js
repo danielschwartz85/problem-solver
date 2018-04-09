@@ -26,8 +26,12 @@ class SolutionScreen extends React.Component {
     this.setState({ expanded: !this.state.expanded });
   };
 
+  get problem() {
+    return this.props.problems && this.props.problems[this.props.selectedProblemId];
+  }
+
   render() {
-    const problem = this.props.problems[this.props.selectedProblemId];
+    const problem = this.problem;
     let textProblem = {...problem};
     if (!problem) return null;
     textProblem.verbs = Utils.joinWithCommas(problem.verbs);

@@ -9,7 +9,9 @@ import {
 
 const mapStateToProps = (state) => {
   return {
-    problems: state.problems.savedProblems
+    problems: state.problems.savedProblems,
+    deletingProblem: state.problems.deletingProblem,
+    deleteProblemError: state.problems.deleteProblemError
   };
 };
 
@@ -21,8 +23,16 @@ const matchDispatchToProps = (dispatch) => {
   return {
     ...matcher,
     deleteAndFetch: (id) => {
-      dispatch(deleteProblem(id));
-      dispatch(fetchProblems());
+      var success = false;
+      const p = dispatch(deleteProblem(id)).then(() => {
+        success = true;
+        return dispatch(fetchProblems());
+      }).catch(e => (
+        e
+      )).then(e => (
+        success ? Promise.resolve() : Promise.reject(e)
+      ));
+      return p;
     }
   }
 };

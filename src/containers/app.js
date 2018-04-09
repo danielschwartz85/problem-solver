@@ -6,7 +6,9 @@ const mapStateToProps = (state) => {
   return {
     problems: state.problems.savedProblems,
     fetchingProblems: state.problems.fetchingProblems,
-    creatingProblem: state.problems.creatingProblem
+    creatingProblem: state.problems.creatingProblem,
+    updatingProblem: state.problems.updatingProblem,
+    deletingProblem: state.problems.deletingProblem
   };
 };
 
@@ -15,7 +17,7 @@ const matchDispatchToProps = (dispatch) => {
     fetchProblems: () => {
       // override just to catch rejects we don't really care
       // here since there are no folowwing actions to take..
-      dispatch(fetchProblems()).catch(e => {});
+      return dispatch(fetchProblems()).catch(e => {});
     }
   }
 };

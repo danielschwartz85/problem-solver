@@ -10,15 +10,26 @@ const mapStateToProps = (state) => {
   return {
     problems: state.problems.savedProblems,
     fetchingProblems: state.problems.fetchingProblems,
-    fetchProblemsError: state.problems.fetchProblemsError
+    fetchProblemsError: state.problems.fetchProblemsError,
+    creatingProblem: state.problems.creatingProblem,
+    updatingProblem: state.problems.updatingProblem,
+    deletingProblem: state.problems.deletingProblem
   };
 };
 
 const matchDispatchToProps = (dispatch) => {
-  return bindActionCreators({
-    clearDraft,
-    fetchProblems
+  const matcher = bindActionCreators({
+    clearDraft
   }, dispatch);
+  
+  return {
+    ...matcher,
+    fetchProblems: () => {
+      // override just to catch rejects we don't really care
+      // here since there are no folowwing actions to take..
+      return dispatch(fetchProblems()).catch(e => {});
+    }
+  }
 };
 
 export default connect(mapStateToProps, matchDispatchToProps)(SideMenu);

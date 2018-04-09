@@ -25,6 +25,10 @@ const defaultState = {
   fetchProblemsError: null,
   creatingProblem: false,
   createProblemError: null,
+  updatingProblem: false,
+  updateProblemError: null,
+  deletingProblem: false,
+  deleteProblemError: null,
   draftProblem: null
 };
 
@@ -33,7 +37,6 @@ const problems = (state = defaultState, action) => {
     const savedProblems = state.savedProblems;
     const payload = action.payload;
     const newState = {
-      FETCH_PROBLEMS: () => (state),
       FETCH_PROBLEMS_PENDING: () => ({
         ...state,
         fetchingProblems: true,
@@ -50,7 +53,6 @@ const problems = (state = defaultState, action) => {
         fetchProblemsError: payload.message,
         savedProblems: null
       }),
-      CREATE_PROBLEM: () => (state),
       CREATE_PROBLEM_PENDING: () => ({
         ...state,
         creatingProblem: true,
@@ -65,6 +67,34 @@ const problems = (state = defaultState, action) => {
         creatingProblem: false,
         createProblemError: payload.message
       }),
+      UPDATE_PROBLEM_PENDING: () => ({
+        ...state,
+        updatingProblem: true,
+        updateProblemError: false
+      }),
+      UPDATE_PROBLEM_FULFILLED: () => ({
+        ...state,
+        updatingProblem: false
+      }),
+      UPDATE_PROBLEM_REJECTED: () => ({
+        ...state,
+        updatingProblem: false,
+        updateProblemError: payload.message
+      }),
+      DELETE_PROBLEM_PENDING: () => ({
+        ...state,
+        deletingProblem: true,
+        deleteProblemError: false
+      }),
+      DELETE_PROBLEM_FULFILLED: () => ({
+        ...state,
+        deletingProblem: false
+      }),
+      DELETE_PROBLEM_REJECTED: () => ({
+        ...state,
+        deletingProblem: false,
+        deleteProblemError: payload.message
+      }),
       SELECT_DRAFT: () => ({
         ...state,
         draftProblem: Utils.cloneProblem(savedProblems[payload])
@@ -76,9 +106,7 @@ const problems = (state = defaultState, action) => {
       UPDATE_DRAFT: () => ({
         ...state,
         draftProblem: Utils.cloneProblem(draftProblem, payload)
-      }),
-      UPDATE_PROBLEM: () => (state),
-      DELETE_PROBLEM: () => (state),
+      })
     }[action.type];
     return (newState && newState()) || state;
 };

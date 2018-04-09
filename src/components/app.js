@@ -9,6 +9,7 @@ import SolutionScreenContainer from '../containers/solutionScreen';
 import ProblemScreenContainer from '../containers/problemScreen';
 import WelcomeScreenContainer from '../containers/welcomeScreen';
 import { BrowserRouter, Route } from 'react-router-dom';
+import { CircularProgress } from 'material-ui/Progress';
 
 const styles = theme => ({
   root: {
@@ -17,40 +18,51 @@ const styles = theme => ({
   },
   page:{
     marginTop: 15
+  },
+  progress: {
+    marginTop: 150
   }
 });
 
 class App extends React.Component {
-  get isCreatingProblem () {
-    return this.props.creatingProblem;
+  state = {
+    startup: true
   }
 
   componentWillMount() {
-    this.props.fetchProblems();
+    this.props.fetchProblems().then(() => {
+      this.setState({ startup : false });
+    });
   }
 
   onEditorPageSelected = (history) => (value) => {
-    if (this.isCreatingProblem) return;
+    if (this.isLoading) return;
     history.push(`${value + 1}`);
   }
 
   onNewProblemSelected = (history) => () => {
-    if (this.isCreatingProblem) return;
+    if (this.isLoading) return;
     history.push('/problems/new/1');
   }
 
   onProblemSelected = (history) => (id) => {
-    if (this.isCreatingProblem) return;
+    if (this.isLoading) return;
     history.push(`/problems/${id}`);
   }
 
   onEditorSelected = (history, id) => () => {
-    if (this.isCreatingProblem) return;
+    if (this.isLoading) return;
     history.push(`/problems/${id}/edit/1`);
   }
 
   onSolutionSelected = (history, id) => () => {
     history.push(`/problems/${id}/solution`);
+  }
+
+  get isLoading () {
+    let loading = this.props.creatingProblem || this.props.updatingProblem;
+    loading = loading || this.props.deletingProblem || this.props.fetchingProblems;
+    return loading;
   }
 
   render() {
@@ -93,6 +105,30 @@ class App extends React.Component {
     };
 
     // <Route path="/action-therapy" exact={true} render={welcomeScreen}/>
+    let mainScreen = (
+      <Grid item xs={12} className={classes.page}>
+        <Route path="/" exact={true} render={welcomeScreen}/>
+        <Route path="/problems/:id" exact={true} render={problemScreen}/>
+        <Route path="/problems/:id/solution" exact={true} render={solutionScreen}/>
+        <Route path="/problems/:id/edit/:pageNum" exact={true} render={editor}/>
+        <Route path="/problems/new/:pageNum" exact={true} render={editor}/>
+      </Grid>
+    );
+    // This is for first load, show loading screen instead of components
+    if(this.state.startup) {
+      mainScreen = (
+        <Grid container direction="column" align="center">
+          <Grid item>
+            <CircularProgress
+              className={classes.progress}
+              thickness={5}
+              color="accent"
+            />
+          </Grid>
+        </Grid>
+      )
+    }
+
     return (
       <MainTheme>
         <BrowserRouter>
@@ -101,13 +137,7 @@ class App extends React.Component {
               <Grid item xs={12}>
                 <Route path="*" render={appBar}/>
               </Grid>
-              <Grid item xs={12} className={classes.page}>
-               <Route path="/" exact={true} render={welcomeScreen}/>
-               <Route path="/problems/:id" exact={true} render={problemScreen}/>
-               <Route path="/problems/:id/solution" exact={true} render={solutionScreen}/>
-               <Route path="/problems/:id/edit/:pageNum" exact={true} render={editor}/>
-               <Route path="/problems/new/:pageNum" exact={true} render={editor}/>
-              </Grid>
+              {mainScreen}
             </Grid>
           </div>
         </BrowserRouter>

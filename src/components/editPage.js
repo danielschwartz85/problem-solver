@@ -33,7 +33,8 @@ const styles = theme => ({
     marginBottom: 20
   },
   snackbar: {
-    'margin-top': '72px'
+    'margin-top': '72px',
+    'z-index': 1
   },
   progress: {
     'margin-top': '10px'
@@ -45,15 +46,18 @@ class EditPage extends React.Component {
   // since we need to know when the fetch after save is done also.
   state = {
     showSavedMessage: false,
+    showErrorMessage: false,
     loading: false
   }
 
   componentWillMount() {
     if (this.draft) return;
     if (this.props.selectedProblemId) {
-      // We fetch even though App fetches the problems
-      // but we don't know when it is done..
-      this.props.fetchAndSelectDraft(this.props.selectedProblemId);
+      // make sure fetch problems is done
+      // when edit page is the startup page
+      setTimeout(() => {
+        this.props.selectDraft(this.props.selectedProblemId);
+      }, 0);
     } else {
       this.props.clearDraft();
     }
@@ -71,20 +75,39 @@ class EditPage extends React.Component {
   }
 
   saveCurrentProblem = () => {
+    this.closeSnackbar();
+    this.setState({ loading: true });
     const draft = {
       ...this.props.draft,
       verbs: Utils.cleanArray(this.props.draft.verbs)
     };
+
     if (this.isNewProblem) {
-      this.setState({ loading: true });
       this.props.createProblemAndFetch(draft).then(newId => {
-        this.setState({ loading: false });
-        newId && this.props.onProblemSelected(newId);
+        this.setState({ loading: false, showErrorMessage: false });
+        this.props.onProblemSelected(newId);
+      }).catch(e => {
+        this.setState({ loading: false, showErrorMessage: true });
       });
     } else {
-      this.props.updateProblemAndFetch(this.props.selectedProblem, draft);
-      this.setState({ showSavedMessage: true });
+      this.props.updateProblemAndFetch(this.props.selectedProblem, draft).then(() => {
+        this.setState({
+          loading: false,
+          showSavedMessage: true,
+          showErrorMessage: false
+        });
+      }).catch(e => {
+        this.setState({ loading: false, showErrorMessage: true });
+      });
     }
+  }
+
+  closeSnackbar = () => {
+    this.setState({ showSavedMessage: false, showErrorMessage: false })
+  }
+
+  get errorMessage() {
+    return this.props.createProblemError || this.props.updateProblemError;
   }
 
   get saveEnabled() {
@@ -194,9 +217,9 @@ class EditPage extends React.Component {
     const showSave = !this.isNewProblem || isLastPage;
 
     // Waiting problem creation
-    let creatingSection;
+    let loadingSection;
     if(this.state.loading) {
-      creatingSection = (
+      loadingSection = (
         <Grid container direction="column" align="center">
           <Grid item>
             <CircularProgress
@@ -204,32 +227,6 @@ class EditPage extends React.Component {
               thickness={5}
               color="primary"
             />
-          </Grid>
-        </Grid>
-      );
-    }
-    // Error creating problem
-    else if (this.props.createProblemError) {
-      creatingSection = (
-        <Grid container direction="column" align="center">
-          <Grid item>
-            <Typography
-              type="headline"
-              component="h2"
-              className={classes.typography}
-            >
-              {Config.pages.saveErrorMessage}
-            </Typography>
-            <Typography
-              type="headline"
-              component="h3"
-              className={classes.typography}
-            >
-              {this.props.createProblemError}
-            </Typography>
-            <Button onClick={this.saveCurrentProblem}>
-              {Config.pages.retrySave}
-            </Button>
           </Grid>
         </Grid>
       );
@@ -272,17 +269,30 @@ class EditPage extends React.Component {
       </Card>
     );
 
+    let snackbarMessage, retryButton = null;
+    if(this.state.showSavedMessage) {
+      snackbarMessage = Config.pages.saveMessage;
+    } else if (this.state.showErrorMessage) {
+      snackbarMessage = `${Config.pages.saveErrorMessage} ${this.errorMessage}`;
+      retryButton = (
+        <Button color="primary" size="small" onClick={this.saveCurrentProblem}>
+          {Config.pages.retrySave}
+        </Button>
+      )
+    }
+
     return (
       <SecondaryTheme>
         <Snackbar className={classes.snackbar}
           anchorOrigin={{ vertical: 'top', horizontal: 'left' }}
-          open={this.state.showSavedMessage}
-          onClose={() => this.setState({ showSavedMessage: false })}
-          autoHideDuration={1500}
+          open={this.state.showSavedMessage || this.state.showErrorMessage}
+          onClose={this.closeSnackbar}
+          autoHideDuration={this.state.showSavedMessage ? 1500 : 10000}
           transition={Fade}
-          message={<span id="message-id">{Config.pages.saveMessage}</span>}
+          message={<span id="message-id">{snackbarMessage}</span>}
+          action={retryButton}
         />
-        {creatingSection || card}
+        {loadingSection || card}
       </SecondaryTheme>
     );
   }

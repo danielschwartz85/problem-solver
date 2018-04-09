@@ -33,6 +33,7 @@ class SideMenu extends React.Component {
   }
 
   toggleMenu = (e, i) => {
+    if (this.isLoading) return;
     this.setState({isOpen: !this.state.isOpen});
   }
 
@@ -43,6 +44,12 @@ class SideMenu extends React.Component {
   newProblemSelected = () => {
     this.props.clearDraft();
     this.props.onNewProblemSelected();
+  }
+
+  get isLoading () {
+    let loading = this.props.creatingProblem || this.props.updatingProblem;
+    loading = loading || this.props.deletingProblem || this.props.fetchingProblems;
+    return loading;
   }
 
   render() {
