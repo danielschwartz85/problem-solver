@@ -42,6 +42,9 @@ const Utils = {
     }
     return newArray;
   },
+  nonNewVerbs: (problem) => {
+    return problem.pastVerbs.map(i => [problem.verbs[i], i]).filter(v => !!v[0]);
+  },
   isValid: (problem, key) => {
     const valid = {
       description: () => !!problem.description,
@@ -49,9 +52,10 @@ const Utils = {
       pastVerbs: () => true,
       negativeVerbs: () => true,
       transformationVerbs: () => {
+        if (!problem.pastVerbs.length) return true;
         const tVerbs = problem.transformationVerbs;
-        const cleanVerbs = Utils.cleanArray(problem.verbs);
-        return cleanVerbs.every((v, i) => !(v && !tVerbs[i]));
+        const oldVerbs = Utils.nonNewVerbs(problem);
+        return oldVerbs.every(([v, i]) => !(v && !tVerbs[i]));
       },
       name: () => !!problem.name,
       newName: () => !!problem.newName,

@@ -24,7 +24,7 @@ class Transformation extends React.Component {
   render() {
     const { classes } = this.props;
     const placeholder = Config.pages.transformation.inputText;
-    const verbItems = this.props.verbs.filter(v => !!v).map((verb, i) => (
+    const verbItems = this.props.verbs.map(([verb, i]) => (
       <div key={verb}>
         <ListItem>
           <Input

@@ -29,7 +29,7 @@ const Config = {
       }
     },
     transformation: {
-      description: 'עבור כל פועל בחר פעולה אשר יותר נכונה לך',
+      description: 'עבור כל פועל  מהעבר בחר פעולה אשר יותר נכונה לך',
       inputText: 'במקום $..',
       tab: {
         name: 'פעולות אתחול'

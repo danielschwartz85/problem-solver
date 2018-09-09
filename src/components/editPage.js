@@ -160,7 +160,7 @@ class EditPage extends React.Component {
       {
         page: <Transformation
                 onChange={this.onChange}
-                verbs={this.props.draft.verbs}
+                verbs={Utils.nonNewVerbs(this.props.draft)}
                 transformationVerbs={this.props.draft.transformationVerbs}
               />,
         header: Config.pages.transformation.description,
