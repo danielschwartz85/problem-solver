@@ -42,21 +42,21 @@ class App extends React.Component {
 
   onNewProblemSelected = (history) => () => {
     if (this.isLoading) return;
-    history.push('/problems/new/1');
+    history.push(`/${process.env.REACT_APP_SITE_PATH}/problems/new/1`);
   }
 
   onProblemSelected = (history) => (id) => {
     if (this.isLoading) return;
-    history.push(`/problems/${id}`);
+    history.push(`/${process.env.REACT_APP_SITE_PATH}/problems/${id}`);
   }
 
   onEditorSelected = (history, id) => () => {
     if (this.isLoading) return;
-    history.push(`/problems/${id}/edit/1`);
+    history.push(`/${process.env.REACT_APP_SITE_PATH}/problems/${id}/edit/1`);
   }
 
   onSolutionSelected = (history, id) => () => {
-    history.push(`/problems/${id}/solution`);
+    history.push(`/${process.env.REACT_APP_SITE_PATH}/problems/${id}/solution`);
   }
 
   get isLoading () {
@@ -72,7 +72,7 @@ class App extends React.Component {
         onEditorSelected={this.onEditorSelected(history, match.params.id)}
         selectedProblemId={match.params.id}
         onSolutionSelected={this.onSolutionSelected(history, match.params.id)}
-        onHomeSelected={() => history.push(`/`) }
+        onHomeSelected={() => history.push(`/${process.env.REACT_APP_SITE_PATH}/`) }
       />
     );
     const solutionScreen = ({match}) => (
@@ -104,14 +104,13 @@ class App extends React.Component {
       );
     };
 
-    // <Route path="/action-therapy" exact={true} render={welcomeScreen}/>
     let mainScreen = (
       <Grid item xs={12} className={classes.page}>
-        <Route path="/" exact={true} render={welcomeScreen}/>
-        <Route path="/problems/:id" exact={true} render={problemScreen}/>
-        <Route path="/problems/:id/solution" exact={true} render={solutionScreen}/>
-        <Route path="/problems/:id/edit/:pageNum" exact={true} render={editor}/>
-        <Route path="/problems/new/:pageNum" exact={true} render={editor}/>
+        <Route path={`(/${process.env.REACT_APP_SITE_PATH})?/`} exact={true} render={welcomeScreen}/>
+        <Route path={`(/${process.env.REACT_APP_SITE_PATH})?/problems/:id`} exact={true} render={problemScreen}/>
+        <Route path={`(/${process.env.REACT_APP_SITE_PATH})?/problems/:id/solution`} exact={true} render={solutionScreen}/>
+        <Route path={`(/${process.env.REACT_APP_SITE_PATH})?/problems/:id/edit/:pageNum`} exact={true} render={editor}/>
+        <Route path={`(/${process.env.REACT_APP_SITE_PATH})?/problems/new/:pageNum`} exact={true} render={editor}/>
       </Grid>
     );
     // This is for first load, show loading screen instead of components

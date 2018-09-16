@@ -34,9 +34,10 @@ class WelcomeScreen extends React.Component {
         {Config.welcomeScreen.descriptionSignature}
       </Typography>
     );
+
     return (
       <Card className={classes.card}>
-        <CardMedia className={classes.media} image="cardBgrd.jpg" />
+        <CardMedia className={classes.media} image={`/${process.env.REACT_APP_SITE_PATH}/cardBgrd.jpg`} />
         <CardContent>
           <Typography type="headline" component="h2">
             {Config.welcomeScreen.header}

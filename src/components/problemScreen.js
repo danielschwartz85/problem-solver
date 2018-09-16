@@ -150,7 +150,7 @@ class ProblemScreen extends React.Component {
           message={<span id="message-id">{snackbarMessage}</span>}
           action={retryButton}
         />
-        <CardMedia className={classes.media} image="/cardBgrd.jpg" >
+        <CardMedia className={classes.media} image={`/${process.env.REACT_APP_SITE_PATH}/cardBgrd.jpg`} >
           {menu}
         </CardMedia>
         <CardContent>
