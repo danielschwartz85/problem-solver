@@ -121,6 +121,7 @@ class EditPage extends React.Component {
   render() {
     const { classes } = this.props;
     if (!this.props.draft) return null;
+    const nonNewVerbs = Utils.nonNewVerbs(this.props.draft);
     const pages = [
       {
         page: <ProblemStory
@@ -151,7 +152,7 @@ class EditPage extends React.Component {
       {
         page: <NegativeVerbSelect
                 onChange={this.onChange}
-                verbs={this.props.draft.verbs}
+                verbs={nonNewVerbs}
                 negativeVerbs={this.props.draft.negativeVerbs}
               />,
         header: Config.pages.negativeVerbs.description,
@@ -160,7 +161,7 @@ class EditPage extends React.Component {
       {
         page: <Transformation
                 onChange={this.onChange}
-                verbs={Utils.nonNewVerbs(this.props.draft)}
+                verbs={nonNewVerbs}
                 transformationVerbs={this.props.draft.transformationVerbs}
               />,
         header: Config.pages.transformation.description,

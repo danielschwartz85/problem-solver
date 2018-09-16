@@ -29,7 +29,7 @@ class NegativeVerbSelect extends React.Component {
 
   render() {
     const { classes } = this.props;
-    const verbItems = this.props.verbs.filter(v => !!v).map((verb, i) => (
+    const verbItems = this.props.verbs.map(([verb, i]) => (
       <div key={verb}>
         <ListItem button onClick={() => this.onChange(i)}>
           <ListItemText primary={verb} />
