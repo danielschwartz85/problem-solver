@@ -1,17 +1,17 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import { withStyles } from 'material-ui/styles';
-import Checkbox from 'material-ui/Checkbox';
-import Divider from 'material-ui/Divider';
-import List, {
-  ListItem,
-  ListItemSecondaryAction,
-  ListItemText
-} from 'material-ui/List';
+import { withStyles } from '@material-ui/core/styles';
+import Checkbox from '@material-ui/core/Checkbox';
+import Divider from '@material-ui/core/Divider';
+import List from '@material-ui/core/List';
+import ListItem from '@material-ui/core/ListItem';
+import ListItemSecondaryAction from '@material-ui/core/ListItemSecondaryAction';
+import ListItemText from '@material-ui/core/ListItemText';
 
 const styles = theme => ({
   checked: {
-    'color': theme.palette.primary[500]
+    'color': theme.palette.primary[500],
+    'text-align': 'right'
   }
 });
 

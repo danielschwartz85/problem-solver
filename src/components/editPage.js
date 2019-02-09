@@ -1,16 +1,18 @@
 import React from 'react';
-import Card, { CardActions, CardContent } from 'material-ui/Card';
-import Button from 'material-ui/Button';
+import CardContent from '@material-ui/core/CardContent';
+import CardActions from '@material-ui/core/CardActions';
+import Card from '@material-ui/core/Card';
+import Button from '@material-ui/core/Button';
 import PropTypes from 'prop-types';
-import { withStyles } from 'material-ui/styles';
+import { withStyles } from '@material-ui/core/styles';
 import SecondaryTheme from './themes/secondaryTheme';
-import Typography from 'material-ui/Typography';
-import Snackbar from 'material-ui/Snackbar';
+import Typography from '@material-ui/core/Typography';
+import Snackbar from '@material-ui/core/Snackbar';
 import Config from '../config';
 import Utils from '../utils';
-import Fade from 'material-ui/transitions/Fade';
-import { CircularProgress } from 'material-ui/Progress';
-import Grid from 'material-ui/Grid';
+import Fade from '@material-ui/core/Fade';
+import CircularProgress from '@material-ui/core/CircularProgress';
+import Grid from '@material-ui/core/Grid';
 
 import {
   ProblemStory,

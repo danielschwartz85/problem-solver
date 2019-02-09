@@ -1,10 +1,11 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import { withStyles } from 'material-ui/styles';
-import Input from 'material-ui/Input';
-import Grid from 'material-ui/Grid';
+import { withStyles } from '@material-ui/core/styles';
+import Input from '@material-ui/core/Input';
+import Grid from '@material-ui/core/Grid';
 import Config from '../../config';
-import List, { ListItem } from 'material-ui/List';
+import ListItem from '@material-ui/core/ListItem';
+import List from '@material-ui/core/List';
 
 const styles = theme => ({
   input: {

@@ -1,7 +1,7 @@
 import React from 'react';
 import MainTheme from './themes/mainTheme';
-import Grid from 'material-ui/Grid';
-import { withStyles } from 'material-ui/styles';
+import Grid from '@material-ui/core/Grid';
+import { withStyles } from '@material-ui/core/styles';
 import PropTypes from 'prop-types';
 import ProblemAppBar from './problemAppBar';
 import EditPageContainer from '../containers/editPage';
@@ -9,7 +9,14 @@ import SolutionScreenContainer from '../containers/solutionScreen';
 import ProblemScreenContainer from '../containers/problemScreen';
 import WelcomeScreenContainer from '../containers/welcomeScreen';
 import { BrowserRouter, Route } from 'react-router-dom';
-import { CircularProgress } from 'material-ui/Progress';
+import CircularProgress from '@material-ui/core/CircularProgress';
+import { create } from 'jss';
+import rtl from 'jss-rtl';
+import JssProvider from 'react-jss/lib/JssProvider';
+import { createGenerateClassName, jssPreset } from '@material-ui/core/styles';
+
+const jss = create({ plugins: [...jssPreset().plugins, rtl()] });
+const generateClassName = createGenerateClassName();
 
 const styles = theme => ({
   root: {
@@ -121,7 +128,7 @@ class App extends React.Component {
             <CircularProgress
               className={classes.progress}
               thickness={5}
-              color="accent"
+              color="secondary"
             />
           </Grid>
         </Grid>
@@ -129,18 +136,20 @@ class App extends React.Component {
     }
 
     return (
-      <MainTheme>
-        <BrowserRouter>
-          <div className={classes.root}>
-            <Grid container spacing={8}>
-              <Grid item xs={12}>
-                <Route path="*" render={appBar}/>
+      <JssProvider jss={jss} generateClassName={generateClassName}>
+        <MainTheme>
+          <BrowserRouter>
+            <div className={classes.root}>
+              <Grid container spacing={8}>
+                <Grid item xs={12}>
+                  <Route path="*" render={appBar}/>
+                </Grid>
+                {mainScreen}
               </Grid>
-              {mainScreen}
-            </Grid>
-          </div>
-        </BrowserRouter>
-      </MainTheme>
+            </div>
+          </BrowserRouter>
+        </MainTheme>
+      </JssProvider>
     );
   };
 };

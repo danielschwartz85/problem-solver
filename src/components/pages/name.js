@@ -1,7 +1,7 @@
 import React from 'react';
-import TextField from 'material-ui/TextField';
+import TextField from '@material-ui/core/TextField';
 import Config from '../../config';
-import Grid from 'material-ui/Grid';
+import Grid from '@material-ui/core/Grid';
 
 class Name extends React.Component {
   onChange = (e) => {

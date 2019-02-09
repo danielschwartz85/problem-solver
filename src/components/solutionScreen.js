@@ -1,5 +1,5 @@
 import React from 'react';
-import Grid from 'material-ui/Grid';
+import Grid from '@material-ui/core/Grid';
 import SolutionCard from './solutionCard';
 import Config from '../config';
 import Utils from '../utils';
@@ -69,7 +69,7 @@ class SolutionScreen extends React.Component {
     );
 
     return (
-      <Grid container>
+      <Grid container spacing={16}>
         <Grid item xs={12} sm={6}>
           {beeingCard}
         </Grid>

@@ -1,11 +1,12 @@
 import React from 'react';
-import Grid from 'material-ui/Grid';
+import Grid from '@material-ui/core/Grid';
 import PropTypes from 'prop-types';
-import { withStyles } from 'material-ui/styles';
-import List, { ListItem } from 'material-ui/List';
-import Input from 'material-ui/Input';
-import Paper from 'material-ui/Paper';
-import Typography from 'material-ui/Typography';
+import { withStyles } from '@material-ui/core/styles';
+import ListItem from '@material-ui/core/ListItem';
+import List from '@material-ui/core/List';
+import Input from '@material-ui/core/Input';
+import Paper from '@material-ui/core/Paper';
+import Typography from '@material-ui/core/Typography';
 import Config from '../../config';
 
 const styles = theme => ({

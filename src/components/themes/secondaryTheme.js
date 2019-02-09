@@ -1,10 +1,10 @@
 import React from 'react';
-import { MuiThemeProvider, createMuiTheme } from 'material-ui/styles';
+import { MuiThemeProvider, createMuiTheme } from '@material-ui/core/styles';
 import {
   grey,
   blue,
   green
-} from 'material-ui/colors';
+} from '@material-ui/core/colors';
 
 
 function SecondaryTheme(props) {
@@ -23,8 +23,12 @@ function SecondaryTheme(props) {
       "text": {
          "primary": grey[100],
       },
-      "secondaryPaper": green[100]
+      "secondaryPaper": '#00e676'
     },
+    typography: {
+      useNextVariants: true,
+    },
+    direction: 'rtl',
   });
 
   return (

@@ -1,9 +1,9 @@
 import React from 'react';
-import { MuiThemeProvider, createMuiTheme } from 'material-ui/styles';
+import { MuiThemeProvider, createMuiTheme } from '@material-ui/core/styles';
 import {
   green,
   indigo
-} from 'material-ui/colors';
+} from '@material-ui/core/colors';
 
 
 function MainTheme(props) {
@@ -11,7 +11,11 @@ function MainTheme(props) {
     palette: {
       "primary": indigo,
       "secondary": green
-    }
+    },
+    typography: {
+      useNextVariants: true,
+    },
+    direction: 'rtl',
   });
 
   return (

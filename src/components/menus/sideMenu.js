@@ -1,18 +1,21 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import { withStyles } from 'material-ui/styles';
-import Drawer from 'material-ui/Drawer';
-import IconButton from 'material-ui/IconButton';
-import MenuIcon from 'material-ui-icons/Menu';
-import List, { ListItem, ListItemIcon, ListItemText } from 'material-ui/List';
-import ListSubheader from 'material-ui/List/ListSubheader';
-import Divider from 'material-ui/Divider';
-import LibraryAdd from 'material-ui-icons/LibraryAdd';
-import LibraryBooks from 'material-ui-icons/LibraryBooks';
-import Refresh from 'material-ui-icons/Refresh';
+import { withStyles } from '@material-ui/core/styles';
+import Drawer from '@material-ui/core/Drawer';
+import IconButton from '@material-ui/core/IconButton';
+import MenuIcon from '@material-ui/icons/Menu';
+import ListItemText from '@material-ui/core/ListItemText'
+import ListItemIcon from '@material-ui/core/ListItemIcon'
+import ListItem from '@material-ui/core/ListItem'
+import List from '@material-ui/core/List'
+import ListSubheader from '@material-ui/core/ListSubheader';
+import Divider from '@material-ui/core/Divider';
+import LibraryAdd from '@material-ui/icons/LibraryAdd';
+import LibraryBooks from '@material-ui/icons/LibraryBooks';
+import Refresh from '@material-ui/icons/Refresh';
 import Config from '../../config';
 import Utils from '../../utils';
-import { CircularProgress } from 'material-ui/Progress';
+import CircularProgress from '@material-ui/core/CircularProgress';
 
 const styles = theme => ({
   list: {
@@ -139,13 +142,12 @@ class SideMenu extends React.Component {
 
    return (
      <IconButton
-       color="contrast"
+       color="inherit"
        aria-label="Menu"
        onClick={this.toggleMenu}
      >
        <MenuIcon/>
        <Drawer
-         anchor="right"
          open={this.state.isOpen}
          onClose={this.toggleMenu}
        >
