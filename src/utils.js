@@ -5,7 +5,7 @@ const Utils = {
     if (max) {
       return `${arr.slice(0, max).reduce((acc, i) => `${acc}, ${i}`)} ..`;
     } else {
-      return arr.reduce((acc, i) => `${acc}, ${i}`);
+      return arr.length && arr.reduce((acc, i) => `${acc}, ${i}`) || '';
     }
   },
   truncate: (str, length) => {
