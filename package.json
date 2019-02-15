@@ -26,6 +26,6 @@
     "build:cp":"cp -rf build/* ../action-therapy-site",
     "test": "react-scripts test --env=jsdom",
     "eject": "react-scripts eject",
-    "ss":"S='hh dd' && git commit -am '`$S`' "
+    "ss":"S='hh dd' && git commit -am '`echo $S`' "
   }
 }
