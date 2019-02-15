@@ -20,7 +20,7 @@
   "scripts": {
     "start": "REACT_APP_SITE_PATH='at/..' react-scripts start",
     "build": "REACT_APP_SITE_PATH=action-therapy react-scripts build",
-    "upload":"npm run build && cp -rf build/* ../action-theraphy-site/ && MSG=$(git log -1 --pretty=%s) cd ../action-theraphy-site && git add . && git commit -m $MSG && git push origin master",
+    "upload":"npm run build && cp -rf build/* ../action-theraphy-site/ && MSG=$(git log -1 --pretty=%s) cd ../action-theraphy-site && git add . && git commit -m '$(echo $MSG)' && git push origin master",
     "test": "react-scripts test --env=jsdom",
     "eject": "react-scripts eject"
   }
