@@ -5,6 +5,6 @@
 /coverage
 
 # build
-/build
+src/build/*
 
 npm-debug.log*
