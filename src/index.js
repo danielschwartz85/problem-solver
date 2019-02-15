@@ -7,7 +7,7 @@ import './index.css';
 import 'typeface-roboto';
 
 ReactDOM.render(
-  <Provider store={store}>
+  <Provider store={store} a=true>
     <AppContainer/>
   </Provider>,
   document.getElementById('app'));
