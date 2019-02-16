@@ -125,7 +125,8 @@ const Config = {
       newName: "שם פרטי חדש",
       pastDomino: "מקומי מהעבר? דו מי נו",
       futureDomino: "מי אני רוצה להיות? מי דו נו",
-      problemType: "סוג קונלפיקט"
+      problemType: "סוג קונלפיקט",
+      problemPlanted: "סיפור הפתרון"
     }
   }
 }

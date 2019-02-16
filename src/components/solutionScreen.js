@@ -16,6 +16,7 @@ class SolutionScreen extends React.Component {
       'pastDomino'
     ];
     this.beeingKeys = [
+      'problemPlanted',
       'transformationVerbs',
       'newName',
       'futureDomino'
@@ -54,7 +55,7 @@ class SolutionScreen extends React.Component {
         header={Config.solutionScreen.man.header}
         subHeader={Config.solutionScreen.man.subHeader}
         description={Config.solutionScreen.man.description}
-        imageUrl={`/${process.env.REACT_APP_SITE_PATH}/manCard.jpg`}
+        imageUrl={`/${process.env.REACT_APP_SITE_PATH}/past.jpg`}
       />
     );
 
@@ -64,7 +65,7 @@ class SolutionScreen extends React.Component {
         header={Config.solutionScreen.beeing.header}
         subHeader={Config.solutionScreen.beeing.subHeader}
         description={Config.solutionScreen.beeing.description}
-        imageUrl={`/${process.env.REACT_APP_SITE_PATH}/beeingCard.jpg`}
+        imageUrl={`/${process.env.REACT_APP_SITE_PATH}/future.jpg`}
       />
     );
 
