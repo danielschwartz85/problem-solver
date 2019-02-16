@@ -16,9 +16,10 @@ class SolutionScreen extends React.Component {
       'pastDomino'
     ];
     this.beeingKeys = [
+      'problemPlanted',
       'transformationVerbs',
       'newName',
-      'futureDomino'
+      'futureDomino',
     ];
   }
 
