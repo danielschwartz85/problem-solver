@@ -3,16 +3,15 @@ import PropTypes from 'prop-types';
 import { withStyles } from '@material-ui/core/styles';
 import Tabs from '@material-ui/core/Tabs';
 import Tab from '@material-ui/core/Tab';
-import IconHistory from '@material-ui/icons/History';
-import IconReportProblem from '@material-ui/icons/ReportProblem';
-import IconAccessibility from '@material-ui/icons/Accessibility';
-import IconMoodBad from '@material-ui/icons/MoodBad';
-import IconTransfer from '@material-ui/icons/TransferWithinAStation';
-import IconAssignment from '@material-ui/icons/AssignmentInd';
-import IconPermIdentity from '@material-ui/icons/PermIdentity';
-import IconSquare from '@material-ui/icons/CropSquare';
+import IconPastVerb from '@material-ui/icons/Iso';
+import IconProblem from '@material-ui/icons/Help';
+import IconVerbExtract from '@material-ui/icons/AddShoppingCart';
+import IconNegativeVerbs from '@material-ui/icons/BugReport';
+import IconTransformation from '@material-ui/icons/PowerSettingsNew';
+import IconName from '@material-ui/icons/TrendingUp';
+import IconNewName from '@material-ui/icons/Group';
+import IconPastDomino from '@material-ui/icons/FilterVintage';
 import IconTriangle from '@material-ui/icons/ChangeHistory';
-import Visibility from '@material-ui/icons/Visibility';
 import Config from '../../config';
 import Utils from '../../utils';
 
@@ -26,16 +25,16 @@ class TopMenu extends React.Component {
   constructor(props) {
     super(props);
     this.pages = [
-      {name: 'problem', icon: IconReportProblem, key: 'description'},
-      {name: 'verbExtract', icon: IconAccessibility, key: 'verbs'},
-      {name: 'pastVerbs', icon: IconHistory, key: 'pastVerbs'},
-      {name: 'negativeVerbs', icon: IconMoodBad, key: 'negativeVerbs'},
-      {name: 'transformation', icon: IconTransfer, key: 'transformationVerbs'},
-      {name: 'name', icon: IconAssignment, key: 'name'},
-      {name: 'newName', icon: IconPermIdentity, key: 'newName'},
-      {name: 'pastDomino', icon: IconSquare, key: 'pastDomino'},
+      {name: 'problem', icon: IconProblem, key: 'description'},
+      {name: 'verbExtract', icon: IconVerbExtract, key: 'verbs'},
+      {name: 'pastVerbs', icon: IconPastVerb, key: 'pastVerbs'},
+      {name: 'negativeVerbs', icon: IconNegativeVerbs, key: 'negativeVerbs'},
+      {name: 'transformation', icon: IconTransformation, key: 'transformationVerbs'},
+      {name: 'name', icon: IconName, key: 'name'},
+      {name: 'newName', icon: IconNewName, key: 'newName'},
+      {name: 'pastDomino', icon: IconPastDomino, key: 'pastDomino'},
       {name: 'futureDomino', icon: IconTriangle, key: 'futureDomino'},
-      {name: 'problemPlanted', icon: Visibility, key: 'problemPlanted'},
+      {name: 'problemPlanted', icon: IconTransformation, key: 'problemPlanted'},
     ];
   }
 
