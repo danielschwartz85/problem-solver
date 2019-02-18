@@ -120,7 +120,7 @@ export function createProblemRejected(error) {
 export function createProblem(problem) {
   let problems = getItem('problems');
   problems = (problems && JSON.parse(problems)) || {};
-  const ids = Object.keys(problems).sort((a, b) => (Number(a) - Number(b)));
+  const ids = Object.keys(problems).map(id => Number(id)).sort();
   const newId = ((ids.length && ids[ids.length -1]) || 0) + 1;
   problems[newId] = { ...problem, updatedAt: Date.now() };
   cleanProblem(problems[newId])
