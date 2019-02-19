@@ -64,6 +64,8 @@ class ProblemPlanted extends React.Component {
               onChange={this.onChange}
               fullWidth={true}
               margin="normal"
+              rows="5"
+              multiline
             />
           </Grid>
         </Grid>
