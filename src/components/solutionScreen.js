@@ -3,6 +3,7 @@ import Grid from '@material-ui/core/Grid';
 import SolutionCard from './solutionCard';
 import Config from '../config';
 import Utils from '../utils';
+import {Red, DarkGreen} from './themes'
 
 class SolutionScreen extends React.Component {
   constructor(props) {
@@ -49,13 +50,16 @@ class SolutionScreen extends React.Component {
       return acc
     }, {});
 
+    // The two image: https://icons8.com/license
+    // requires a link to the site formally (for private and commercial use).
+
     const manCard = (
       <SolutionCard
         content={manTexts}
         header={Config.solutionScreen.man.header}
         subHeader={Config.solutionScreen.man.subHeader}
         description={Config.solutionScreen.man.description}
-        imageUrl={`/${process.env.REACT_APP_SITE_PATH}/manCard.jpg`}
+        imageUrl={`/${process.env.REACT_APP_SITE_PATH}/face.png`}
       />
     );
 
@@ -65,17 +69,17 @@ class SolutionScreen extends React.Component {
         header={Config.solutionScreen.beeing.header}
         subHeader={Config.solutionScreen.beeing.subHeader}
         description={Config.solutionScreen.beeing.description}
-        imageUrl={`/${process.env.REACT_APP_SITE_PATH}/beeingCard.jpg`}
+        imageUrl={`/${process.env.REACT_APP_SITE_PATH}/plane.png`}
       />
     );
 
     return (
       <Grid container spacing={16}>
         <Grid item xs={12} sm={6}>
-          {beeingCard}
+          <DarkGreen>{beeingCard}</DarkGreen>
         </Grid>
         <Grid item xs={12} sm={6}>
-          {manCard}
+          <Red>{manCard}</Red>
         </Grid>
       </Grid>
     );

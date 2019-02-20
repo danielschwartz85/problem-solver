@@ -155,7 +155,7 @@ class ProblemScreen extends React.Component {
           message={<span id="message-id">{snackbarMessage}</span>}
           action={retryButton}
         />
-        <CardMedia className={classes.media} image={`/${process.env.REACT_APP_SITE_PATH}/cardBgrd.jpg`} >
+        <CardMedia className={classes.media} image={`/${process.env.REACT_APP_SITE_PATH}/welcome.jpg`} >
           {menu}
         </CardMedia>
         <CardContent>
@@ -170,7 +170,7 @@ class ProblemScreen extends React.Component {
           </Typography>
         </CardContent>
         <CardActions>
-          <Button color="primary" onClick={this.onViewProblemClicked}>
+          <Button onClick={this.onViewProblemClicked}>
             {Config.problemScreen.showBookText}
           </Button>
         </CardActions>
@@ -185,7 +185,7 @@ class ProblemScreen extends React.Component {
             <CircularProgress
               className={classes.progress}
               thickness={5}
-              color="secondary"
+              color="primary"
             />
           </Grid>
         </Grid>

@@ -5,12 +5,11 @@ import Card from '@material-ui/core/Card';
 import Button from '@material-ui/core/Button';
 import PropTypes from 'prop-types';
 import { withStyles } from '@material-ui/core/styles';
-import SecondaryTheme from './themes/secondaryTheme';
+import {Red, Orange, Green} from './themes';
 import Typography from '@material-ui/core/Typography';
 import Snackbar from '@material-ui/core/Snackbar';
 import Config from '../config';
 import Utils from '../utils';
-import Fade from '@material-ui/core/Fade';
 import CircularProgress from '@material-ui/core/CircularProgress';
 import Grid from '@material-ui/core/Grid';
 
@@ -131,7 +130,8 @@ class EditPage extends React.Component {
                 onChange={this.onChange}
               />,
         header: Config.pages.problem.description,
-        valid: () => Utils.isValid(this.props.draft, 'description')
+        valid: () => Utils.isValid(this.props.draft, 'description'),
+        theme: Red
       },
       {
         page: <VerbExtract
@@ -140,7 +140,8 @@ class EditPage extends React.Component {
                 onChange={this.onChange}
               />,
         header: Config.pages.verbExtract.description,
-        valid: () => Utils.isValid(this.props.draft, 'verbs')
+        valid: () => Utils.isValid(this.props.draft, 'verbs'),
+        theme: Red
       },
       {
         page: <PastVerbSelect
@@ -149,7 +150,8 @@ class EditPage extends React.Component {
                 pastVerbs={this.props.draft.pastVerbs}
               />,
         header: Config.pages.pastVerbs.description,
-        valid: () => Utils.isValid(this.props.draft, 'pastVerbs')
+        valid: () => Utils.isValid(this.props.draft, 'pastVerbs'),
+        theme: Orange
       },
       {
         page: <NegativeVerbSelect
@@ -158,7 +160,8 @@ class EditPage extends React.Component {
                 negativeVerbs={this.props.draft.negativeVerbs}
               />,
         header: Config.pages.negativeVerbs.description,
-        valid: () => Utils.isValid(this.props.draft, 'negativeVerbs')
+        valid: () => Utils.isValid(this.props.draft, 'negativeVerbs'),
+        theme: Red
       },
       {
         page: <Transformation
@@ -167,7 +170,8 @@ class EditPage extends React.Component {
                 transformationVerbs={this.props.draft.transformationVerbs}
               />,
         header: Config.pages.transformation.description,
-        valid: () => Utils.isValid(this.props.draft, 'transformationVerbs')
+        valid: () => Utils.isValid(this.props.draft, 'transformationVerbs'),
+        theme: Green
       },
       {
         page: <Name
@@ -175,7 +179,8 @@ class EditPage extends React.Component {
                 name={this.props.draft.name}
               />,
         header: Config.pages.name.description,
-        valid: () => Utils.isValid(this.props.draft, 'name')
+        valid: () => Utils.isValid(this.props.draft, 'name'),
+        theme: Red
       },
       {
         page: <NewName
@@ -184,7 +189,8 @@ class EditPage extends React.Component {
                 transformationVerbs={this.props.draft.transformationVerbs}
               />,
         header: Config.pages.newName.description,
-        valid: () => Utils.isValid(this.props.draft, 'newName')
+        valid: () => Utils.isValid(this.props.draft, 'newName'),
+        theme: Green
       },
       {
         page: <PastDomino
@@ -192,7 +198,8 @@ class EditPage extends React.Component {
                 pastDomino={this.props.draft.pastDomino}
               />,
         header: Config.pages.pastDomino.description,
-        valid: () => Utils.isValid(this.props.draft, 'pastDomino')
+        valid: () => Utils.isValid(this.props.draft, 'pastDomino'),
+        theme: Red
       },
       {
         page: <FutureDomino
@@ -200,7 +207,8 @@ class EditPage extends React.Component {
                 futureDomino={this.props.draft.futureDomino}
               />,
         header: Config.pages.futureDomino.description,
-        valid: () => Utils.isValid(this.props.draft, 'futureDomino')
+        valid: () => Utils.isValid(this.props.draft, 'futureDomino'),
+        theme: Green
       },
       {
         page: <ProblemPlanted
@@ -210,7 +218,8 @@ class EditPage extends React.Component {
                 problemPlanted={this.props.draft.problemPlanted}
               />,
         header: Config.pages.problemPlanted.description,
-        valid: () => Utils.isValid(this.props.draft, 'problemPlanted')
+        valid: () => Utils.isValid(this.props.draft, 'problemPlanted'),
+        theme: Green
       }
     ];
     const currentPage = pages[this.props.selectedPage];
@@ -236,40 +245,42 @@ class EditPage extends React.Component {
     }
 
     const card = (
-      <Card className={classes.card}>
-        <CardContent>
-          <Typography
-            type="headline"
-            component="h2"
-            className={classes.typography}
-          >
-            {currentPage.header}
-          </Typography>
-          {currentPage.page}
-        </CardContent>
-        <CardActions>
-          <Button
-            disabled={!isFirstPage}
-            onClick={() => this.onPageSelected(-1)}
-          >
-            {Config.pages.back}
-          </Button>
-          <Button
-            disabled={!nextEnabled}
-            onClick={() => this.onPageSelected(1)}
-          >
-            {Config.pages.next}
-          </Button>
-          {showSave && (
-            <Button
-              onClick={this.saveCurrentProblem}
-              disabled={!this.saveEnabled}
+      <currentPage.theme>
+        <Card className={classes.card}>
+          <CardContent>
+            <Typography
+              type="headline"
+              component="h2"
+              className={classes.typography}
             >
-              {Config.pages.save}
+              {currentPage.header}
+            </Typography>
+            {currentPage.page}
+          </CardContent>
+          <CardActions>
+            <Button
+              disabled={!isFirstPage}
+              onClick={() => this.onPageSelected(-1)}
+            >
+              {Config.pages.back}
             </Button>
-          )}
-        </CardActions>
-      </Card>
+            <Button
+              disabled={!nextEnabled}
+              onClick={() => this.onPageSelected(1)}
+            >
+              {Config.pages.next}
+            </Button>
+            {showSave && (
+              <Button
+                onClick={this.saveCurrentProblem}
+                disabled={!this.saveEnabled}
+              >
+                {Config.pages.save}
+              </Button>
+            )}
+          </CardActions>
+        </Card>
+      </currentPage.theme>
     );
 
     let snackbarMessage, retryButton = null;
@@ -285,18 +296,17 @@ class EditPage extends React.Component {
     }
 
     return (
-      <SecondaryTheme>
+      <div>
         <Snackbar className={classes.snackbar}
           anchorOrigin={{ vertical: 'top', horizontal: 'left' }}
           open={this.state.showSavedMessage || this.state.showErrorMessage}
           onClose={this.closeSnackbar}
           autoHideDuration={this.state.showSavedMessage ? 1500 : 10000}
-          transition={Fade}
           message={<span id="message-id">{snackbarMessage}</span>}
           action={retryButton}
         />
         {loadingSection || card}
-      </SecondaryTheme>
+      </div>
     );
   }
 }

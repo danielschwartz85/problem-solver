@@ -49,10 +49,10 @@ class ProblemAppBar extends React.Component {
       <div className={classes.root}>
         <AppBar position="fixed">
           <Toolbar className={classes.appbar}>
-            <SideMenuContainer
-              onProblemSelected={this.onProblemSelected}
-              onNewProblemSelected={this.onNewProblemSelected}
-            />
+              <SideMenuContainer
+                onProblemSelected={this.onProblemSelected}
+                onNewProblemSelected={this.onNewProblemSelected}
+              />
             {topMenu}
           </Toolbar>
         </AppBar>

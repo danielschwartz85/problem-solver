@@ -1,5 +1,5 @@
 import React from 'react';
-import MainTheme from './themes/mainTheme';
+import {Main} from './themes';
 import Grid from '@material-ui/core/Grid';
 import { withStyles } from '@material-ui/core/styles';
 import PropTypes from 'prop-types';
@@ -128,7 +128,7 @@ class App extends React.Component {
             <CircularProgress
               className={classes.progress}
               thickness={5}
-              color="secondary"
+              color="primary"
             />
           </Grid>
         </Grid>
@@ -137,7 +137,7 @@ class App extends React.Component {
 
     return (
       <JssProvider jss={jss} generateClassName={generateClassName}>
-        <MainTheme>
+        <Main>
           <BrowserRouter>
             <div className={classes.root}>
               <Grid container spacing={8}>
@@ -148,7 +148,7 @@ class App extends React.Component {
               </Grid>
             </div>
           </BrowserRouter>
-        </MainTheme>
+        </Main>
       </JssProvider>
     );
   };
