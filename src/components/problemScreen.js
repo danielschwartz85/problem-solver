@@ -162,11 +162,11 @@ class ProblemScreen extends React.Component {
           <Typography type="headline" component="h2">
             {Utils.truncate(this.problem.problemPlanted || this.problem.description, 150)}
           </Typography>
-          <Typography component="p">
-            {Utils.transformationSentence(this.problem)}
-          </Typography>
           <Typography type="subheading" color="textSecondary">
             {Utils.problemTypeSentence(this.problem)}
+          </Typography>
+          <Typography component="p">
+            {Utils.transformationSentence(this.problem)}
           </Typography>
         </CardContent>
         <CardActions>
