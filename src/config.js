@@ -92,6 +92,7 @@ const Config = {
     deleteText: "מחק",
     sendText: "שלח",
     shareText: "שתף",
+    shareUrlPrefix: "נוצר עם",
     problemSubject: "הבעיה של",
     retryDeleteText: "נסה שוב",
     deleteErrorMessage: "אופס..לא הצלחנו למחוק את הבעיה :"
