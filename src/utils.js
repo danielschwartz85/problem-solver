@@ -84,7 +84,7 @@ const Utils = {
       return Config.solutionScreen.man.hidingConflict
     }
   },
-  problemToText: (problem) => {
+  problemToText: (problem, boldIt=false) => {
     Utils.transformationSentence(problem);
     const past = problem.pastVerbs.reduce((acc,i) => (
       acc = `${acc}${acc ? ', ' : ''}${problem.verbs[i]}`
@@ -93,16 +93,17 @@ const Utils = {
       acc = `${acc}${acc ? ', ' : ''}${problem.verbs[i]}`
     ), "");
     const { pages } = Config;
-    let problemText = `${pages.problem.tab.name}: ${problem.description}\n`;
-    problemText += `${pages.verbExtract.tab.name}: ${problem.verbs.join(',')}\n`;
-    problemText += `${pages.pastVerbs.tab.name}: ${past}\n`;
-    problemText += `${pages.negativeVerbs.tab.name}: ${negative}\n`;
-    problemText += `${pages.transformation.tab.name}: ${Utils.transformationSentence(problem)}\n`;
-    problemText += `${pages.name.tab.name}: ${problem.name}\n`;
-    problemText += `${pages.newName.tab.name}: ${problem.newName}\n`;
-    problemText += `${pages.pastDomino.tab.name}: ${problem.pastDomino}\n`;
-    problemText += `${pages.futureDomino.tab.name}: ${problem.futureDomino}\n`;
-    problemText += `${pages.problemPlanted.tab.name}: ${problem.problemPlanted}\n`;
+    const b = boldIt ? '*' : '';
+    let problemText = `${b}${pages.problem.tab.name}:${b}\n${problem.description}\n`;
+    problemText += `${b}${pages.verbExtract.tab.name}:${b}\n${problem.verbs.join(', ')}\n`;
+    problemText += `${b}${pages.pastVerbs.tab.name}:${b}\n${past}\n`;
+    problemText += `${b}${pages.negativeVerbs.tab.name}:${b}\n${negative}\n`;
+    problemText += `${b}${pages.transformation.tab.name}:${b}\n${Utils.transformationSentence(problem)}\n`;
+    problemText += `${b}${pages.name.tab.name}:${b}\n${problem.name}\n`;
+    problemText += `${b}${pages.newName.tab.name}:${b}\n${problem.newName}\n`;
+    problemText += `${b}${pages.pastDomino.tab.name}:${b}\n${problem.pastDomino}\n`;
+    problemText += `${b}${pages.futureDomino.tab.name}:${b}\n${problem.futureDomino}\n`;
+    problemText += `${b}${pages.problemPlanted.tab.name}:${b}\n${problem.problemPlanted}\n`;
     return problemText;
   },
   problemToTitleText: (problem) => {
