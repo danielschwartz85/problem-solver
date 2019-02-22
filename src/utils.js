@@ -84,7 +84,7 @@ const Utils = {
       return Config.solutionScreen.man.hidingConflict
     }
   },
-  problemToText: (problem, boldIt=false) => {
+  problemToText: (problem, isWhatsapp=false) => {
     Utils.transformationSentence(problem);
     const past = problem.pastVerbs.reduce((acc,i) => (
       acc = `${acc}${acc ? ', ' : ''}${problem.verbs[i]}`
@@ -93,17 +93,19 @@ const Utils = {
       acc = `${acc}${acc ? ', ' : ''}${problem.verbs[i]}`
     ), "");
     const { pages } = Config;
-    const b = boldIt ? '*' : '';
-    let problemText = `${b}${pages.problem.tab.name}:${b}\n${problem.description}\n`;
-    problemText += `${b}${pages.verbExtract.tab.name}:${b}\n${problem.verbs.join(', ')}\n`;
-    problemText += `${b}${pages.pastVerbs.tab.name}:${b}\n${past}\n`;
-    problemText += `${b}${pages.negativeVerbs.tab.name}:${b}\n${negative}\n`;
-    problemText += `${b}${pages.transformation.tab.name}:${b}\n${Utils.transformationSentence(problem)}\n`;
-    problemText += `${b}${pages.name.tab.name}:${b}\n${problem.name}\n`;
-    problemText += `${b}${pages.newName.tab.name}:${b}\n${problem.newName}\n`;
-    problemText += `${b}${pages.pastDomino.tab.name}:${b}\n${problem.pastDomino}\n`;
-    problemText += `${b}${pages.futureDomino.tab.name}:${b}\n${problem.futureDomino}\n`;
-    problemText += `${b}${pages.problemPlanted.tab.name}:${b}\n${problem.problemPlanted}\n`;
+    const b = isWhatsapp ? '*' : '';
+    const add = em => isWhatsapp ? `${em} *` : '';
+
+    let problemText = `${add('❓')}${pages.problem.tab.name}:${b}\n${problem.description}\n`;
+    problemText += `${add('🛒')}${pages.verbExtract.tab.name}:${b}\n${problem.verbs.join(', ')}\n`;
+    problemText += `${add('🔋')}${pages.pastVerbs.tab.name}:${b}\n${past}\n`;
+    problemText += `${add('🐞')}${pages.negativeVerbs.tab.name}:${b}\n${negative}\n`;
+    problemText += `${add('🚀')}${pages.transformation.tab.name}:${b}\n${Utils.transformationSentence(problem)}\n`;
+    problemText += `${add('🧗')}${pages.name.tab.name}:${b}\n${problem.name}\n`;
+    problemText += `${add('👥')}${pages.newName.tab.name}:${b}\n${problem.newName}\n`;
+    problemText += `${add('☮')}${pages.pastDomino.tab.name}:${b}\n${problem.pastDomino}\n`;
+    problemText += `${add('🔼')}${pages.futureDomino.tab.name}:${b}\n${problem.futureDomino}\n`;
+    problemText += `${add('🧿')}${pages.problemPlanted.tab.name}:${b}\n${problem.problemPlanted}\n`;
     return problemText;
   },
   problemToTitleText: (problem) => {
