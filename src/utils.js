@@ -96,16 +96,16 @@ const Utils = {
     const b = isWhatsapp ? '*' : '';
     const add = em => isWhatsapp ? `${em} *` : '';
 
-    let problemText = `${add('❓')}${pages.problem.tab.name}:${b}\n${problem.description}\n`;
-    problemText += `${add('🛒')}${pages.verbExtract.tab.name}:${b}\n${problem.verbs.join(', ')}\n`;
-    problemText += `${add('🔋')}${pages.pastVerbs.tab.name}:${b}\n${past}\n`;
-    problemText += `${add('🐞')}${pages.negativeVerbs.tab.name}:${b}\n${negative}\n`;
-    problemText += `${add('🚀')}${pages.transformation.tab.name}:${b}\n${Utils.transformationSentence(problem)}\n`;
-    problemText += `${add('🧗')}${pages.name.tab.name}:${b}\n${problem.name}\n`;
-    problemText += `${add('👥')}${pages.newName.tab.name}:${b}\n${problem.newName}\n`;
-    problemText += `${add('☮')}${pages.pastDomino.tab.name}:${b}\n${problem.pastDomino}\n`;
-    problemText += `${add('🔼')}${pages.futureDomino.tab.name}:${b}\n${problem.futureDomino}\n`;
-    problemText += `${add('🔆')}${pages.problemPlanted.tab.name}:${b}\n${problem.problemPlanted}\n`;
+    let problemText = `${add('❓')}${pages.problem.tab.name}:${b}\n${problem.description}\n\n`;
+    problemText += `${add('🛒')}${pages.verbExtract.tab.name}:${b}\n${problem.verbs.join(', ')}\n\n`;
+    problemText += `${add('🔋')}${pages.pastVerbs.tab.name}:${b}\n${past}\n\n`;
+    problemText += `${add('🐞')}${pages.negativeVerbs.tab.name}:${b}\n${negative}\n\n`;
+    problemText += `${add('🚀')}${pages.transformation.tab.name}:${b}\n${Utils.transformationSentence(problem)}\n\n`;
+    problemText += `${add('🧗')}${pages.name.tab.name}:${b}\n${problem.name}\n\n`;
+    problemText += `${add('👥')}${pages.newName.tab.name}:${b}\n${problem.newName}\n\n`;
+    problemText += `${add('☮')}${pages.pastDomino.tab.name}:${b}\n${problem.pastDomino}\n\n`;
+    problemText += `${add('🔼')}${pages.futureDomino.tab.name}:${b}\n${problem.futureDomino}\n\n`;
+    problemText += `${add('🔆')}${pages.problemPlanted.tab.name}:${b}\n${problem.problemPlanted}\n\n`;
     return problemText;
   },
   problemToTitleText: (problem) => {

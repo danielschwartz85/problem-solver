@@ -17,7 +17,7 @@ import ListItemIcon from '@material-ui/core/ListItemIcon'
 import ListItemText from '@material-ui/core/ListItemText'
 import DeleteForever from '@material-ui/icons/DeleteForever';
 import Edit from '@material-ui/icons/Edit';
-import Send from '@material-ui/icons/Send';
+import Email from '@material-ui/icons/Email';
 import Share from '@material-ui/icons/Share';
 import CircularProgress from '@material-ui/core/CircularProgress';
 import Grid from '@material-ui/core/Grid';
@@ -87,7 +87,7 @@ class ProblemScreen extends React.Component {
     const mailBody = Utils.problemToText(this.problem);
     const subject = Utils.problemToTitleText(this.problem);
     const lString = `mailto:?subject=${subject}&body=${mailBody}`;
-    window.location = lString.replace(/\n/g, escape('\r\n')+escape('\r\n'));
+    window.location = lString.replace(/\n/g, escape('\r\n'));
   }
 
   handleShare = () => {
@@ -135,7 +135,7 @@ class ProblemScreen extends React.Component {
           </MenuItem>
           <MenuItem onClick={this.handleSend}>
             <ListItemIcon>
-              <Send/>
+              <Email/>
             </ListItemIcon>
             <ListItemText inset primary={Config.problemScreen.sendText} />
           </MenuItem>

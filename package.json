@@ -18,7 +18,7 @@
     "typeface-roboto": "0.0.45"
   },
   "scripts": {
-    "start": "REACT_APP_SITE_PATH=action-therapy react-scripts start",
+    "start": "REACT_APP_SITE_PATH='at/..' react-scripts start",
     "build": "REACT_APP_SITE_PATH=action-therapy react-scripts build",
     "build:pub":"npm run build && npm run build:fix && npm run build:cp && npm run build:push",
     "build:fix":"sed -i 's/\\/static\\/css\\//\\/action-therapy\\/static\\/css\\//g' build/index.html && sed -i 's/\\/static\\/js\\//\\/action-therapy\\/static\\/js\\//g' build/index.html",
