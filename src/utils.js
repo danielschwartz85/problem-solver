@@ -105,8 +105,11 @@ const Utils = {
     problemText += `${pages.problemPlanted.tab.name}: ${problem.problemPlanted}\n`;
     return problemText;
   },
-  problemToSubject: (problem) => {
+  problemToTitleText: (problem) => {
     return `${Config.problemScreen.problemSubject} ${problem.name}`;
+  },
+  problemUrl: () => {
+    return `${document.location.origin}/${process.env.REACT_APP_SITE_PATH}`;
   }
 }
 

@@ -85,15 +85,17 @@ class ProblemScreen extends React.Component {
 
   handleSend = () => {
     const mailBody = Utils.problemToText(this.problem);
-    const subject = Utils.problemToSubject(this.problem);
+    const subject = Utils.problemToTitleText(this.problem);
     const lString = `mailto:?subject=${subject}&body=${mailBody}`;
     window.location = lString.replace(/\n/g, escape('\r\n')+escape('\r\n'));
   }
 
   handleShare = () => {
     const problem = Utils.problemToText(this.problem);
-    const title = Utils.problemToSubject(this.problem);
-    window.location = `whatsapp://send?text=${title}\n${problem}`.replace(/\n/g, escape('\r\n')+escape('\r\n'));
+    const title = Config.problemScreen.shareTitle;
+    const url = `${Utils.problemUrl()} ${Config.problemScreen.shareUrlPrefix}`;
+    console.log(`${title}\n${problem}\n${url}`)
+    window.location = `whatsapp://send?text=${title}\n${problem}\n${url}`.replace(/\n/g, escape('\r\n')+escape('\r\n'));
   }
 
   get problem() {
