@@ -92,7 +92,7 @@ class ProblemScreen extends React.Component {
 
   handleShare = () => {
     const problem = Utils.problemToText(this.problem, true).trim();
-    window.location = `whatsapp://send?text=${problem}`.replace(/\n/g, escape('\r\n')+escape('\r\n'));
+    window.location = `whatsapp://send?text=${problem}`.replace(/\n/g, escape('\r\n'));
   }
 
   get problem() {
