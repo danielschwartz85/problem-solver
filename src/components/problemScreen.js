@@ -18,6 +18,7 @@ import ListItemText from '@material-ui/core/ListItemText'
 import DeleteForever from '@material-ui/icons/DeleteForever';
 import Edit from '@material-ui/icons/Edit';
 import Send from '@material-ui/icons/Send';
+import Share from '@material-ui/icons/Share';
 import CircularProgress from '@material-ui/core/CircularProgress';
 import Grid from '@material-ui/core/Grid';
 import Snackbar from '@material-ui/core/Snackbar';
@@ -89,6 +90,11 @@ class ProblemScreen extends React.Component {
     window.location = lString.replace(/\n/g, escape('\r\n')+escape('\r\n'));
   }
 
+  handleShare = () => {
+    const problem = Utils.problemToText(this.problem);
+    window.location = `whatsapp://send?text=${problem}`.replace(/\n/g, escape('\r\n')+escape('\r\n'));
+  }
+
   get problem() {
     return this.props.problems && this.props.problems[this.props.selectedProblemId];
   }
@@ -132,6 +138,12 @@ class ProblemScreen extends React.Component {
               <Send/>
             </ListItemIcon>
             <ListItemText inset primary={Config.problemScreen.sendText} />
+          </MenuItem>
+          <MenuItem onClick={this.handleShare}>
+            <ListItemIcon>
+              <Share/>
+            </ListItemIcon>
+            <ListItemText inset primary={Config.problemScreen.shareText} />
           </MenuItem>
         </Menu>
       </div>
