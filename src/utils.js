@@ -105,7 +105,7 @@ const Utils = {
     problemText += `${add('👥')}${pages.newName.tab.name}:${b}\n${problem.newName}\n`;
     problemText += `${add('☮')}${pages.pastDomino.tab.name}:${b}\n${problem.pastDomino}\n`;
     problemText += `${add('🔼')}${pages.futureDomino.tab.name}:${b}\n${problem.futureDomino}\n`;
-    problemText += `${add('🧿')}${pages.problemPlanted.tab.name}:${b}\n${problem.problemPlanted}\n`;
+    problemText += `${add('🔆')}${pages.problemPlanted.tab.name}:${b}\n${problem.problemPlanted}\n`;
     return problemText;
   },
   problemToTitleText: (problem) => {
