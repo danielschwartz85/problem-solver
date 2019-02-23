@@ -8,7 +8,6 @@ import EditPageContainer from '../containers/editPage';
 import SolutionScreenContainer from '../containers/solutionScreen';
 import ProblemScreenContainer from '../containers/problemScreen';
 import WelcomeScreenContainer from '../containers/welcomeScreen';
-import Utils from '../utils';
 import { HashRouter, Route } from 'react-router-dom';
 import CircularProgress from '@material-ui/core/CircularProgress';
 import { create } from 'jss';
@@ -50,21 +49,21 @@ class App extends React.Component {
 
   onNewProblemSelected = (history) => () => {
     if (this.isLoading) return;
-    history.push(`${Utils.sitePrefix}/problems/new/1`);
+    history.push(`/problems/new/1`);
   }
 
   onProblemSelected = (history) => (id) => {
     if (this.isLoading) return;
-    history.push(`${Utils.sitePrefix}/problems/${id}`);
+    history.push(`/problems/${id}`);
   }
 
   onEditorSelected = (history, id) => () => {
     if (this.isLoading) return;
-    history.push(`${Utils.sitePrefix}/problems/${id}/edit/1`);
+    history.push(`/problems/${id}/edit/1`);
   }
 
   onSolutionSelected = (history, id) => () => {
-    history.push(`${Utils.sitePrefix}/problems/${id}/solution`);
+    history.push(`/problems/${id}/solution`);
   }
 
   get isLoading () {
@@ -80,7 +79,7 @@ class App extends React.Component {
         onEditorSelected={this.onEditorSelected(history, match.params.id)}
         selectedProblemId={match.params.id}
         onSolutionSelected={this.onSolutionSelected(history, match.params.id)}
-        onHomeSelected={() => history.push(Utils.sitePrefix) }
+        onHomeSelected={() => history.push('') }
       />
     );
     const solutionScreen = ({match}) => (
