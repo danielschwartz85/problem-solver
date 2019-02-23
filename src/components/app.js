@@ -50,21 +50,21 @@ class App extends React.Component {
 
   onNewProblemSelected = (history) => () => {
     if (this.isLoading) return;
-    history.replace('/problems/new/1');
+    history.push(`${Utils.sitePrefix}/problems/new/1`);
   }
 
   onProblemSelected = (history) => (id) => {
     if (this.isLoading) return;
-    history.replace(`/problems/${id}`);
+    history.push(`${Utils.sitePrefix}/problems/${id}`);
   }
 
   onEditorSelected = (history, id) => () => {
     if (this.isLoading) return;
-    history.replace(`/problems/${id}/edit/1`);
+    history.push(`${Utils.sitePrefix}/problems/${id}/edit/1`);
   }
 
   onSolutionSelected = (history, id) => () => {
-    history.replace(`/problems/${id}/solution`);
+    history.push(`${Utils.sitePrefix}/problems/${id}/solution`);
   }
 
   get isLoading () {
@@ -80,7 +80,7 @@ class App extends React.Component {
         onEditorSelected={this.onEditorSelected(history, match.params.id)}
         selectedProblemId={match.params.id}
         onSolutionSelected={this.onSolutionSelected(history, match.params.id)}
-        onHomeSelected={() => history.replace(Utils.sitePrefix) }
+        onHomeSelected={() => history.push(Utils.sitePrefix) }
       />
     );
     const solutionScreen = ({match}) => (
