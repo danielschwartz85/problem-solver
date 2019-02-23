@@ -8,6 +8,7 @@ import CardActions from '@material-ui/core/CardActions';
 import Button from '@material-ui/core/Button';
 import Typography from '@material-ui/core/Typography';
 import Config from '../config';
+import Utils from '../utils';
 import {DarkGreen} from './themes';
 
 const styles = theme => ({
@@ -42,7 +43,7 @@ class WelcomeScreen extends React.Component {
     return (
       <DarkGreen>
         <Card className={classes.card}>
-          <CardMedia className={classes.media} image={`/${process.env.REACT_APP_SITE_PATH}/welcome.jpg`} />
+          <CardMedia className={classes.media} image={`${Utils.sitePrefix}welcome.jpg`} />
           <CardContent>
             <Typography type="headline" component="h2">
               {Config.welcomeScreen.header}

@@ -92,7 +92,7 @@ class ProblemScreen extends React.Component {
 
   handleShare = () => {
     const problem = Utils.problemToText(this.problem, true).trim();
-    const url = `🧿 *${Config.problemScreen.shareUrlPrefix}* ${Utils.problemUrl()}`;
+    const url = `🧿 *${Config.problemScreen.shareUrlPrefix}* ${Utils.problemUrl}`;
     window.location = `whatsapp://send?text=${problem}\n\n${url}`.replace(/\n/g, escape('\r\n'));
   }
 
@@ -168,7 +168,7 @@ class ProblemScreen extends React.Component {
           message={<span id="message-id">{snackbarMessage}</span>}
           action={retryButton}
         />
-        <CardMedia className={classes.media} image={`/${process.env.REACT_APP_SITE_PATH}/welcome.jpg`} >
+        <CardMedia className={classes.media} image={`${Utils.sitePrefix}welcome.jpg`} >
           {menu}
         </CardMedia>
         <CardContent>

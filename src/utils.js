@@ -111,9 +111,8 @@ const Utils = {
   problemToTitleText: (problem) => {
     return `${Config.problemScreen.problemSubject} ${problem.name}`;
   },
-  problemUrl: () => {
-    return `${document.location.origin}/${process.env.REACT_APP_SITE_PATH}`;
-  }
+  problemUrl: `${document.location.origin}/${process.env.REACT_APP_SITE_PATH}`,
+  sitePrefix: process.env.REACT_APP_SITE_PATH ? `/${process.env.REACT_APP_SITE_PATH}/` : ''
 }
 
 export default Utils;

@@ -8,7 +8,8 @@ import EditPageContainer from '../containers/editPage';
 import SolutionScreenContainer from '../containers/solutionScreen';
 import ProblemScreenContainer from '../containers/problemScreen';
 import WelcomeScreenContainer from '../containers/welcomeScreen';
-import { BrowserRouter, Route } from 'react-router-dom';
+import Utils from '../utils';
+import { HashRouter, Route } from 'react-router-dom';
 import CircularProgress from '@material-ui/core/CircularProgress';
 import { create } from 'jss';
 import rtl from 'jss-rtl';
@@ -44,26 +45,26 @@ class App extends React.Component {
 
   onEditorPageSelected = (history) => (value) => {
     if (this.isLoading) return;
-    history.push(`${value + 1}`);
+    history.replace(`${value + 1}`);
   }
 
   onNewProblemSelected = (history) => () => {
     if (this.isLoading) return;
-    history.push(`/${process.env.REACT_APP_SITE_PATH}/problems/new/1`);
+    history.replace('/problems/new/1');
   }
 
   onProblemSelected = (history) => (id) => {
     if (this.isLoading) return;
-    history.push(`/${process.env.REACT_APP_SITE_PATH}/problems/${id}`);
+    history.replace(`/problems/${id}`);
   }
 
   onEditorSelected = (history, id) => () => {
     if (this.isLoading) return;
-    history.push(`/${process.env.REACT_APP_SITE_PATH}/problems/${id}/edit/1`);
+    history.replace(`/problems/${id}/edit/1`);
   }
 
   onSolutionSelected = (history, id) => () => {
-    history.push(`/${process.env.REACT_APP_SITE_PATH}/problems/${id}/solution`);
+    history.replace(`/problems/${id}/solution`);
   }
 
   get isLoading () {
@@ -79,7 +80,7 @@ class App extends React.Component {
         onEditorSelected={this.onEditorSelected(history, match.params.id)}
         selectedProblemId={match.params.id}
         onSolutionSelected={this.onSolutionSelected(history, match.params.id)}
-        onHomeSelected={() => history.push(`/${process.env.REACT_APP_SITE_PATH}/`) }
+        onHomeSelected={() => history.replace(Utils.sitePrefix) }
       />
     );
     const solutionScreen = ({match}) => (
@@ -113,11 +114,11 @@ class App extends React.Component {
 
     let mainScreen = (
       <Grid item xs={12} className={classes.page}>
-        <Route path={`(/${process.env.REACT_APP_SITE_PATH})?/`} exact={true} render={welcomeScreen}/>
-        <Route path={`(/${process.env.REACT_APP_SITE_PATH})?/problems/:id`} exact={true} render={problemScreen}/>
-        <Route path={`(/${process.env.REACT_APP_SITE_PATH})?/problems/:id/solution`} exact={true} render={solutionScreen}/>
-        <Route path={`(/${process.env.REACT_APP_SITE_PATH})?/problems/:id/edit/:pageNum`} exact={true} render={editor}/>
-        <Route path={`(/${process.env.REACT_APP_SITE_PATH})?/problems/new/:pageNum`} exact={true} render={editor}/>
+        <Route path={''} exact={true} render={welcomeScreen}/>
+        <Route path={'/problems/:id'} exact={true} render={problemScreen}/>
+        <Route path={`/problems/:id/solution`} exact={true} render={solutionScreen}/>
+        <Route path={`/problems/:id/edit/:pageNum`} exact={true} render={editor}/>
+        <Route path={`/problems/new/:pageNum`} exact={true} render={editor}/>
       </Grid>
     );
     // This is for first load, show loading screen instead of components
@@ -138,7 +139,7 @@ class App extends React.Component {
     return (
       <JssProvider jss={jss} generateClassName={generateClassName}>
         <Main>
-          <BrowserRouter>
+          <HashRouter>
             <div className={classes.root}>
               <Grid container spacing={8}>
                 <Grid item xs={12}>
@@ -147,7 +148,7 @@ class App extends React.Component {
                 {mainScreen}
               </Grid>
             </div>
-          </BrowserRouter>
+          </HashRouter>
         </Main>
       </JssProvider>
     );
