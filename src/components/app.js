@@ -8,6 +8,7 @@ import EditPageContainer from '../containers/editPage';
 import SolutionScreenContainer from '../containers/solutionScreen';
 import ProblemScreenContainer from '../containers/problemScreen';
 import WelcomeScreenContainer from '../containers/welcomeScreen';
+import EyeTypesScreenContainer from '../containers/eyeTypesScreen';
 import { HashRouter, Route } from 'react-router-dom';
 import CircularProgress from '@material-ui/core/CircularProgress';
 import { create } from 'jss';
@@ -52,6 +53,11 @@ class App extends React.Component {
     history.push(`/problems/new/1`);
   }
 
+  onEyeTypesSelected = (history) => () => {
+    if (this.isLoading) return;
+    history.push(`/eyeTypes`);
+  }
+
   onProblemSelected = (history) => (id) => {
     if (this.isLoading) return;
     history.push(`/problems/${id}`);
@@ -82,6 +88,7 @@ class App extends React.Component {
         onHomeSelected={() => history.push('') }
       />
     );
+    const eyeTypesScreen = ({match}) => <EyeTypesScreenContainer/>;
     const solutionScreen = ({match}) => (
       <SolutionScreenContainer selectedProblemId={match.params.id} />
     );
@@ -105,6 +112,7 @@ class App extends React.Component {
         <ProblemAppBar
           onProblemSelected={this.onProblemSelected(history)}
           onNewProblemSelected={this.onNewProblemSelected(history)}
+          onEyeTypesSelected={this.onEyeTypesSelected(history)}
           onEditorPageSelected={this.onEditorPageSelected(history)}
           editorPage={editorPage}
         />
@@ -115,6 +123,7 @@ class App extends React.Component {
       <Grid item xs={12} className={classes.page}>
         <Route path={''} exact={true} render={welcomeScreen}/>
         <Route path={'/problems/:id'} exact={true} render={problemScreen}/>
+        <Route path={'/eyeTypes'} exact={true} render={eyeTypesScreen}/>
         <Route path={`/problems/:id/solution`} exact={true} render={solutionScreen}/>
         <Route path={`/problems/:id/edit/:pageNum`} exact={true} render={editor}/>
         <Route path={`/problems/new/:pageNum`} exact={true} render={editor}/>

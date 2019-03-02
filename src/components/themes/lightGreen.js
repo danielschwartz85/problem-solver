@@ -1,25 +1,21 @@
 import React from 'react';
 import { MuiThemeProvider, createMuiTheme } from '@material-ui/core/styles';
 import {
-  grey,
-  red,
+  green
 } from '@material-ui/core/colors';
 
 
-function Red(props) {
+function LightGreen(props) {
   const theme = createMuiTheme({
     typography: {
       useNextVariants: true,
     },
     palette: {
-      "primary": {main: '#ffffff'},
       "background": {
-        "paper": red[900]
+        "paper": green[100]
       },
-      "text": {
-         "primary": grey[100]
-       },
-      "secondaryPaper": red[200],
+      "primary": {main: '#ffffff'},
+      "secondaryPaper": green[200]
     },
     direction: 'rtl'
   });
@@ -32,4 +28,4 @@ function Red(props) {
   );
 };
 
-export default Red;
+export default LightGreen;

@@ -10,7 +10,8 @@ import ListItem from '@material-ui/core/ListItem'
 import List from '@material-ui/core/List'
 import ListSubheader from '@material-ui/core/ListSubheader';
 import Divider from '@material-ui/core/Divider';
-import LibraryAdd from '@material-ui/icons/LibraryAdd';
+import Accessibility from '@material-ui/icons/Accessibility';
+import Visibility from '@material-ui/icons/Visibility';
 import LibraryBooks from '@material-ui/icons/LibraryBooks';
 import Refresh from '@material-ui/icons/Refresh';
 import Config from '../../config';
@@ -47,6 +48,10 @@ class SideMenu extends React.Component {
   newProblemSelected = () => {
     this.props.clearDraft();
     this.props.onNewProblemSelected();
+  }
+
+  eyeTypesSelected = () => {
+    this.props.onEyeTypesSelected();
   }
 
   get isLoading () {
@@ -131,9 +136,15 @@ class SideMenu extends React.Component {
        <List>
          <ListItem button onClick={this.newProblemSelected}>
            <ListItemIcon>
-             <LibraryAdd />
+             <Accessibility />
            </ListItemIcon>
            <ListItemText primary={Config.sideMenu.newProblem}/>
+         </ListItem>
+         <ListItem button onClick={this.eyeTypesSelected}>
+           <ListItemIcon>
+             <Visibility />
+           </ListItemIcon>
+           <ListItemText primary={Config.sideMenu.eyeTypes}/>
          </ListItem>
          {myProblemsSection}
        </List>

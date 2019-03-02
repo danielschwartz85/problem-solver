@@ -25,6 +25,10 @@ class ProblemAppBar extends React.Component {
     this.props.onNewProblemSelected();
   }
 
+  onEyeTypesSelected = () => {
+    this.props.onEyeTypesSelected();
+  }
+
   onProblemSelected = (id) => {
     this.props.onProblemSelected(id);
   }
@@ -51,6 +55,7 @@ class ProblemAppBar extends React.Component {
           <Toolbar className={classes.appbar}>
               <SideMenuContainer
                 onProblemSelected={this.onProblemSelected}
+                onEyeTypesSelected={this.onEyeTypesSelected}
                 onNewProblemSelected={this.onNewProblemSelected}
               />
             {topMenu}
