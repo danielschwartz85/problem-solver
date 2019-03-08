@@ -20,10 +20,10 @@
   "scripts": {
     "start": "REACT_APP_SITE_PATH='' react-scripts start",
     "build": "REACT_APP_SITE_PATH=action-therapy react-scripts build",
-    "build:pub":"npm run build && npm run build:fix && npm run build:cp && npm run build:push",
-    "build:fix":"sed -i 's/\\/static\\/css\\//\\/action-therapy\\/static\\/css\\//g' build/index.html && sed -i 's/\\/static\\/js\\//\\/action-therapy\\/static\\/js\\//g' build/index.html",
+    "build:pub": "npm run build && npm run build:fix && npm run build:cp && npm run build:push",
+    "build:fix": "sed -i 's/\\/static\\/css\\//\\/action-therapy\\/static\\/css\\//g' build/index.html && sed -i 's/\\/static\\/js\\//\\/action-therapy\\/static\\/js\\//g' build/index.html",
     "build:push": "MSG=$(git log -1 --pretty=%s) && cd ../action-therapy-site && git add . && (git diff-index --quiet HEAD || git commit -m \"$MSG\") && git push origin master",
-    "build:cp":"cp -rf build/* ../action-therapy-site",
+    "build:cp": "cp -rf build/* ../action-therapy-site",
     "test": "react-scripts test --env=jsdom",
     "eject": "react-scripts eject"
   }

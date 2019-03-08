@@ -11,6 +11,7 @@ import Config from '../config';
 import ExpansionPanel from '@material-ui/core/ExpansionPanel';
 import ExpansionPanelSummary from '@material-ui/core/ExpansionPanelSummary';
 import ExpansionPanelDetails from '@material-ui/core/ExpansionPanelDetails';
+import Switch from '@material-ui/core/Switch';
 import Utils from '../utils';
 import {LightGreen} from './themes';
 
@@ -22,9 +23,16 @@ const styles = theme => ({
       fontSize: theme.typography.pxToRem(15),
       fontWeight: theme.typography.fontWeightRegular,
     },
+    switch: {
+      float: 'right'
+    }
 });
 
 class EyeTypeCard extends React.Component {
+  onChange = event => {
+    this.props.onChange(event.target.checked);
+  }
+
   render() {
     const { classes } = this.props;
     const contentPanels = ["color", "origin", "actions"].map((key, i) => (
@@ -46,14 +54,24 @@ class EyeTypeCard extends React.Component {
       </ExpansionPanel>
     ));
 
+    const title = (
+      <div>
+        <span>{this.props.name}</span>
+        <Switch
+          className={classes.switch}
+          checked={this.props.checked}
+          onChange={this.onChange}
+          value="1"
+          color="secondary"
+        />
+      </div>
+    );
+
     return (
       <LightGreen>
         <Card className={classes.card}>
-          <CardHeader title={this.props.name}/>
-          <CardMedia
-            className={classes.media}
-            image={this.props.image}
-          />
+          <CardHeader title={title}/>
+          <CardMedia className={classes.media} image={this.props.image}/>
           <CardContent>
             <Typography component="p">
               {this.props.origin}

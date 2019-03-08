@@ -15,6 +15,7 @@ function LightGreen(props) {
         "paper": green[100]
       },
       "primary": {main: '#ffffff'},
+      "secondary": {main: '#4caf50'},
       "secondaryPaper": green[200]
     },
     direction: 'rtl'

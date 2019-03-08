@@ -10,3 +10,6 @@ update
 
 # npm
 npm-debug.log*
+
+# ide
+.idea
