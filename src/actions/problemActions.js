@@ -1,4 +1,4 @@
-import Utils from '../utils'
+import Utils from '../utils';
 export const FETCH_PROBLEMS_PENDING = 'FETCH_PROBLEMS_PENDING';
 export const FETCH_PROBLEMS_FULFILLED = 'FETCH_PROBLEMS_FULFILLED';
 export const FETCH_PROBLEMS_REJECTED = 'FETCH_PROBLEMS_REJECTED';
@@ -18,23 +18,6 @@ export const CLEAR_DRAFT = 'CLEAR_DRAFT';
 /*
  * Utils :
  */
-
-const tmpStore = {};
-const useLocalStorage = true;
-const setItem = (key, value) => {
-  if (useLocalStorage) {
-    localStorage.setItem(key, value);
-  } else {
-    tmpStore[key] = value;
-  }
-};
-const getItem = (key) => {
-  if (useLocalStorage) {
-    return localStorage.getItem(key);
-  } else {
-    return tmpStore[key];
-  }
-};
 
 const cleanProblem = (problem) => {
   problem.verbs = Utils.cleanArray(problem.verbs);
@@ -71,7 +54,7 @@ export function fetchProblemsRejected(error) {
 }
 
 export function fetchProblems() {
-  let problems = getItem('problems');
+  let problems = Utils.getItem('problems');
   problems = (problems && JSON.parse(problems)) || {};
 
   return (dispatch) => {
@@ -118,7 +101,7 @@ export function createProblemRejected(error) {
 }
 
 export function createProblem(problem) {
-  let problems = getItem('problems');
+  let problems = Utils.getItem('problems');
   problems = (problems && JSON.parse(problems)) || {};
   const ids = Object.keys(problems).map(id => Number(id)).sort();
   const newId = ((ids.length && ids[ids.length -1]) || 0) + 1;
@@ -129,7 +112,7 @@ export function createProblem(problem) {
     dispatch(createProblemPending());
     const p = new Promise((res, rej) => {
       setTimeout(() => {
-        setItem('problems', JSON.stringify(problems));
+        Utils.setItem('problems', JSON.stringify(problems));
         // rej(new Error('USER_LOGGED_OUT'));
         res(newId);
       }, 500);
@@ -170,7 +153,7 @@ export function updateProblemRejected(error) {
 }
 
 export function updateProblem(id, changes) {
-  const problems = JSON.parse(getItem('problems'));
+  const problems = JSON.parse(Utils.getItem('problems'));
   problems[id] = {
     ...problems[id],
     ...changes,
@@ -182,7 +165,7 @@ export function updateProblem(id, changes) {
     dispatch(updateProblemPending());
     const p = new Promise((res, rej) => {
       setTimeout(() => {
-        setItem('problems', JSON.stringify(problems));
+        Utils.setItem('problems', JSON.stringify(problems));
         // rej(new Error('USER_LOGGED_OUT'));
         res();
       }, 500);
@@ -224,7 +207,7 @@ export function deleteProblemRejected(error) {
 }
 
 export function deleteProblem(id) {
-  const problems = JSON.parse(getItem('problems'));
+  const problems = JSON.parse(Utils.getItem('problems'));
   delete(problems[id]);
 
   return (dispatch) => {
@@ -232,7 +215,7 @@ export function deleteProblem(id) {
     const p = new Promise((res, rej) => {
       setTimeout(() => {
         // rej(new Error('USER_LOGGED_OUT'));return;
-        setItem('problems', JSON.stringify(problems));
+        Utils.setItem('problems', JSON.stringify(problems));
         res();
       }, 500);
     })

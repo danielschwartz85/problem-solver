@@ -1,8 +1,23 @@
 import EyeTypesScreen from '../components/eyeTypesScreen';
 import { connect } from 'react-redux';
+import {
+  toggleEyeType,
+  fetchSelectedEyeTypes
+} from '../actions/eyeTypeActions';
 
-const mapStateToProps = (state) => {
-  return {};
+const matchDispatchToProps = (dispatch) => {
+  return {
+    toggleEyeTypeAndFetch: async id => {
+      await dispatch(toggleEyeType(id));
+      await dispatch(fetchSelectedEyeTypes());
+    }
+  };
 };
 
-export default connect(mapStateToProps)(EyeTypesScreen);
+const mapStateToProps = ({eyeTypes}) => {
+  return {
+    selectedEyeTypes: eyeTypes.selectedEyeTypes
+  };
+};
+
+export default connect(mapStateToProps, matchDispatchToProps)(EyeTypesScreen);

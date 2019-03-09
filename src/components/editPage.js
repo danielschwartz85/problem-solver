@@ -5,7 +5,8 @@ import Card from '@material-ui/core/Card';
 import Button from '@material-ui/core/Button';
 import PropTypes from 'prop-types';
 import { withStyles } from '@material-ui/core/styles';
-import {Red, Orange, Green} from './themes';
+import BadActionsCard from './badActionsCard';
+import {Red, Orange, Green } from './themes';
 import Typography from '@material-ui/core/Typography';
 import Snackbar from '@material-ui/core/Snackbar';
 import Config from '../config';
@@ -26,7 +27,7 @@ import {
   ProblemPlanted
 } from './pages';
 
-const styles = theme => ({
+const styles = () => ({
   card: {
     'min-height': '400px'
   },
@@ -131,7 +132,8 @@ class EditPage extends React.Component {
               />,
         header: Config.pages.problem.description,
         valid: () => Utils.isValid(this.props.draft, 'description'),
-        theme: Red
+        theme: Red,
+        showBadActions: true,
       },
       {
         page: <VerbExtract
@@ -171,7 +173,8 @@ class EditPage extends React.Component {
               />,
         header: Config.pages.transformation.description,
         valid: () => Utils.isValid(this.props.draft, 'transformationVerbs'),
-        theme: Green
+        theme: Green,
+        showBadActions: true,
       },
       {
         page: <Name
@@ -244,42 +247,57 @@ class EditPage extends React.Component {
       );
     }
 
+    const eyeTypes = Object.keys(this.props.selectedEyeTypes)
+      .map(id => Config.eyeTypesScreen.types[id]);
+    const badActionsCard = (
+      eyeTypes && currentPage.showBadActions
+      ? <BadActionsCard eyeTypes={eyeTypes}/>
+      : null
+    );
+    const mainCard = (<Card className={classes.card}>
+      <CardContent>
+        <Typography
+          type="headline"
+          component="h2"
+          className={classes.typography}
+        >
+          {currentPage.header}
+        </Typography>
+        {currentPage.page}
+      </CardContent>
+      <CardActions>
+        <Button
+          disabled={!isFirstPage}
+          onClick={() => this.onPageSelected(-1)}
+        >
+          {Config.pages.back}
+        </Button>
+        <Button
+          disabled={!nextEnabled}
+          onClick={() => this.onPageSelected(1)}
+        >
+          {Config.pages.next}
+        </Button>
+        {showSave && (
+          <Button
+            onClick={this.saveCurrentProblem}
+            disabled={!this.saveEnabled}
+          >
+            {Config.pages.save}
+          </Button>
+        )}
+      </CardActions>
+    </Card>)
     const card = (
       <currentPage.theme>
-        <Card className={classes.card}>
-          <CardContent>
-            <Typography
-              type="headline"
-              component="h2"
-              className={classes.typography}
-            >
-              {currentPage.header}
-            </Typography>
-            {currentPage.page}
-          </CardContent>
-          <CardActions>
-            <Button
-              disabled={!isFirstPage}
-              onClick={() => this.onPageSelected(-1)}
-            >
-              {Config.pages.back}
-            </Button>
-            <Button
-              disabled={!nextEnabled}
-              onClick={() => this.onPageSelected(1)}
-            >
-              {Config.pages.next}
-            </Button>
-            {showSave && (
-              <Button
-                onClick={this.saveCurrentProblem}
-                disabled={!this.saveEnabled}
-              >
-                {Config.pages.save}
-              </Button>
-            )}
-          </CardActions>
-        </Card>
+        <Grid container spacing={16}>
+          <Grid item xs={12} sm={6}>
+            {badActionsCard}
+          </Grid>
+          <Grid item xs={12} sm={6}>
+            {mainCard}
+          </Grid>
+        </Grid>
       </currentPage.theme>
     );
 

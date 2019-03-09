@@ -111,6 +111,9 @@ const Utils = {
   problemToTitleText: (problem) => {
     return `${Config.problemScreen.problemSubject} ${problem.name}`;
   },
+  setItem: (key, value) => localStorage.setItem(key, value),
+  getItem: key => localStorage.getItem(key),
+  delay: ms => new Promise(res => setTimeout(res, ms)),
   problemUrl: `${document.location.origin}/${process.env.REACT_APP_SITE_PATH}`,
   sitePrefix: process.env.REACT_APP_SITE_PATH ? `/${process.env.REACT_APP_SITE_PATH}/` : ''
 }

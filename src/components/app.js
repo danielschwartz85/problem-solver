@@ -38,7 +38,10 @@ class App extends React.Component {
   }
 
   componentWillMount() {
-    this.props.fetchProblems().then(() => {
+    Promise.all([
+      this.props.fetchProblems(),
+      this.props.fetchSelectedEyeTypes()
+    ]).then(() => {
       this.setState({ startup : false });
     });
   }
@@ -75,6 +78,7 @@ class App extends React.Component {
   get isLoading () {
     let loading = this.props.creatingProblem || this.props.updatingProblem;
     loading = loading || this.props.deletingProblem || this.props.fetchingProblems;
+    loading = loading || this.props.fetchingEyeTypes || this.props.togglingEyeType;
     return loading;
   }
 
@@ -88,7 +92,7 @@ class App extends React.Component {
         onHomeSelected={() => history.push('') }
       />
     );
-    const eyeTypesScreen = ({match}) => <EyeTypesScreenContainer/>;
+    const eyeTypesScreen = () => <EyeTypesScreenContainer/>;
     const solutionScreen = ({match}) => (
       <SolutionScreenContainer selectedProblemId={match.params.id} />
     );

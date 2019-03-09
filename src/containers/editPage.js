@@ -17,7 +17,8 @@ const mapStateToProps = (state) => {
     creatingProblem: state.problems.creatingProblem,
     createProblemError: state.problems.createProblemError,
     updatingProblem: state.problems.updatingProblem,
-    updateProblemError: state.problems.updateProblemError
+    updateProblemError: state.problems.updateProblemError,
+    selectedEyeTypes: state.eyeTypes.selectedEyeTypes
   };
 };
 

@@ -59,7 +59,7 @@ class EyeTypeCard extends React.Component {
         <span>{this.props.name}</span>
         <Switch
           className={classes.switch}
-          checked={this.props.checked}
+          checked={this.props.selected}
           onChange={this.onChange}
           value="1"
           color="secondary"

@@ -24,10 +24,6 @@ class SolutionScreen extends React.Component {
     ];
   }
 
-  handleExpandClick = () => {
-    this.setState({ expanded: !this.state.expanded });
-  };
-
   get problem() {
     return this.props.problems && this.props.problems[this.props.selectedProblemId];
   }

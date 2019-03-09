@@ -1,6 +1,7 @@
 import App from '../components/app';
 import { connect } from 'react-redux';
 import { fetchProblems } from '../actions/problemActions';
+import { fetchSelectedEyeTypes } from '../actions/eyeTypeActions';
 
 const mapStateToProps = (state) => {
   return {
@@ -8,16 +9,24 @@ const mapStateToProps = (state) => {
     fetchingProblems: state.problems.fetchingProblems,
     creatingProblem: state.problems.creatingProblem,
     updatingProblem: state.problems.updatingProblem,
-    deletingProblem: state.problems.deletingProblem
+    deletingProblem: state.problems.deletingProblem,
+    selectedEyeTypes: state.eyeTypes.selectedEyeTypes,
+    fetchingEyeTypes: state.eyeTypes.fetchingEyeTypes,
+    togglingEyeType: state.eyeTypes.togglingEyeType,
   };
 };
 
 const matchDispatchToProps = (dispatch) => {
+  // override just to catch rejects we don't really care
+  // here since there are no following actions to take..
   return {
     fetchProblems: () => {
-      // override just to catch rejects we don't really care
-      // here since there are no folowwing actions to take..
       return dispatch(fetchProblems()).catch(e => {});
+    },
+    fetchSelectedEyeTypes: () => {
+      try {
+        dispatch(fetchSelectedEyeTypes())
+      } catch (e) {}
     }
   }
 };
