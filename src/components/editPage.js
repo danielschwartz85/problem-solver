@@ -250,7 +250,7 @@ class EditPage extends React.Component {
     const eyeTypes = Object.keys(this.props.selectedEyeTypes)
       .map(id => Config.eyeTypesScreen.types[id]);
     const badActionsCard = (
-      eyeTypes && currentPage.showBadActions
+      currentPage.showBadActions
       ? <BadActionsCard eyeTypes={eyeTypes}/>
       : null
     );

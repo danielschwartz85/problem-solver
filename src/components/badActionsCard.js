@@ -39,14 +39,21 @@ class BadActionsCard extends React.Component {
 
   render() {
     const { classes } = this.props;
-    const badActions = this.props.eyeTypes.map(t => (
-      <div key={t.name}>
-        <Typography paragraph>{t.name}</Typography>
-        <Typography paragraph>
-          {Utils.joinWithCommas(t.actions)}
-        </Typography>
-      </div>
-    ));
+    let badActions;
+    if (this.props.eyeTypes.length) {
+      badActions = (
+        this.props.eyeTypes.map(t => (
+          <div key={t.name}>
+            <Typography paragraph>{t.name}</Typography>
+            <Typography paragraph>
+              {Utils.joinWithCommas(t.actions)}
+            </Typography>
+          </div>
+        ))
+      );
+    } else {
+      badActions = <Typography paragraph>{Config.badActions.empty}</Typography>;
+    }
 
     return (
       <LightGreen>
