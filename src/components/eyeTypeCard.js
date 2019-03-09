@@ -69,7 +69,7 @@ class EyeTypeCard extends React.Component {
 
     return (
       <LightGreen>
-        <Card className={classes.card}>
+        <Card>
           <CardHeader title={title}/>
           <CardMedia className={classes.media} image={this.props.image}/>
           <CardContent>

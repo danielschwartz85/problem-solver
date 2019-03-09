@@ -66,7 +66,7 @@ export function toggleEyeType(id) {
   let eyeTypes = Utils.getItem('selectedEyeTypes');
   eyeTypes = (eyeTypes && JSON.parse(eyeTypes)) || {};
   if(eyeTypes[id] !== undefined && eyeTypes[id]) {
-    delete eyeTypes.id;
+    delete eyeTypes[id];
   } else {
     eyeTypes[id] = true;
   }

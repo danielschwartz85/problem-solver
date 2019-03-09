@@ -1,22 +1,7 @@
 import React from 'react';
-import PropTypes from 'prop-types';
-import { withStyles } from '@material-ui/core/styles';
-import Config from '../config';
+  import Config from '../config';
 import EyeTypeCard from './eyeTypeCard';
 import Grid from '@material-ui/core/Grid';
-
-const styles = theme => ({
-  card: {
-    width: '100%'
-  },
-  media: {
-    height: 200,
-  },
-  snackbar: {
-    'margin-top': '72px',
-    'z-index': 1
-  },
-});
 
 class EyeTypesScreen extends React.Component {
   onChange = id => () => {
@@ -43,8 +28,4 @@ class EyeTypesScreen extends React.Component {
   }
 }
 
-EyeTypesScreen.propTypes = {
-  classes: PropTypes.object.isRequired,
-};
-
-export default withStyles(styles)(EyeTypesScreen);
+export default EyeTypesScreen;
