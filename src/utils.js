@@ -112,6 +112,9 @@ const Utils = {
   },
   problemToTitleText: problem => `${Config.problemScreen.problemSubject} ${problem.name}`,
   setItem: (key, value) => localStorage.setItem(key, value),
+  splitArr: (arr, conditionFunc) =>
+    // eslint-disable-next-line
+    arr.reduce((acc, item) => ((acc[conditionFunc(item) ? 0 : 1]).push(item), acc), [[], []]),
   getItem: key => localStorage.getItem(key),
   delay: ms => new Promise(res => setTimeout(res, ms)),
   problemUrl: `${document.location.origin}/${process.env.REACT_APP_SITE_PATH}`,
