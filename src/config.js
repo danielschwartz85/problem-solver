@@ -114,6 +114,7 @@ const Config = {
   eyeTypesScreen: {
     headers: {
       color: 'צבע',
+      description: 'מרקם קשתית',
       origin: 'מקור/איפיון הקבוצה אליה שייך האדם, אבולוציה.',
       actions: 'דרכי פעולות אבולוציוניות/מחסירות.',
     },
