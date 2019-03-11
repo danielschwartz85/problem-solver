@@ -35,20 +35,24 @@ class EyeTypeCard extends React.Component {
 
   render() {
     const {classes} = this.props;
-    const contentPanels = ['color', 'origin', 'actions'].map((key, i) => (
-      <ExpansionPanel key={`${key}-${i}`}>
-        <ExpansionPanelSummary expandIcon={<ExpandMoreIcon />}>
-          <Typography className={classes.heading}>{Config.eyeTypesScreen.headers[key]}</Typography>
-        </ExpansionPanelSummary>
-        <ExpansionPanelDetails>
-          <Typography>
-            {!Array.isArray(this.props[key])
-              ? this.props[key]
-              : Utils.joinWithCommas(this.props[key])}
-          </Typography>
-        </ExpansionPanelDetails>
-      </ExpansionPanel>
-    ));
+    const contentPanels = ['color', 'origin', 'actions', 'description']
+      .filter(k => this.props[key] && this.props[key] != '')
+      .map((key, i) => (
+        <ExpansionPanel key={`${key}-${i}`}>
+          <ExpansionPanelSummary expandIcon={<ExpandMoreIcon />}>
+            <Typography className={classes.heading}>
+              {Config.eyeTypesScreen.headers[key]}
+            </Typography>
+          </ExpansionPanelSummary>
+          <ExpansionPanelDetails>
+            <Typography>
+              {!Array.isArray(this.props[key])
+                ? this.props[key]
+                : Utils.joinWithCommas(this.props[key])}
+            </Typography>
+          </ExpansionPanelDetails>
+        </ExpansionPanel>
+      ));
 
     const title = (
       <div>
