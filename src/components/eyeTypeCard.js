@@ -35,7 +35,7 @@ class EyeTypeCard extends React.Component {
 
   render() {
     const {classes} = this.props;
-    const contentPanels = ['color', 'description', 'origin', 'actions']
+    const contentPanels = ['color', 'description', 'actions']
       .filter(k => this.props[k] && this.props[k] != '')
       .map((key, i) => (
         <ExpansionPanel key={`${key}-${i}`}>
