@@ -1,10 +1,6 @@
 import React from 'react';
-import { MuiThemeProvider, createMuiTheme } from '@material-ui/core/styles';
-import {
-  orange,
-  grey
-} from '@material-ui/core/colors';
-
+import {MuiThemeProvider, createMuiTheme} from '@material-ui/core/styles';
+import {orange, grey} from '@material-ui/core/colors';
 
 function Orange(props) {
   const theme = createMuiTheme({
@@ -12,23 +8,18 @@ function Orange(props) {
       useNextVariants: true,
     },
     palette: {
-      "primary":orange,
-      "background": {
-        "paper": orange[800]
+      primary: orange,
+      background: {
+        paper: orange[800],
       },
-      "text": {
-         "primary": grey[100],
+      text: {
+        primary: grey[100],
       },
     },
     direction: 'rtl',
   });
 
-  return (
-    <MuiThemeProvider
-      theme={theme} >
-      {props.children}
-    </MuiThemeProvider>
-  );
-};
+  return <MuiThemeProvider theme={theme}>{props.children}</MuiThemeProvider>;
+}
 
 export default Orange;

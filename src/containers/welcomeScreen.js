@@ -1,12 +1,17 @@
+import {connect} from 'react-redux';
+import {bindActionCreators} from 'redux';
 import WelcomeScreen from '../components/welcomeScreen';
-import { connect } from 'react-redux';
-import { clearDraft } from '../actions/problemActions';
-import { bindActionCreators } from 'redux';
+import {clearDraft} from '../actions/problemActions';
 
-const matchDispatchToProps = (dispatch) => {
-  return bindActionCreators({
-    clearDraft
-  }, dispatch);
-};
+const matchDispatchToProps = dispatch =>
+  bindActionCreators(
+    {
+      clearDraft,
+    },
+    dispatch,
+  );
 
-export default connect(null, matchDispatchToProps)(WelcomeScreen);
+export default connect(
+  null,
+  matchDispatchToProps,
+)(WelcomeScreen);

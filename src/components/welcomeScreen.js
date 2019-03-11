@@ -1,6 +1,6 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import { withStyles } from '@material-ui/core/styles';
+import {withStyles} from '@material-ui/core/styles';
 import Card from '@material-ui/core/Card';
 import CardMedia from '@material-ui/core/CardMedia';
 import CardContent from '@material-ui/core/CardContent';
@@ -11,23 +11,23 @@ import Config from '../config';
 import Utils from '../utils';
 import {DarkGreen} from './themes';
 
-const styles = theme => ({
+const styles = () => ({
   card: {
-    width: '100%'
+    width: '100%',
   },
   media: {
     height: 200,
-  }
+  },
 });
 
 class WelcomeScreen extends React.Component {
   onNewProblemSelected = () => {
     this.props.clearDraft();
     this.props.onNewProblemSelected();
-  }
+  };
 
   render() {
-    const { classes } = this.props;
+    const {classes} = this.props;
     let lastLineIndex = Config.welcomeScreen.descriptions.length - 1;
     let descriptions = Config.welcomeScreen.descriptions.map((desc, i) => (
       <Typography paragraph={lastLineIndex === i} key={i}>
@@ -35,9 +35,7 @@ class WelcomeScreen extends React.Component {
       </Typography>
     ));
     descriptions.push(
-      <Typography key='signature'>
-        {Config.welcomeScreen.descriptionSignature}
-      </Typography>
+      <Typography key="signature">{Config.welcomeScreen.descriptionSignature}</Typography>,
     );
 
     return (

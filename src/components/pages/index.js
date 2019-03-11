@@ -19,5 +19,5 @@ export {
   NewName,
   PastDomino,
   FutureDomino,
-  ProblemPlanted
-}
+  ProblemPlanted,
+};

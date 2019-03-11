@@ -6,41 +6,34 @@ import Grid from '@material-ui/core/Grid';
 import Paper from '@material-ui/core/Paper';
 import Typography from '@material-ui/core/Typography';
 import PropTypes from 'prop-types';
-import { withStyles } from '@material-ui/core/styles';
+import {withStyles} from '@material-ui/core/styles';
 
 const styles = theme => ({
   secondaryPaper: theme.mixins.gutters({
     background: theme.palette.secondaryPaper,
     paddingTop: 16,
     paddingBottom: 16,
-    marginTop: theme.spacing.unit * 3
+    marginTop: theme.spacing.unit * 3,
   }),
   typography: {
-    color: 'black'
-  }
+    color: 'black',
+  },
 });
 
 class NewName extends React.Component {
-  onChange = (e) => {
-    this.props.onChange({ newName: e.target.value });
-  }
+  onChange = e => {
+    this.props.onChange({newName: e.target.value});
+  };
 
   render() {
-    const { classes } = this.props;
+    const {classes} = this.props;
     let verbArray = Utils.objectToArr(this.props.transformationVerbs);
     const transformation = (
       <Paper className={classes.secondaryPaper} elevation={4}>
-        <Typography
-          type="headline"
-          component="h3"
-          className={classes.typography}
-        >
+        <Typography type="headline" component="h3" className={classes.typography}>
           {Config.pages.newName.cardHeader}
         </Typography>
-        <Typography
-          component="p"
-          className={classes.typography}
-        >
+        <Typography component="p" className={classes.typography}>
           {Utils.joinWithCommas(verbArray)}
         </Typography>
       </Paper>

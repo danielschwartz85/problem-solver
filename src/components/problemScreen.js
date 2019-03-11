@@ -1,6 +1,6 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import { withStyles } from '@material-ui/core/styles';
+import {withStyles} from '@material-ui/core/styles';
 import CardMedia from '@material-ui/core/CardMedia';
 import CardContent from '@material-ui/core/CardContent';
 import CardActions from '@material-ui/core/CardActions';
@@ -13,8 +13,8 @@ import IconButton from '@material-ui/core/IconButton';
 import Menu from '@material-ui/core/Menu';
 import MenuItem from '@material-ui/core/MenuItem';
 import MoreVertIcon from '@material-ui/icons/MoreVert';
-import ListItemIcon from '@material-ui/core/ListItemIcon'
-import ListItemText from '@material-ui/core/ListItemText'
+import ListItemIcon from '@material-ui/core/ListItemIcon';
+import ListItemText from '@material-ui/core/ListItemText';
 import DeleteForever from '@material-ui/icons/DeleteForever';
 import Edit from '@material-ui/icons/Edit';
 import Email from '@material-ui/icons/Email';
@@ -25,23 +25,23 @@ import Snackbar from '@material-ui/core/Snackbar';
 
 const styles = theme => ({
   card: {
-    width: '100%'
+    width: '100%',
   },
   media: {
     height: 200,
   },
   burger: {
-    color: theme.palette.common.white
+    color: theme.palette.common.white,
   },
   menu: {
-    'margin-top': '20px'
+    'margin-top': '20px',
   },
   progress: {
-    marginTop: 50
+    marginTop: 50,
   },
   snackbar: {
     'margin-top': '72px',
-    'z-index': 1
+    'z-index': 1,
   },
 });
 
@@ -51,58 +51,61 @@ class ProblemScreen extends React.Component {
   state = {
     anchorEl: null,
     showErrorMessage: false,
-    loading: false
-  }
+    loading: false,
+  };
 
   handleClick = event => {
-    this.setState({ anchorEl: event.currentTarget });
-  }
+    this.setState({anchorEl: event.currentTarget});
+  };
 
   handleClose = () => {
-    this.setState({ anchorEl: null });
-  }
+    this.setState({anchorEl: null});
+  };
 
   onViewProblemClicked = () => {
     this.props.onSolutionSelected();
-  }
+  };
 
   handleEdit = () => {
     this.handleClose();
     this.props.selectDraft(this.props.selectedProblemId);
     this.props.onEditorSelected();
-  }
+  };
 
   handleDelete = () => {
     this.handleClose();
-    this.setState({ loading: true });
-    this.props.deleteAndFetch(this.props.selectedProblemId).then(() => {
-      this.setState({ showErrorMessage: false, loading: false });
-      this.props.onHomeSelected();
-    }).catch(e => {
-      this.setState({ showErrorMessage: true, loading: false });
-    });
-  }
+    this.setState({loading: true});
+    this.props
+      .deleteAndFetch(this.props.selectedProblemId)
+      .then(() => {
+        this.setState({showErrorMessage: false, loading: false});
+        this.props.onHomeSelected();
+      })
+      .catch(() => {
+        this.setState({showErrorMessage: true, loading: false});
+      });
+  };
 
   handleSend = () => {
     const mailBody = Utils.problemToText(this.problem);
     const subject = Utils.problemToTitleText(this.problem);
     const lString = `mailto:?subject=${subject}&body=${mailBody}`;
     window.location = lString.replace(/\n/g, escape('\r\n'));
-  }
+  };
 
   handleShare = () => {
     const problem = Utils.problemToText(this.problem, true).trim();
     const url = `🧿 *${Config.problemScreen.shareUrlPrefix}* ${Utils.problemUrl}`;
     window.location = `whatsapp://send?text=${problem}\n\n${url}`.replace(/\n/g, escape('\r\n'));
-  }
+  };
 
   get problem() {
     return this.props.problems && this.props.problems[this.props.selectedProblemId];
   }
 
   render() {
-    const { classes } = this.props;
-    const { anchorEl } = this.state;
+    const {classes} = this.props;
+    const {anchorEl} = this.state;
     if (!this.problem) return null;
     const menu = (
       <div>
@@ -111,8 +114,7 @@ class ProblemScreen extends React.Component {
           aria-owns={anchorEl ? 'long-menu' : null}
           aria-haspopup="true"
           onClick={this.handleClick}
-          className={classes.burger}
-        >
+          className={classes.burger}>
           <MoreVertIcon />
         </IconButton>
         <Menu
@@ -120,11 +122,10 @@ class ProblemScreen extends React.Component {
           anchorEl={this.state.anchorEl}
           open={Boolean(anchorEl)}
           onClose={this.handleClose}
-          className={classes.menu}
-        >
+          className={classes.menu}>
           <MenuItem onClick={this.handleEdit}>
             <ListItemIcon>
-              <Edit/>
+              <Edit />
             </ListItemIcon>
             <ListItemText inset primary={Config.problemScreen.editText} />
           </MenuItem>
@@ -136,13 +137,13 @@ class ProblemScreen extends React.Component {
           </MenuItem>
           <MenuItem onClick={this.handleSend}>
             <ListItemIcon>
-              <Email/>
+              <Email />
             </ListItemIcon>
             <ListItemText inset primary={Config.problemScreen.sendText} />
           </MenuItem>
           <MenuItem onClick={this.handleShare}>
             <ListItemIcon>
-              <Share/>
+              <Share />
             </ListItemIcon>
             <ListItemText inset primary={Config.problemScreen.shareText} />
           </MenuItem>
@@ -160,15 +161,18 @@ class ProblemScreen extends React.Component {
 
     let card = (
       <Card className={classes.card}>
-        <Snackbar className={classes.snackbar}
-          anchorOrigin={{ vertical: 'top', horizontal: 'left' }}
+        <Snackbar
+          className={classes.snackbar}
+          anchorOrigin={{vertical: 'top', horizontal: 'left'}}
           open={this.state.showErrorMessage}
-          onClose={() => { this.setState({ showErrorMessage: false }) }}
+          onClose={() => {
+            this.setState({showErrorMessage: false});
+          }}
           autoHideDuration={10000}
           message={<span id="message-id">{snackbarMessage}</span>}
           action={retryButton}
         />
-        <CardMedia className={classes.media} image={`${Utils.sitePrefix}welcome.jpg`} >
+        <CardMedia className={classes.media} image={`${Utils.sitePrefix}welcome.jpg`}>
           {menu}
         </CardMedia>
         <CardContent>
@@ -178,28 +182,20 @@ class ProblemScreen extends React.Component {
           <Typography type="subheading" color="textSecondary">
             {Utils.problemTypeSentence(this.problem)}
           </Typography>
-          <Typography component="p">
-            {Utils.transformationSentence(this.problem)}
-          </Typography>
+          <Typography component="p">{Utils.transformationSentence(this.problem)}</Typography>
         </CardContent>
         <CardActions>
-          <Button onClick={this.onViewProblemClicked}>
-            {Config.problemScreen.showBookText}
-          </Button>
+          <Button onClick={this.onViewProblemClicked}>{Config.problemScreen.showBookText}</Button>
         </CardActions>
       </Card>
     );
 
     // Loading indicator for delete
-    if(this.state.loading) {
+    if (this.state.loading) {
       card = (
         <Grid container direction="column" align="center">
           <Grid item>
-            <CircularProgress
-              className={classes.progress}
-              thickness={5}
-              color="primary"
-            />
+            <CircularProgress className={classes.progress} thickness={5} color="primary" />
           </Grid>
         </Grid>
       );

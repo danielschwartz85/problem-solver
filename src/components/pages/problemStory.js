@@ -4,9 +4,9 @@ import Config from '../../config';
 import Grid from '@material-ui/core/Grid';
 
 class ProblemStory extends React.Component {
-  onChange = (event) => {
-    this.props.onChange({ description: event.target.value });
-  }
+  onChange = event => {
+    this.props.onChange({description: event.target.value});
+  };
 
   render() {
     return (

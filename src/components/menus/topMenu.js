@@ -1,6 +1,6 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import { withStyles } from '@material-ui/core/styles';
+import {withStyles} from '@material-ui/core/styles';
 import Tabs from '@material-ui/core/Tabs';
 import Tab from '@material-ui/core/Tab';
 import IconPastVerb from '@material-ui/icons/Iso';
@@ -15,10 +15,10 @@ import IconTriangle from '@material-ui/icons/ChangeHistory';
 import Config from '../../config';
 import Utils from '../../utils';
 
-const styles = theme => ({
+const styles = () => ({
   tabs: {
-    direction: 'ltr'
-  }
+    direction: 'ltr',
+  },
 });
 
 class TopMenu extends React.Component {
@@ -40,19 +40,19 @@ class TopMenu extends React.Component {
 
   componentWillMount() {
     if (!this.props.draft && this.selectedPage !== 0) {
-        this.props.onPageSelected(0);
+      this.props.onPageSelected(0);
     }
   }
 
-  onPageSelected = (event, value) => {
+  onPageSelected = (_event, value) => {
     this.props.onPageSelected(value);
-  }
+  };
 
   render() {
-    if(!this.props.draft) return null;
-    const { classes } = this.props;
+    if (!this.props.draft) return null;
+    const {classes} = this.props;
     let firstInvalid;
-    this.pages.some((page, i) => {
+    this.pages.some((_page, i) => {
       firstInvalid = i;
       return !Utils.isValid(this.props.draft, this.pages[i].key);
     });
@@ -64,7 +64,7 @@ class TopMenu extends React.Component {
         <Tab
           key={Config.pages[page.name].tab.name}
           label={Config.pages[page.name].tab.name}
-          icon={<TabIcon className={classes.icon}/>}
+          icon={<TabIcon className={classes.icon} />}
           disabled={disabled}
         />
       );
@@ -76,8 +76,7 @@ class TopMenu extends React.Component {
         variant="scrollable"
         scrollButtons="auto"
         value={this.props.selectedPage}
-        onChange={this.onPageSelected}
-      >
+        onChange={this.onPageSelected}>
         {tabs}
       </Tabs>
     );
@@ -85,7 +84,7 @@ class TopMenu extends React.Component {
 }
 
 TopMenu.propTypes = {
-  classes: PropTypes.object.isRequired
+  classes: PropTypes.object.isRequired,
 };
 
 export default withStyles(styles)(TopMenu);

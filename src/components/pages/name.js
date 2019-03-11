@@ -4,9 +4,9 @@ import Config from '../../config';
 import Grid from '@material-ui/core/Grid';
 
 class Name extends React.Component {
-  onChange = (e) => {
-    this.props.onChange({ name: e.target.value });
-  }
+  onChange = e => {
+    this.props.onChange({name: e.target.value});
+  };
 
   render() {
     return (

@@ -4,9 +4,9 @@ import Config from '../../config';
 import Grid from '@material-ui/core/Grid';
 
 class PastDomino extends React.Component {
-  onChange = (e) => {
-    this.props.onChange({ pastDomino: e.target.value });
-  }
+  onChange = e => {
+    this.props.onChange({pastDomino: e.target.value});
+  };
 
   render() {
     return (

@@ -1,7 +1,7 @@
 import React from 'react';
 import Grid from '@material-ui/core/Grid';
 import PropTypes from 'prop-types';
-import { withStyles } from '@material-ui/core/styles';
+import {withStyles} from '@material-ui/core/styles';
 import ListItem from '@material-ui/core/ListItem';
 import List from '@material-ui/core/List';
 import Input from '@material-ui/core/Input';
@@ -15,57 +15,53 @@ const styles = theme => ({
     background: theme.palette.secondaryPaper,
     paddingTop: 16,
     paddingBottom: 16,
-    marginTop: theme.spacing.unit * 3
+    marginTop: theme.spacing.unit * 3,
   }),
   typography: {
-    color: 'black'
+    color: 'black',
   },
   input: {
-    width: '100%'
-  }
+    width: '100%',
+  },
 });
 
 class VerbExtract extends React.Component {
-  onBlur = (e, i) => {
-  }
+  onBlur = () => {};
 
   onChange = (e, i) => {
     const newVerbs = this.props.verbs.slice(0);
     newVerbs[i] = e.target.value;
-    this.props.onChange({ verbs: newVerbs });
-  }
+    this.props.onChange({verbs: newVerbs});
+  };
 
   render() {
-    const { classes } = this.props;
+    const {classes} = this.props;
     const userProblem = (
       <Paper className={classes.secondaryPaper} elevation={4}>
-        <Typography
-          type="headline"
-          component="h3"
-          className={classes.typography}
-        >
+        <Typography type="headline" component="h3" className={classes.typography}>
           {Config.pages.verbExtract.cardHeader}
         </Typography>
-        <Typography
-          component="p"
-          className={classes.typography}
-        >
+        <Typography component="p" className={classes.typography}>
           {this.props.description || Config.pages.verbExtract.emptyProblem}
         </Typography>
       </Paper>
     );
 
-    const verbItems = Array(6).fill(null).map((item, i) => (
-      <ListItem key={i}>
-        <Input
-          className={classes.input}
-          placeholder={Config.pages.verbExtract.inputText}
-          onChange={e => {this.onChange(e, i)}}
-          value={this.props.verbs[i] || ''}
-        />
-      </ListItem>
-    ));
-    const verbList = <List className={classes.list}>{verbItems}</List>
+    const verbItems = Array(6)
+      .fill(null)
+      .map((_item, i) => (
+        <ListItem key={i}>
+          <Input
+            className={classes.input}
+            placeholder={Config.pages.verbExtract.inputText}
+            onChange={e => {
+              this.onChange(e, i);
+            }}
+            value={this.props.verbs[i] || ''}
+          />
+        </ListItem>
+      ));
+    const verbList = <List className={classes.list}>{verbItems}</List>;
 
     return (
       <div className={classes.root}>

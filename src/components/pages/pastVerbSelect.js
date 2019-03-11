@@ -1,6 +1,6 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import { withStyles } from '@material-ui/core/styles';
+import {withStyles} from '@material-ui/core/styles';
 import Checkbox from '@material-ui/core/Checkbox';
 import Divider from '@material-ui/core/Divider';
 import List from '@material-ui/core/List';
@@ -10,13 +10,13 @@ import ListItemText from '@material-ui/core/ListItemText';
 
 const styles = theme => ({
   checked: {
-    'color': theme.palette.primary[500],
-    'text-align': 'right'
-  }
+    color: theme.palette.primary[500],
+    'text-align': 'right',
+  },
 });
 
 class PastVerbSelect extends React.Component {
-  onChange = (i) => {
+  onChange = i => {
     const newPastVerbs = this.props.pastVerbs.slice(0);
     const indexPosition = this.props.pastVerbs.indexOf(i);
     if (indexPosition === -1) {
@@ -24,32 +24,32 @@ class PastVerbSelect extends React.Component {
     } else {
       newPastVerbs.splice(indexPosition, 1);
     }
-    this.props.onChange({ pastVerbs: newPastVerbs });
-  }
+    this.props.onChange({pastVerbs: newPastVerbs});
+  };
 
   render() {
-    const { classes } = this.props;
-    const verbItems = this.props.verbs.filter(v => !!v).map((verb, i) => (
-      <div key={verb}>
-        <ListItem button onClick={() => this.onChange(i)}>
-          <ListItemText primary={verb} />
-          <ListItemSecondaryAction>
-            <Checkbox
-              value={verb}
-              checked={this.props.pastVerbs.includes(i)}
-              onChange={() => this.onChange(i)}
-              className={classes.checked}
-            />
-          </ListItemSecondaryAction>
-        </ListItem>
-        <Divider light />
-      </div>
-    ));
+    const {classes} = this.props;
+    const verbItems = this.props.verbs
+      .filter(v => !!v)
+      .map((verb, i) => (
+        <div key={verb}>
+          <ListItem button onClick={() => this.onChange(i)}>
+            <ListItemText primary={verb} />
+            <ListItemSecondaryAction>
+              <Checkbox
+                value={verb}
+                checked={this.props.pastVerbs.includes(i)}
+                onChange={() => this.onChange(i)}
+                className={classes.checked}
+              />
+            </ListItemSecondaryAction>
+          </ListItem>
+          <Divider light />
+        </div>
+      ));
     return (
       <div className={classes.root}>
-        <List>
-          {verbItems}
-        </List>
+        <List>{verbItems}</List>
       </div>
     );
   }

@@ -3,25 +3,13 @@ import Grid from '@material-ui/core/Grid';
 import SolutionCard from './solutionCard';
 import Config from '../config';
 import Utils from '../utils';
-import {Red, DarkGreen} from './themes'
+import {Red, DarkGreen} from './themes';
 
 class SolutionScreen extends React.Component {
   constructor(props) {
     super(props);
-    this.manKeys = [
-      'problemType',
-      'description',
-      'negativeVerbs',
-      'verbs',
-      'name',
-      'pastDomino'
-    ];
-    this.beeingKeys = [
-      'problemPlanted',
-      'transformationVerbs',
-      'newName',
-      'futureDomino',
-    ];
+    this.manKeys = ['problemType', 'description', 'negativeVerbs', 'verbs', 'name', 'pastDomino'];
+    this.beeingKeys = ['problemPlanted', 'transformationVerbs', 'newName', 'futureDomino'];
   }
 
   get problem() {
@@ -29,8 +17,8 @@ class SolutionScreen extends React.Component {
   }
 
   render() {
-    const problem = this.problem;
-    let textProblem = {...problem};
+    const {problem} = this;
+    const textProblem = {...problem};
     if (!problem) return null;
     textProblem.verbs = Utils.joinWithCommas(problem.verbs);
     textProblem.negativeVerbs = Utils.indexToText(problem.negativeVerbs, problem.verbs);
@@ -39,11 +27,11 @@ class SolutionScreen extends React.Component {
 
     const manTexts = this.manKeys.reduce((acc, item) => {
       acc[item] = textProblem[item];
-      return acc
+      return acc;
     }, {});
     const beeingTexts = this.beeingKeys.reduce((acc, item) => {
       acc[item] = textProblem[item];
-      return acc
+      return acc;
     }, {});
 
     // The two image: https://icons8.com/license

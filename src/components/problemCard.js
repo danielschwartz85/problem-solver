@@ -1,6 +1,6 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import { withStyles } from '@material-ui/core/styles';
+import {withStyles} from '@material-ui/core/styles';
 import CardContent from '@material-ui/core/CardContent';
 import CardActions from '@material-ui/core/CardActions';
 import Card from '@material-ui/core/Card';
@@ -21,38 +21,38 @@ import Edit from '@material-ui/icons/Edit';
 const styles = theme => ({
   card: {
     width: '100%',
-    'margin-bottom': '20px'
+    'margin-bottom': '20px',
   },
   media: {
     height: 200,
   },
   burger: {
-    color: theme.palette.common.white
+    color: theme.palette.common.white,
   },
   menu: {
-    'margin-top': '20px'
-  }
+    'margin-top': '20px',
+  },
 });
 
 class ProblemCard extends React.Component {
   constructor(props) {
-    super(props)
+    super(props);
     this.state = {
-      anchorEl: null
+      anchorEl: null,
     };
   }
 
   handleClick = event => {
-    this.setState({ anchorEl: event.currentTarget });
+    this.setState({anchorEl: event.currentTarget});
   };
 
   handleClose = () => {
-    this.setState({ anchorEl: null });
+    this.setState({anchorEl: null});
   };
 
   render() {
-    const { classes } = this.props;
-    const { anchorEl } = this.state;
+    const {classes} = this.props;
+    const {anchorEl} = this.state;
     const problemText = this.props.description;
     const verbs = this.props.verbs;
     const updatedAt = this.props.updatedAt;
@@ -63,8 +63,7 @@ class ProblemCard extends React.Component {
           aria-owns={anchorEl ? 'long-menu' : null}
           aria-haspopup="true"
           onClick={this.handleClick}
-          className={classes.burger}
-        >
+          className={classes.burger}>
           <MoreVertIcon />
         </IconButton>
         <Menu
@@ -72,8 +71,7 @@ class ProblemCard extends React.Component {
           anchorEl={this.state.anchorEl}
           open={Boolean(anchorEl)}
           onClose={this.handleClose}
-          className={classes.menu}
-        >
+          className={classes.menu}>
           <MenuItem onClick={this.handleClose}>
             <ListItemIcon>
               <Edit />
@@ -92,10 +90,7 @@ class ProblemCard extends React.Component {
 
     return (
       <Card className={classes.card}>
-        <CardMedia
-          className={classes.media}
-          image={Config.problemCard.imageUrl}
-        >
+        <CardMedia className={classes.media} image={Config.problemCard.imageUrl}>
           {menu}
         </CardMedia>
         <CardContent>
@@ -105,14 +100,10 @@ class ProblemCard extends React.Component {
           <Typography type="subheading" color="secondary">
             {`שונה לאחרונה ב ${updatedAt.toDateString()}`}
           </Typography>
-          <Typography component="p">
-            {Utils.joinWithCommas(verbs)}
-          </Typography>
+          <Typography component="p">{Utils.joinWithCommas(verbs)}</Typography>
         </CardContent>
         <CardActions>
-          <Button color="primary">
-            {Config.problemCard.showBookText}
-          </Button>
+          <Button color="primary">{Config.problemCard.showBookText}</Button>
         </CardActions>
       </Card>
     );

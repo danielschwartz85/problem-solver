@@ -4,9 +4,9 @@ import Config from '../../config';
 import Grid from '@material-ui/core/Grid';
 
 class FutureDomino extends React.Component {
-  onChange = (e) => {
-    this.props.onChange({ futureDomino: e.target.value });
-  }
+  onChange = e => {
+    this.props.onChange({futureDomino: e.target.value});
+  };
 
   render() {
     return (

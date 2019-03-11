@@ -1,12 +1,12 @@
 import React from 'react';
-  import Config from '../config';
+import Config from '../config';
 import EyeTypeCard from './eyeTypeCard';
 import Grid from '@material-ui/core/Grid';
 
 class EyeTypesScreen extends React.Component {
   onChange = id => () => {
     this.props.toggleEyeTypeAndFetch(id);
-  }
+  };
 
   render() {
     const eyeTypes = Object.entries(Config.eyeTypesScreen.types).map(([id, type]) => (
@@ -24,7 +24,11 @@ class EyeTypesScreen extends React.Component {
       </Grid>
     ));
 
-    return <Grid container spacing={16}>{eyeTypes}</Grid>;
+    return (
+      <Grid container spacing={16}>
+        {eyeTypes}
+      </Grid>
+    );
   }
 }
 

@@ -1,6 +1,6 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import { withStyles } from '@material-ui/core/styles';
+import {withStyles} from '@material-ui/core/styles';
 import classnames from 'classnames';
 import Card from '@material-ui/core/Card';
 import CardHeader from '@material-ui/core/CardHeader';
@@ -31,26 +31,22 @@ const styles = theme => ({
 });
 
 class BadActionsCard extends React.Component {
-  state = { expanded: false };
+  state = {expanded: false};
 
   handleExpandClick = () => {
-    this.setState(state => ({ expanded: !state.expanded }));
+    this.setState(state => ({expanded: !state.expanded}));
   };
 
   render() {
-    const { classes } = this.props;
+    const {classes} = this.props;
     let badActions;
     if (this.props.eyeTypes.length) {
-      badActions = (
-        this.props.eyeTypes.map(t => (
-          <div key={t.name}>
-            <Typography paragraph>{t.name}</Typography>
-            <Typography paragraph>
-              {Utils.joinWithCommas(t.actions)}
-            </Typography>
-          </div>
-        ))
-      );
+      badActions = this.props.eyeTypes.map(t => (
+        <div key={t.name}>
+          <Typography paragraph>{t.name}</Typography>
+          <Typography paragraph>{Utils.joinWithCommas(t.actions)}</Typography>
+        </div>
+      ));
     } else {
       badActions = <Typography paragraph>{Config.badActions.empty}</Typography>;
     }
@@ -58,14 +54,11 @@ class BadActionsCard extends React.Component {
     return (
       <LightGreen>
         <Card>
-          <CardHeader
-            title={Config.badActions.title}
-            subheader={Config.badActions.subHeader}
-          />
+          <CardHeader title={Config.badActions.title} subheader={Config.badActions.subHeader} />
           {/*<CardContent>*/}
-            {/*<Typography component="p">*/}
-              {/*{Config.badActions.description}*/}
-            {/*</Typography>*/}
+          {/*<Typography component="p">*/}
+          {/*{Config.badActions.description}*/}
+          {/*</Typography>*/}
           {/*</CardContent>*/}
           <CardActions className={classes.actions} disableActionSpacing>
             <IconButton
@@ -74,15 +67,12 @@ class BadActionsCard extends React.Component {
               })}
               onClick={this.handleExpandClick}
               aria-expanded={this.state.expanded}
-              aria-label="Show more"
-            >
+              aria-label="Show more">
               <ExpandMoreIcon />
             </IconButton>
           </CardActions>
           <Collapse in={this.state.expanded} timeout="auto" unmountOnExit>
-            <CardContent>
-              {badActions}
-            </CardContent>
+            <CardContent>{badActions}</CardContent>
           </Collapse>
         </Card>
       </LightGreen>

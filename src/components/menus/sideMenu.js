@@ -1,13 +1,13 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import { withStyles } from '@material-ui/core/styles';
+import {withStyles} from '@material-ui/core/styles';
 import Drawer from '@material-ui/core/Drawer';
 import IconButton from '@material-ui/core/IconButton';
 import MenuIcon from '@material-ui/icons/Menu';
-import ListItemText from '@material-ui/core/ListItemText'
-import ListItemIcon from '@material-ui/core/ListItemIcon'
-import ListItem from '@material-ui/core/ListItem'
-import List from '@material-ui/core/List'
+import ListItemText from '@material-ui/core/ListItemText';
+import ListItemIcon from '@material-ui/core/ListItemIcon';
+import ListItem from '@material-ui/core/ListItem';
+import List from '@material-ui/core/List';
 import ListSubheader from '@material-ui/core/ListSubheader';
 import Divider from '@material-ui/core/Divider';
 import Accessibility from '@material-ui/icons/Accessibility';
@@ -18,12 +18,12 @@ import Config from '../../config';
 import Utils from '../../utils';
 import CircularProgress from '@material-ui/core/CircularProgress';
 
-const styles = theme => ({
+const styles = () => ({
   list: {
-    width: 250
+    width: 250,
   },
   subheader: {
-    position: 'static'
+    position: 'static',
   },
   progress: {
     'margin-top': '10px',
@@ -33,48 +33,54 @@ const styles = theme => ({
 
 class SideMenu extends React.Component {
   state = {
-    isOpen: false
-  }
+    isOpen: false,
+  };
 
-  toggleMenu = (e, i) => {
+  toggleMenu = () => {
     if (this.isLoading) return;
     this.setState({isOpen: !this.state.isOpen});
-  }
+  };
 
-  problemSelected = (id) => {
+  problemSelected = id => {
     this.props.onProblemSelected(id);
-  }
+  };
 
   newProblemSelected = () => {
     this.props.clearDraft();
     this.props.onNewProblemSelected();
-  }
+  };
 
   eyeTypesSelected = () => {
     this.props.onEyeTypesSelected();
-  }
+  };
 
-  get isLoading () {
+  get isLoading() {
     let loading = this.props.creatingProblem || this.props.updatingProblem;
     loading = loading || this.props.deletingProblem || this.props.fetchingProblems;
     return loading;
   }
 
   render() {
-    const { classes, problems } = this.props;
-    const sortedProblems = Object.keys(problems || {}).map(id => ({
+    const {classes, problems} = this.props;
+    const sortedProblems = Object.keys(problems || {})
+      .map(id => ({
         problem: this.props.problems[id],
         id: id,
-        updatedAt: this.props.problems[id].updatedAt
-      })).sort((p1, p2) => p1.updatedAt >= p2.updatedAt ? -1 : 1);
+        updatedAt: this.props.problems[id].updatedAt,
+      }))
+      .sort((p1, p2) => (p1.updatedAt >= p2.updatedAt ? -1 : 1));
     const problemList = sortedProblems.map(p => {
       const problem = p.problem;
       const id = p.id;
       return (
-        <div key={id} onClick={() => {this.problemSelected(id)}}>
+        <div
+          key={id}
+          onClick={() => {
+            this.problemSelected(id);
+          }}>
           <ListItem button>
             <ListItemIcon>
-              <LibraryBooks/>
+              <LibraryBooks />
             </ListItemIcon>
             <ListItemText
               primary={Utils.truncate(problem.description, 15)}
@@ -91,25 +97,17 @@ class SideMenu extends React.Component {
     if (problemList.length) {
       myProblemsSection = (
         <div>
-          <ListSubheader className={classes.subheader}>
-            {Config.sideMenu.myProblems}
-          </ListSubheader>
+          <ListSubheader className={classes.subheader}>{Config.sideMenu.myProblems}</ListSubheader>
           {problemList}
         </div>
       );
     } else {
-      myProblemsSection = (
-        <ListSubheader>{Config.sideMenu.emptyProblems}</ListSubheader>
-      );
+      myProblemsSection = <ListSubheader>{Config.sideMenu.emptyProblems}</ListSubheader>;
     }
     // Loading problems
-    if(this.props.fetchingProblems) {
+    if (this.props.fetchingProblems) {
       myProblemsSection = (
-          <CircularProgress
-            className={classes.progress}
-            thickness={5}
-            color="primary"
-          />
+        <CircularProgress className={classes.progress} thickness={5} color="primary" />
       );
     }
     // Error
@@ -121,7 +119,7 @@ class SideMenu extends React.Component {
           <div onClick={this.props.fetchProblems}>
             <ListItem button>
               <ListItemIcon>
-                <Refresh/>
+                <Refresh />
               </ListItemIcon>
               <ListItemText primary={Config.sideMenu.retryFetch} />
             </ListItem>
@@ -132,52 +130,40 @@ class SideMenu extends React.Component {
     }
 
     const sideList = (
-     <div className={classes.list}>
-       <List>
-         <ListItem button onClick={this.newProblemSelected}>
-           <ListItemIcon>
-             <Accessibility />
-           </ListItemIcon>
-           <ListItemText primary={Config.sideMenu.newProblem}/>
-         </ListItem>
-         <ListItem button onClick={this.eyeTypesSelected}>
-           <ListItemIcon>
-             <Visibility />
-           </ListItemIcon>
-           <ListItemText primary={Config.sideMenu.eyeTypes}/>
-         </ListItem>
-         {myProblemsSection}
-       </List>
-     </div>
-   );
+      <div className={classes.list}>
+        <List>
+          <ListItem button onClick={this.newProblemSelected}>
+            <ListItemIcon>
+              <Accessibility />
+            </ListItemIcon>
+            <ListItemText primary={Config.sideMenu.newProblem} />
+          </ListItem>
+          <ListItem button onClick={this.eyeTypesSelected}>
+            <ListItemIcon>
+              <Visibility />
+            </ListItemIcon>
+            <ListItemText primary={Config.sideMenu.eyeTypes} />
+          </ListItem>
+          {myProblemsSection}
+        </List>
+      </div>
+    );
 
-   return (
-     <IconButton
-       color="inherit"
-       aria-label="Menu"
-       onClick={this.toggleMenu}
-     >
-       <MenuIcon/>
-       <Drawer
-         open={this.state.isOpen}
-         onClose={this.toggleMenu}
-       >
-         <div
-           tabIndex={0}
-           role="button"
-           onClick={this.toggleMenu}
-           onKeyDown={this.toggleMenu}
-         >
-           {sideList}
-         </div>
-       </Drawer>
-     </IconButton>
+    return (
+      <IconButton color="inherit" aria-label="Menu" onClick={this.toggleMenu}>
+        <MenuIcon />
+        <Drawer open={this.state.isOpen} onClose={this.toggleMenu}>
+          <div tabIndex={0} role="button" onClick={this.toggleMenu} onKeyDown={this.toggleMenu}>
+            {sideList}
+          </div>
+        </Drawer>
+      </IconButton>
     );
   }
 }
 
 SideMenu.propTypes = {
-  classes: PropTypes.object.isRequired
+  classes: PropTypes.object.isRequired,
 };
 
 export default withStyles(styles)(SideMenu);
