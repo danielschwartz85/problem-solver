@@ -3,7 +3,6 @@ import PropTypes from 'prop-types';
 import {withStyles} from '@material-ui/core/styles';
 import classnames from 'classnames';
 import Card from '@material-ui/core/Card';
-import CardHeader from '@material-ui/core/CardHeader';
 import CardContent from '@material-ui/core/CardContent';
 import CardActions from '@material-ui/core/CardActions';
 import Collapse from '@material-ui/core/Collapse';
@@ -54,13 +53,8 @@ class BadActionsCard extends React.Component {
     return (
       <LightGreen>
         <Card>
-          <CardHeader title={Config.badActions.title} subheader={Config.badActions.subHeader} />
-          {/*<CardContent>*/}
-          {/*<Typography component="p">*/}
-          {/*{Config.badActions.description}*/}
-          {/*</Typography>*/}
-          {/*</CardContent>*/}
           <CardActions className={classes.actions} disableActionSpacing>
+            {Config.badActions.title}
             <IconButton
               className={classnames(classes.expand, {
                 [classes.expandOpen]: this.state.expanded,
