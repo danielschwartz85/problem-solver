@@ -281,10 +281,10 @@ class EditPage extends React.Component {
       <currentPage.theme>
         <Grid container spacing={16}>
           <Grid item xs={12} sm={12}>
-            {mainCard}
+            {badActionsCard}
           </Grid>
           <Grid item xs={12} sm={12}>
-            {badActionsCard}
+            {mainCard}
           </Grid>
         </Grid>
       </currentPage.theme>
