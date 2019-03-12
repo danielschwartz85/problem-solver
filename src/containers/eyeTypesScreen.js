@@ -3,9 +3,10 @@ import EyeTypesScreen from '../components/eyeTypesScreen';
 import {toggleEyeType, fetchSelectedEyeTypes} from '../actions/eyeTypeActions';
 
 const matchDispatchToProps = dispatch => ({
-  toggleEyeTypeAndFetch: async id => {
-    await dispatch(toggleEyeType(id));
-    await dispatch(fetchSelectedEyeTypes());
+  // removed async for performance
+  toggleEyeTypeAndFetch: /*async */ id => {
+    /*await */ dispatch(toggleEyeType(id));
+    /*await */ dispatch(fetchSelectedEyeTypes());
   },
 });
 

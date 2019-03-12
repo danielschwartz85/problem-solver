@@ -31,7 +31,8 @@ export function fetchSelectedEyeTypes() {
   let eyeTypes = Utils.getItem('selectedEyeTypes');
   eyeTypes = (eyeTypes && JSON.parse(eyeTypes)) || {};
 
-  return async dispatch => {
+  // removed async for performance
+  return /*async*/ dispatch => {
     try {
       dispatch(fetchSelectedEyeTypesPending());
       // await Utils.delay(50);
@@ -72,7 +73,8 @@ export function toggleEyeType(id) {
     eyeTypes[id] = true;
   }
 
-  return async dispatch => {
+  // removed async for performance
+  return /*async*/ dispatch => {
     try {
       dispatch(toggleEyeTypePending());
       // await Utils.delay(50);

@@ -10,13 +10,7 @@ const mapStateToProps = state => ({
 });
 
 const matchDispatchToProps = dispatch => {
-  const matcher = bindActionCreators(
-    {
-      selectDraft,
-    },
-    dispatch,
-  );
-
+  const matcher = bindActionCreators({selectDraft}, dispatch);
   return {
     ...matcher,
     deleteAndFetch: id => {
