@@ -124,7 +124,7 @@ const Config = {
         color: 'חום או כחול',
         description: 'סיבים פתוחים היוצרים חללים דמויי פרח.',
         origin: 'תקופת האבן יוצרים ואומנים.',
-        image: 'cardBgrd.jpg',
+        image: 'eyes/flower.jpg',
         actions: [
           'א.ה.ב',
           'א.מ.ן',
@@ -149,7 +149,7 @@ const Config = {
         color: 'חום',
         description: 'קטיפתי',
         origin: 'נוודים',
-        image: 'cardBgrd.jpg',
+        image: 'eyes/velved.jpg',
         actions: [
           'א.ב.ד',
           'א.ה.ב',
@@ -197,7 +197,7 @@ const Config = {
         description:
           'קווים הדומים לקרני שמש עם טבעות שלמות וקטועות בקשתית. במצבם קוטביים בקשתיות אלו הקווים יתעבו לפסים עבים דמויי מעבר חצייה.',
         origin: 'שבטיים',
-        image: 'cardBgrd.jpg',
+        image: 'eyes/rabit-sun.jpg',
         actions: [
           'א.ג.ר',
           'א.ז.ן',
@@ -247,7 +247,7 @@ const Config = {
         color: 'כחול או חום',
         description: 'סיבים צפופים מתוחים וישרים ברב הקשתית ואישון קטן.',
         origin: 'פיקוד וניהול',
-        image: 'cardBgrd.jpg',
+        image: 'eyes/lined.jpg',
         actions: [
           'א.ב.ד',
           'א.ה.ב',
@@ -283,7 +283,7 @@ const Config = {
         color: 'שונה באזור האישוני מצבע הקשתית',
         description: '',
         origin: 'מניתוק למעורבות אנושית',
-        image: 'cardBgrd.jpg',
+        image: 'eyes/colored.jpg',
         actions: [
           'א.ז.ן',
           'ב.ט.א',
@@ -307,7 +307,7 @@ const Config = {
         color: 'כחול',
         description: 'קשתית עם סיבים גליים ולעיתים בתווספת שרשרת פנינים בפריפרית הקשתית.',
         origin: 'בין שמיים לארץ',
-        image: 'cardBgrd.jpg',
+        image: 'eyes/heaven-earth.jpg',
         actions: [
           'א.ג.ר',
           'א.ז.ן',
@@ -335,7 +335,7 @@ const Config = {
         color: 'חום או כחול',
         description: 'כתמים בולטים ומפוזרים במקומות שונים בקשתית.',
         origin: 'דחיית סיפוקים',
-        image: 'cardBgrd.jpg',
+        image: 'eyes/stained.jpg',
         actions: [
           'ב.ד.ד',
           'ג.ב.ל',
@@ -363,7 +363,7 @@ const Config = {
         color: 'קשתית בעלת גוון צהוב או לבן',
         description: '',
         origin: 'חייי נצח. שאיפה למושלם ללא פשרות.',
-        image: 'cardBgrd.jpg',
+        image: 'eyes/white-yellow.jpg',
         actions: [
           'א.ש.ם',
           'ב.ק.ר',
@@ -399,7 +399,7 @@ const Config = {
         color: 'כחול או חום',
         description: 'מארג סיבים פתוח המאופיין בחללים בולטים בכל הקשתית.',
         origin: 'מעבר מעשייה לרגש',
-        image: 'cardBgrd.jpg',
+        image: 'eyes/hollow.jpg',
         actions: ['ח.ז.ק', 'ל.ח.ם', 'מ.צ.א', 'נ.ת.ן', 'פ.ט.ר', 'פ.ת.ר', 'ק.צ.ה', 'ש.ב.ר', 'ת.ק.ע'],
       },
       33: {
@@ -407,7 +407,7 @@ const Config = {
         color: 'חום',
         description: 'נקודות קטנות שחורות מנוקדות בחלקים שונים. במצבים קוטביים כל הקשתית מנוקדת.',
         origin: 'זכרונות והאחזות בעבר ונוסטלגיה.',
-        image: 'cardBgrd.jpg',
+        image: 'eyes/doted.jpg',
         actions: [
           'א.מ.ן',
           'ג.ע',
@@ -442,7 +442,7 @@ const Config = {
         color: 'חום או כחול',
         description: 'הילה בהירה או צהובה בפריפריית הקשתית.',
         origin: 'עמידות יציבות ועקשנות.',
-        image: 'cardBgrd.jpg',
+        image: 'eyes/ora.jpg',
         actions: [
           'א.מ.ץ',
           'ה.ק.ל',
