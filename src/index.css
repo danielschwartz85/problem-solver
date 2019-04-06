@@ -1,3 +1,20 @@
 #app {
   font-family: 'Roboto', sans-serif;
+  min-height: 100%;
+  /* equal to footer height */
+  margin-bottom: 25px;
+}
+html, body {
+  height: 100%;
+}
+#app:after {
+  content: "";
+  display: block;
+}
+#footer {
+  height: 25px;
+  padding-bottom: 20px;
+  margin-top: 20px;
+  font-size: smaller;
+  text-align: center;
 }
