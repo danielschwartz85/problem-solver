@@ -130,7 +130,7 @@ class App extends React.Component {
       </Grid>
     );
     // This is for first load, show loading screen instead of components
-    if (this.state.startup) {
+    if (this.state.startup || this.props.creatingProblem) {
       mainScreen = (
         <Grid container direction="column" align="center">
           <Grid item>

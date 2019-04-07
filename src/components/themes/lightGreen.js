@@ -6,6 +6,7 @@ function LightGreen(props) {
   const theme = createMuiTheme({
     typography: {
       useNextVariants: true,
+      fontSize: '18',
     },
     palette: {
       background: {

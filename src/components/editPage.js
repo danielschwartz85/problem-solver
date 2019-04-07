@@ -86,7 +86,6 @@ class EditPage extends React.Component {
       this.props
         .createProblemAndFetch(draft)
         .then(newId => {
-          this.setState({loading: false, showErrorMessage: false});
           this.props.onProblemSelected(newId);
         })
         .catch(() => {

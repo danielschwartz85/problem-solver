@@ -6,6 +6,7 @@ function Orange(props) {
   const theme = createMuiTheme({
     typography: {
       useNextVariants: true,
+      fontSize: '18',
     },
     palette: {
       primary: orange,
