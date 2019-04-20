@@ -1,4 +1,4 @@
-Code for  [Action Therapy](https://danielschwartz85.github.io/action-therapy/).
+Code for  [Action Technique](https://danielschwartz85.github.io/action-therapy/).
 
 Using:
 1. React
