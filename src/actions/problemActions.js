@@ -58,22 +58,14 @@ export function fetchProblems() {
   let problems = Utils.getItem('problems');
   problems = (problems && JSON.parse(problems)) || {};
 
-  return dispatch => {
+  return async dispatch => {
     dispatch(fetchProblemsPending());
-    const p = new Promise(res => {
-      setTimeout(() => res(problems), 500);
-      // rej(new Error('USER_LOGGED_OUT'));
-    })
-      .then(res => {
-        dispatch(fetchProblemsFullfilled(res));
-      })
-      .then(() => Promise.resolve())
-      .catch(e => {
-        dispatch(fetchProblemsRejected(e));
-        return e;
-      })
-      .then(e => (!e ? Promise.resolve() : Promise.reject(e)));
-    return p;
+    try {
+      await dispatch(fetchProblemsFullfilled(problems));
+    } catch (e) {
+      dispatch(fetchProblemsRejected(e));
+      throw e;
+    }
   };
 }
 
@@ -108,22 +100,16 @@ export function createProblem(problem) {
   problems[newId] = {...problem, updatedAt: Date.now()};
   cleanProblem(problems[newId]);
 
-  return dispatch => {
+  return async dispatch => {
     dispatch(createProblemPending());
-    const p = new Promise(res => {
-      setTimeout(() => {
-        Utils.setItem('problems', JSON.stringify(problems));
-        // rej(new Error('USER_LOGGED_OUT'));
-        res(newId);
-      }, 500);
-    })
-      .then(res => Promise.all([null, res, dispatch(createProblemFullfilled(res))]))
-      .catch(e => {
-        dispatch(createProblemRejected(e));
-        return [e, null];
-      })
-      .then(([err, newId]) => (!err ? Promise.resolve(newId) : Promise.reject(err)));
-    return p;
+    Utils.setItem('problems', JSON.stringify(problems));
+    try {
+      await dispatch(createProblemFullfilled(newId));
+    } catch (e) {
+      dispatch(createProblemRejected(e));
+      throw e;
+    }
+    return newId;
   };
 }
 
@@ -157,23 +143,15 @@ export function updateProblem(id, changes) {
   };
   cleanProblem(problems[id]);
 
-  return dispatch => {
+  return async dispatch => {
     dispatch(updateProblemPending());
-    const p = new Promise(res => {
-      setTimeout(() => {
-        Utils.setItem('problems', JSON.stringify(problems));
-        // rej(new Error('USER_LOGGED_OUT'));
-        res();
-      }, 500);
-    })
-      .then(() => dispatch(updateProblemFullfilled()))
-      .then(() => Promise.resolve())
-      .catch(e => {
-        dispatch(updateProblemRejected(e));
-        return e;
-      })
-      .then(e => (!e ? Promise.resolve() : Promise.reject(e)));
-    return p;
+    Utils.setItem('problems', JSON.stringify(problems));
+    try {
+      await dispatch(updateProblemFullfilled());
+    } catch (e) {
+      dispatch(updateProblemRejected(e));
+      throw e;
+    }
   };
 }
 
@@ -202,23 +180,15 @@ export function deleteProblem(id) {
   const problems = JSON.parse(Utils.getItem('problems'));
   delete problems[id];
 
-  return dispatch => {
+  return async dispatch => {
     dispatch(deleteProblemPending());
-    const p = new Promise(res => {
-      setTimeout(() => {
-        // rej(new Error('USER_LOGGED_OUT'));return;
-        Utils.setItem('problems', JSON.stringify(problems));
-        res();
-      }, 500);
-    })
-      .then(() => dispatch(deleteProblemFullfilled()))
-      .then(() => Promise.resolve())
-      .catch(e => {
-        dispatch(deleteProblemRejected(e));
-        return e;
-      })
-      .then(e => (!e ? Promise.resolve() : Promise.reject(e)));
-    return p;
+    Utils.setItem('problems', JSON.stringify(problems));
+    try {
+      await dispatch(deleteProblemFullfilled());
+    } catch (e) {
+      dispatch(deleteProblemRejected(e));
+      throw e;
+    }
   };
 }
 
