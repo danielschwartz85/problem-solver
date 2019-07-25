@@ -31,7 +31,7 @@ const styles = theme => ({
     height: 200,
   },
   burger: {
-    color: theme.palette.common.white,
+    color: 'yellow',
   },
   menu: {
     'margin-top': '20px',
