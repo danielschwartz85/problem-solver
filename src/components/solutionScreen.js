@@ -43,7 +43,7 @@ class SolutionScreen extends React.Component {
         header={Config.solutionScreen.man.header}
         subHeader={Config.solutionScreen.man.subHeader}
         description={Config.solutionScreen.man.description}
-        imageUrl={`${Utils.sitePrefix}face.png`}
+        imageUrl={`${Utils.sitePrefix}face.jpg`}
       />
     );
 
@@ -53,7 +53,7 @@ class SolutionScreen extends React.Component {
         header={Config.solutionScreen.beeing.header}
         subHeader={Config.solutionScreen.beeing.subHeader}
         description={Config.solutionScreen.beeing.description}
-        imageUrl={`${Utils.sitePrefix}plane.png`}
+        imageUrl={`${Utils.sitePrefix}plane.jpg`}
       />
     );
 
