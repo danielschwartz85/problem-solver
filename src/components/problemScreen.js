@@ -23,7 +23,7 @@ import CircularProgress from '@material-ui/core/CircularProgress';
 import Grid from '@material-ui/core/Grid';
 import Snackbar from '@material-ui/core/Snackbar';
 
-const styles = theme => ({
+const styles = () => ({
   card: {
     width: '100%',
   },
