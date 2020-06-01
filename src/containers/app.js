@@ -24,7 +24,4 @@ const matchDispatchToProps = dispatch => ({
     } catch (e) {}
   },
 });
-export default connect(
-  mapStateToProps,
-  matchDispatchToProps,
-)(App);
+export default connect(mapStateToProps, matchDispatchToProps)(App);

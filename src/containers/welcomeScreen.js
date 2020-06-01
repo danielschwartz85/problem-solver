@@ -11,7 +11,4 @@ const matchDispatchToProps = dispatch =>
     dispatch,
   );
 
-export default connect(
-  null,
-  matchDispatchToProps,
-)(WelcomeScreen);
+export default connect(null, matchDispatchToProps)(WelcomeScreen);

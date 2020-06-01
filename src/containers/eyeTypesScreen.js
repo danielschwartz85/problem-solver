@@ -14,7 +14,4 @@ const mapStateToProps = ({eyeTypes}) => ({
   selectedEyeTypes: eyeTypes.selectedEyeTypes,
 });
 
-export default connect(
-  mapStateToProps,
-  matchDispatchToProps,
-)(EyeTypesScreen);
+export default connect(mapStateToProps, matchDispatchToProps)(EyeTypesScreen);

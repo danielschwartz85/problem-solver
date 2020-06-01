@@ -65,7 +65,4 @@ const matchDispatchToProps = dispatch => {
   };
 };
 
-export default connect(
-  mapStateToProps,
-  matchDispatchToProps,
-)(EditPage);
+export default connect(mapStateToProps, matchDispatchToProps)(EditPage);
