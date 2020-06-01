@@ -52,7 +52,7 @@ class EditPage extends React.Component {
     loading: false,
   };
 
-  componentWillMount() {
+  componentDidMount() {
     if (this.draft) return;
     if (this.props.selectedProblemId) {
       // make sure fetch problems is done
@@ -278,7 +278,7 @@ class EditPage extends React.Component {
     );
     const card = (
       <currentPage.theme>
-        <Grid container spacing={16}>
+        <Grid container spacing={2}>
           <Grid item xs={12} sm={12}>
             {badActionsCard}
           </Grid>

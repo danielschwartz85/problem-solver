@@ -58,7 +58,7 @@ class SolutionScreen extends React.Component {
     );
 
     return (
-      <Grid container spacing={16}>
+      <Grid container spacing={2}>
         <Grid item xs={12} sm={6}>
           <DarkGreen>{beeingCard}</DarkGreen>
         </Grid>

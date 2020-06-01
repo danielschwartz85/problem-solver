@@ -1,6 +1,5 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import {withStyles} from '@material-ui/core/styles';
 import Tabs from '@material-ui/core/Tabs';
 import Tab from '@material-ui/core/Tab';
 import IconPastVerb from '@material-ui/icons/Iso';
@@ -14,12 +13,6 @@ import IconPastDomino from '@material-ui/icons/FilterVintage';
 import IconTriangle from '@material-ui/icons/ChangeHistory';
 import Config from '../../config';
 import Utils from '../../utils';
-
-const styles = () => ({
-  tabs: {
-    direction: 'ltr',
-  },
-});
 
 class TopMenu extends React.Component {
   constructor(props) {
@@ -38,7 +31,7 @@ class TopMenu extends React.Component {
     ];
   }
 
-  componentWillMount() {
+  componentDidMount() {
     if (!this.props.draft && this.selectedPage !== 0) {
       this.props.onPageSelected(0);
     }
@@ -50,7 +43,6 @@ class TopMenu extends React.Component {
 
   render() {
     if (!this.props.draft) return null;
-    const {classes} = this.props;
     let firstInvalid;
     this.pages.some((_page, i) => {
       firstInvalid = i;
@@ -64,7 +56,7 @@ class TopMenu extends React.Component {
         <Tab
           key={Config.pages[page.name].tab.name}
           label={Config.pages[page.name].tab.name}
-          icon={<TabIcon className={classes.icon} />}
+          icon={<TabIcon />}
           disabled={disabled}
         />
       );
@@ -72,7 +64,6 @@ class TopMenu extends React.Component {
 
     return (
       <Tabs
-        className={classes.tabs}
         variant="scrollable"
         scrollButtons="auto"
         value={this.props.selectedPage}
@@ -87,4 +78,4 @@ TopMenu.propTypes = {
   classes: PropTypes.object.isRequired,
 };
 
-export default withStyles(styles)(TopMenu);
+export default TopMenu;

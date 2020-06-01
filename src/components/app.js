@@ -11,13 +11,6 @@ import WelcomeScreenContainer from '../containers/welcomeScreen';
 import EyeTypesScreenContainer from '../containers/eyeTypesScreen';
 import {HashRouter, Route} from 'react-router-dom';
 import CircularProgress from '@material-ui/core/CircularProgress';
-import {create} from 'jss';
-import rtl from 'jss-rtl';
-import JssProvider from 'react-jss/lib/JssProvider';
-import {createGenerateClassName, jssPreset} from '@material-ui/core/styles';
-
-const jss = create({plugins: [...jssPreset().plugins, rtl()]});
-const generateClassName = createGenerateClassName();
 
 const styles = () => ({
   root: {
@@ -37,7 +30,7 @@ class App extends React.Component {
     startup: true,
   };
 
-  componentWillMount() {
+  componentDidMount() {
     Promise.all([this.props.fetchProblems(), this.props.fetchSelectedEyeTypes()]).then(() => {
       this.setState({startup: false});
     });
@@ -141,20 +134,18 @@ class App extends React.Component {
     }
 
     return (
-      <JssProvider jss={jss} generateClassName={generateClassName}>
-        <Main>
-          <HashRouter>
-            <div className={classes.root}>
-              <Grid container spacing={8}>
-                <Grid item xs={12}>
-                  <Route path="*" render={appBar} />
-                </Grid>
-                {mainScreen}
+      <Main>
+        <HashRouter>
+          <div className={classes.root}>
+            <Grid container>
+              <Grid item xs={12}>
+                <Route path="*" render={appBar} />
               </Grid>
-            </div>
-          </HashRouter>
-        </Main>
-      </JssProvider>
+              {mainScreen}
+            </Grid>
+          </div>
+        </HashRouter>
+      </Main>
     );
   }
 }

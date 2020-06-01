@@ -1,4 +1,3 @@
-/* global process */
 import Config from './config';
 
 const Utils = {

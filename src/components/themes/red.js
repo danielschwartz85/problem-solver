@@ -5,8 +5,7 @@ import {grey, red} from '@material-ui/core/colors';
 function Red(props) {
   const theme = createMuiTheme({
     typography: {
-      useNextVariants: true,
-      fontSize: '18',
+      fontSize: 18,
     },
     palette: {
       primary: {main: '#ffffff'},

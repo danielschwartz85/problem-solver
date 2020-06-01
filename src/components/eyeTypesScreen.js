@@ -25,7 +25,7 @@ class EyeTypesScreen extends React.Component {
     ));
 
     return (
-      <Grid container spacing={16}>
+      <Grid container spacing={2}>
         {eyeTypes}
       </Grid>
     );

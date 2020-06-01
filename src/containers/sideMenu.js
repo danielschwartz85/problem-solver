@@ -29,7 +29,4 @@ const matchDispatchToProps = dispatch => {
   };
 };
 
-export default connect(
-  mapStateToProps,
-  matchDispatchToProps,
-)(SideMenu);
+export default connect(mapStateToProps, matchDispatchToProps)(SideMenu);

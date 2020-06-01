@@ -5,8 +5,7 @@ import {green} from '@material-ui/core/colors';
 function LightGreen(props) {
   const theme = createMuiTheme({
     typography: {
-      useNextVariants: true,
-      fontSize: '18',
+      fontSize: 18,
     },
     palette: {
       background: {

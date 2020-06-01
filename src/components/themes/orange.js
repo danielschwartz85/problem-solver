@@ -5,8 +5,7 @@ import {orange, grey} from '@material-ui/core/colors';
 function Orange(props) {
   const theme = createMuiTheme({
     typography: {
-      useNextVariants: true,
-      fontSize: '18',
+      fontSize: 18,
     },
     palette: {
       primary: orange,

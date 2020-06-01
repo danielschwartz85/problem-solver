@@ -1,7 +1,7 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import {withStyles} from '@material-ui/core/styles';
-import classnames from 'classnames';
+import clsx from 'clsx';
 import Card from '@material-ui/core/Card';
 import CardContent from '@material-ui/core/CardContent';
 import CardActions from '@material-ui/core/CardActions';
@@ -53,10 +53,10 @@ class BadActionsCard extends React.Component {
     return (
       <LightGreen>
         <Card>
-          <CardActions className={classes.actions} disableActionSpacing>
+          <CardActions className={classes.actions}>
             {Config.badActions.title}
             <IconButton
-              className={classnames(classes.expand, {
+              className={clsx(classes.expand, {
                 [classes.expandOpen]: this.state.expanded,
               })}
               onClick={this.handleExpandClick}

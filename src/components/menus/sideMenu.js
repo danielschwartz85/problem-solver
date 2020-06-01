@@ -22,6 +22,9 @@ const styles = () => ({
   list: {
     width: 250,
   },
+  listItemText: {
+    'text-align': 'right',
+  },
   subheader: {
     position: 'static',
   },
@@ -69,28 +72,25 @@ class SideMenu extends React.Component {
         updatedAt: this.props.problems[id].updatedAt,
       }))
       .sort((p1, p2) => (p1.updatedAt >= p2.updatedAt ? -1 : 1));
-    const problemList = sortedProblems.map(p => {
-      const problem = p.problem;
-      const id = p.id;
-      return (
-        <div
-          key={id}
-          onClick={() => {
-            this.problemSelected(id);
-          }}>
-          <ListItem button>
-            <ListItemIcon>
-              <LibraryBooks />
-            </ListItemIcon>
-            <ListItemText
-              primary={Utils.truncate(problem.description, 15)}
-              secondary={new Date(problem.updatedAt).toDateString()}
-            />
-          </ListItem>
-          <Divider />
-        </div>
-      );
-    });
+    const problemList = sortedProblems.map(({problem, id}) => (
+      <div
+        key={id}
+        onClick={() => {
+          this.problemSelected(id);
+        }}>
+        <ListItem button>
+          <ListItemIcon>
+            <LibraryBooks />
+          </ListItemIcon>
+          <ListItemText
+            primary={Utils.truncate(problem.description, 15)}
+            secondary={new Date(problem.updatedAt).toDateString()}
+            className={classes.listItemText}
+          />
+        </ListItem>
+        <Divider />
+      </div>
+    ));
 
     // Problems fetched ok
     let myProblemsSection;
@@ -121,7 +121,7 @@ class SideMenu extends React.Component {
               <ListItemIcon>
                 <Refresh />
               </ListItemIcon>
-              <ListItemText primary={Config.sideMenu.retryFetch} />
+              <ListItemText primary={Config.sideMenu.retryFetch} className={classes.listItemText} />
             </ListItem>
             <Divider />
           </div>
@@ -136,9 +136,9 @@ class SideMenu extends React.Component {
             <ListItemIcon>
               <Accessibility />
             </ListItemIcon>
-            <ListItemText primary={Config.sideMenu.newProblem} />
+            <ListItemText primary={Config.sideMenu.newProblem} className={classes.listItemText} />
           </ListItem>
-          <ListItem button onClick={this.eyeTypesSelected}>
+          <ListItem button onClick={this.eyeTypesSelected} className={classes.listItemText}>
             <ListItemIcon>
               <Visibility />
             </ListItemIcon>
