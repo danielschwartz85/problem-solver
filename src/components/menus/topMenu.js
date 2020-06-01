@@ -1,5 +1,4 @@
 import React from 'react';
-import PropTypes from 'prop-types';
 import Tabs from '@material-ui/core/Tabs';
 import Tab from '@material-ui/core/Tab';
 import IconPastVerb from '@material-ui/icons/Iso';
@@ -73,9 +72,5 @@ class TopMenu extends React.Component {
     );
   }
 }
-
-TopMenu.propTypes = {
-  classes: PropTypes.object.isRequired,
-};
 
 export default TopMenu;
