@@ -1,6 +1,9 @@
+body {
+  height: 90vh;
+}
 #app {
   font-family: 'Roboto', sans-serif;
-  min-height: 85vh;
+  min-height: calc(96vh - 56px);
   /* equal to footer height */
   margin-bottom: 7px;
 }
