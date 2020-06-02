@@ -18,7 +18,7 @@ const styles = () => ({
     marginTop: 30,
   },
   page: {
-    marginTop: 15,
+    marginTop: 25,
   },
   progress: {
     marginTop: 150,

@@ -24,6 +24,9 @@ const styles = theme => ({
       duration: theme.transitions.duration.shortest,
     }),
   },
+  badActionTitle: {
+    width: '100%',
+  },
   expandOpen: {
     transform: 'rotate(180deg)',
   },
@@ -54,7 +57,9 @@ class BadActionsCard extends React.Component {
       <LightGreen>
         <Card>
           <CardActions className={classes.actions}>
-            {Config.badActions.title}
+            <Typography variant="subtitle2" className={classes.badActionTitle}>
+              {Config.badActions.title}
+            </Typography>
             <IconButton
               className={clsx(classes.expand, {
                 [classes.expandOpen]: this.state.expanded,

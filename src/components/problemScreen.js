@@ -36,6 +36,10 @@ const styles = () => ({
   menu: {
     'margin-top': '20px',
   },
+  itemText: {
+    // 'margin-right': '56px',
+    'padding-left': '5px',
+  },
   progress: {
     marginTop: 50,
   },
@@ -127,25 +131,41 @@ class ProblemScreen extends React.Component {
             <ListItemIcon>
               <Edit />
             </ListItemIcon>
-            <ListItemText inset primary={Config.problemScreen.editText} />
+            <ListItemText
+              className={classes.itemText}
+              inset
+              primary={Config.problemScreen.editText}
+            />
           </MenuItem>
-          <MenuItem className={classes.menuItem} onClick={this.handleDelete}>
+          <MenuItem onClick={this.handleDelete}>
             <ListItemIcon>
               <DeleteForever />
             </ListItemIcon>
-            <ListItemText inset primary={Config.problemScreen.deleteText} />
+            <ListItemText
+              className={classes.itemText}
+              inset
+              primary={Config.problemScreen.deleteText}
+            />
           </MenuItem>
           <MenuItem onClick={this.handleSend}>
             <ListItemIcon>
               <Email />
             </ListItemIcon>
-            <ListItemText inset primary={Config.problemScreen.sendText} />
+            <ListItemText
+              className={classes.itemText}
+              inset
+              primary={Config.problemScreen.sendText}
+            />
           </MenuItem>
           <MenuItem onClick={this.handleShare}>
             <ListItemIcon>
               <Share />
             </ListItemIcon>
-            <ListItemText inset primary={Config.problemScreen.shareText} />
+            <ListItemText
+              className={classes.itemText}
+              inset
+              primary={Config.problemScreen.shareText}
+            />
           </MenuItem>
         </Menu>
       </div>
