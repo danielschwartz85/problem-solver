@@ -12,6 +12,7 @@ import ListSubheader from '@material-ui/core/ListSubheader';
 import Divider from '@material-ui/core/Divider';
 import Accessibility from '@material-ui/icons/Accessibility';
 import Visibility from '@material-ui/icons/Visibility';
+import RadioButtonChecked from '@material-ui/icons/RadioButtonChecked';
 import LibraryBooks from '@material-ui/icons/LibraryBooks';
 import Refresh from '@material-ui/icons/Refresh';
 import Config from '../../config';
@@ -55,6 +56,10 @@ class SideMenu extends React.Component {
 
   eyeTypesSelected = () => {
     this.props.onEyeTypesSelected();
+  };
+
+  mandalasSelected = () => {
+    this.props.onMandalasSelected();
   };
 
   get isLoading() {
@@ -143,6 +148,12 @@ class SideMenu extends React.Component {
               <Visibility />
             </ListItemIcon>
             <ListItemText primary={Config.sideMenu.eyeTypes} />
+          </ListItem>
+          <ListItem button onClick={this.mandalasSelected} className={classes.listItemText}>
+            <ListItemIcon>
+              <RadioButtonChecked />
+            </ListItemIcon>
+            <ListItemText primary={Config.sideMenu.mandalas} />
           </ListItem>
           {myProblemsSection}
         </List>

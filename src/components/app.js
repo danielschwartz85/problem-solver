@@ -9,6 +9,7 @@ import SolutionScreenContainer from '../containers/solutionScreen';
 import ProblemScreenContainer from '../containers/problemScreen';
 import WelcomeScreenContainer from '../containers/welcomeScreen';
 import EyeTypesScreenContainer from '../containers/eyeTypesScreen';
+import MandalasScreenContainer from '../components/mandalasScreen';
 import {HashRouter, Route} from 'react-router-dom';
 import CircularProgress from '@material-ui/core/CircularProgress';
 
@@ -38,32 +39,42 @@ class App extends React.Component {
 
   onEditorPageSelected = history => value => {
     if (this.isLoading) return;
-    history.replace(`${value + 1}`);
+    this._setPath(history, `${value + 1}`);
   };
 
   onNewProblemSelected = history => () => {
     if (this.isLoading) return;
-    history.push(`/problems/new/1`);
+    this._setPath(history, '/problems/new/1');
   };
 
   onEyeTypesSelected = history => () => {
     if (this.isLoading) return;
-    history.push(`/eyeTypes`);
+    this._setPath(history, '/eyeTypes');
   };
 
   onProblemSelected = history => id => {
     if (this.isLoading) return;
-    history.push(`/problems/${id}`);
+    this._setPath(history, `/problems/${id}`);
   };
 
   onEditorSelected = (history, id) => () => {
     if (this.isLoading) return;
-    history.push(`/problems/${id}/edit/1`);
+    this._setPath(history, `/problems/${id}/edit/1`);
   };
 
   onSolutionSelected = (history, id) => () => {
-    history.push(`/problems/${id}/solution`);
+    this._setPath(history, `/problems/${id}/solution`);
   };
+
+  onMandalasSelected = history => () => {
+    this._setPath(history, '/mandalas');
+  };
+
+  _setPath(history, path) {
+    if (history.location.pathname !== path) {
+      history.push(path);
+    }
+  }
 
   get isLoading() {
     let loading = this.props.creatingProblem || this.props.updatingProblem;
@@ -83,6 +94,7 @@ class App extends React.Component {
       />
     );
     const eyeTypesScreen = () => <EyeTypesScreenContainer />;
+    const mandalasScreen = () => <MandalasScreenContainer />;
     const solutionScreen = ({match}) => (
       <SolutionScreenContainer selectedProblemId={match.params.id} />
     );
@@ -106,6 +118,7 @@ class App extends React.Component {
           onProblemSelected={this.onProblemSelected(history)}
           onNewProblemSelected={this.onNewProblemSelected(history)}
           onEyeTypesSelected={this.onEyeTypesSelected(history)}
+          onMandalasSelected={this.onMandalasSelected(history)}
           onEditorPageSelected={this.onEditorPageSelected(history)}
           editorPage={editorPage}
         />
@@ -117,6 +130,7 @@ class App extends React.Component {
         <Route path={''} exact={true} render={welcomeScreen} />
         <Route path={'/problems/:id'} exact={true} render={problemScreen} />
         <Route path={'/eyeTypes'} exact={true} render={eyeTypesScreen} />
+        <Route path={'/mandalas'} exact={true} render={mandalasScreen} />
         <Route path={`/problems/:id/solution`} exact={true} render={solutionScreen} />
         <Route path={`/problems/:id/edit/:pageNum`} exact={true} render={editor} />
         <Route path={`/problems/new/:pageNum`} exact={true} render={editor} />

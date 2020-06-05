@@ -472,6 +472,7 @@ const Config = {
   sideMenu: {
     newProblem: 'בעיה חדשה',
     eyeTypes: 'קשתיות',
+    mandalas: 'מנדלות',
     myProblems: 'הבעיות שלי',
     emptyProblems: 'כרגע הכל דבש, אין בעיות..',
     errorProblems: 'שגיאה בטעינת הבעיות :',

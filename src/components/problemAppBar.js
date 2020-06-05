@@ -37,6 +37,10 @@ class ProblemAppBar extends React.Component {
     this.props.onEditorPageSelected(event, value);
   };
 
+  onMandalasSelected = () => {
+    this.props.onMandalasSelected();
+  };
+
   render() {
     const {classes, editorPage} = this.props;
     let topMenu;
@@ -54,6 +58,7 @@ class ProblemAppBar extends React.Component {
               onProblemSelected={this.onProblemSelected}
               onEyeTypesSelected={this.onEyeTypesSelected}
               onNewProblemSelected={this.onNewProblemSelected}
+              onMandalasSelected={this.onMandalasSelected}
             />
             {topMenu}
           </Toolbar>
