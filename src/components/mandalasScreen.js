@@ -8,9 +8,8 @@ class MandalasScreen extends React.Component {
     return (
       <White>
         <Grid container spacing={1}>
-            <MandalaCard />
-          <Grid item xs={12} sm={12}>
-          </Grid>
+          <MandalaCard />
+          <Grid item xs={12} sm={12}></Grid>
         </Grid>
       </White>
     );
