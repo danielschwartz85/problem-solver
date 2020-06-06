@@ -15,7 +15,7 @@ const styles = () => ({
     marginBottom: '20px',
   },
   media: {
-    height: 350,
+    height: '66vw',
   },
 });
 
@@ -94,11 +94,11 @@ class MandalaCard extends React.Component {
     return (
       <Card className={classes.root}>
         <CardActionArea>
-          <CardMedia className={classes.media} image={mandala.image} onClick={this._toggleShuffel}>
-            {
-              mandala.id // TODO - remove once images switch
-            }
-          </CardMedia>
+          <CardMedia
+            className={classes.media}
+            image={mandala.image}
+            onClick={this._toggleShuffel}
+          />
           {content}
         </CardActionArea>
       </Card>

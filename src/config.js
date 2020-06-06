@@ -466,7 +466,28 @@ const Config = {
   mandalasScreen: {
     mandalas: [
       {
-        image: 'eyes/velved-md.jpg',
+        image: 'mandalas/blank.jpg',
+        id: '_',
+        title: 'קלף ריק',
+        text: 'כרגע אין תשובה',
+        textEnd: '',
+      },
+      {
+        image: 'mandalas/question-mark.jpg',
+        id: '?',
+        title: 'סימן שאלה',
+        text: 'השאלה אינה מדויקת. או לחילופין כרגע אין תשובה ממשית.',
+        textEnd: '',
+      },
+      {
+        image: 'mandalas/exclamation-mark.jpg',
+        id: '!',
+        title: 'סימן קריאה',
+        text: 'התשובה או התובנה לפניך! תסכים לראות אותה. יתכן אף שהשאלה היא התובנה בעצמה.',
+        textEnd: '',
+      },
+      {
+        image: 'mandalas/A.jpg',
         id: 'A',
         title: 'מנדלת הדנ״א והשרשרת הדורית / סיום התקשרות עם דנ״א או תשתית כלשהי',
         text:
@@ -475,7 +496,7 @@ const Config = {
           'התשובה: סיימת שלב חשוב בחייך. עליך להמשיך בדרכך האישית בה הנך מאמין ולנתק את עצמך ממחשבות על אותו נושא',
       },
       {
-        image: 'eyes/velved-md.jpg',
+        image: 'mandalas/B.jpg',
         id: 'B',
         title: 'מנדלת איזון האדם',
         text:
@@ -484,7 +505,7 @@ const Config = {
           'התשובה: עברת דרך ארוכה בתהליכי חשיבה ועשייה כדי לקטוף את פירות רצונותיך. כל שעליך לעשות הוא לאזן בין תהליכים אלו באופן שווה.',
       },
       {
-        image: 'eyes/velved-md.jpg',
+        image: 'mandalas/C.jpg',
         id: 'C',
         title: 'מנדלת איזון האדם / זיכוך הכרת המחשבה מול פעולות העשייה',
         text:
@@ -492,7 +513,7 @@ const Config = {
         textEnd: 'התשובה: מחשבה ללא עשייה תייצר בך הרגשת ריקנות.',
       },
       {
-        image: 'eyes/velved-md.jpg',
+        image: 'mandalas/D.jpg',
         id: 'D',
         title: 'מנדלת איזון האדם / זיכוך פעולות העשייה דרך מחשבה תחילה',
         text:
@@ -501,7 +522,7 @@ const Config = {
           'התשובה: עשייה לפני מחשבה תביא אותך לדרך ארוכה ומייגעת. מחשבה תחילה תפתח בפניך אפשרויות שלא הכרת.',
       },
       {
-        image: 'eyes/velved-md.jpg',
+        image: 'mandalas/E.jpg',
         id: 'E',
         title: 'תרשים צומת חיי אדם / פרשת דרכים עכשווית',
         text:
@@ -509,7 +530,7 @@ const Config = {
         textEnd: 'התשובה: התרחק מהעומס שהנך נימצא כדי להתקרב לתשובות.',
       },
       {
-        image: 'eyes/velved-md.jpg',
+        image: 'mandalas/F.jpg',
         id: 'F',
         title: 'תרשים צומת חיי האדם / מפגש צמתים',
         text:
@@ -518,7 +539,7 @@ const Config = {
           'התשובה: פרשת דרכים זו הגיעה כדי להבהיר לך תובנות שלא היית בשל להבין בתקופות אחרות.',
       },
       {
-        image: 'eyes/velved-md.jpg',
+        image: 'mandalas/G.jpg',
         id: 'G',
         title: 'תרשים בניית ביתו הפנימי של האדם',
         text:
@@ -527,7 +548,7 @@ const Config = {
           'התשובה: הרבה הסחות דעת מסתירות ממך את מי שהנך. רק דרך עיבוד ופריטה של העבר וההווה של חייך תמצא את התשובה שהנך מחפש לשלב הבא בחייך.',
       },
       {
-        image: 'eyes/velved-md.jpg',
+        image: 'mandalas/H.jpg',
         id: 'H',
         title: 'תרשים ההוויה הרעוע',
         text:
@@ -536,7 +557,7 @@ const Config = {
           'התשובה: הדפוסים הקדומים אינם מתאימים לשלב הבא בחייך ללא שינויים תתקבע לאותה מציאות או תשתית רעוע.',
       },
       {
-        image: 'eyes/velved-md.jpg',
+        image: 'mandalas/I.jpg',
         id: 'I',
         title: 'תרשים כתבי הנשמה',
         text:
@@ -544,7 +565,7 @@ const Config = {
         textEnd: 'התשובה: התשובות קיימות בתוכך.',
       },
       {
-        image: 'eyes/velved-md.jpg',
+        image: 'mandalas/J.jpg',
         id: 'J',
         title: 'תרשים כתבי הנשמה של האדם ושל השרשרת הדורית שלו',
         text:
@@ -552,7 +573,7 @@ const Config = {
         textEnd: 'התשובה: התשובה לשאלתך קיימת בשרשרת הדורית ממנה הגעת.',
       },
       {
-        image: 'eyes/velved-md.jpg',
+        image: 'mandalas/K.jpg',
         id: 'K',
         title: 'מנדלת משברי גיל / שיעורים בתחפושת',
         text:
@@ -561,7 +582,7 @@ const Config = {
           'התשובה: בגרות ללא בשלות אינה מניבה תוצאות. עליך להבשיל לשלב הבא בחייך כדי לא להישאר באותם מקומות שהיית בהם.',
       },
       {
-        image: 'eyes/velved-md.jpg',
+        image: 'mandalas/L.jpg',
         id: 'L',
         title: 'מנדלות משברי גיל / האמת המתקנת של האדם',
         text:
@@ -570,7 +591,7 @@ const Config = {
           'התשובה: במידה והבנת את האמת הערכית שלך ושל דורותיך הרווחת את היכולת להשפיע ולרפא את סביבתך. בזכות זאת הפכת לבעל השפעה מתקנת ומרפא.',
       },
       {
-        image: 'eyes/velved-md.jpg',
+        image: 'mandalas/M.jpg',
         id: 'M',
         title: 'מנדלת משברי גיל עם השפעה תהודתית',
         text:
@@ -579,7 +600,7 @@ const Config = {
           'התשובה: תשובתך מצויה בהעברה הדורית ממנה הגעת. נסה להימנע משכפול פעולות הוריך בשלב זה או בשלב הבא בחייך.',
       },
       {
-        image: 'eyes/velved-md.jpg',
+        image: 'mandalas/N.jpg',
         id: 'N',
         title: 'מנדלת משברי גיל / הדרכה גבוהה',
         text:
@@ -587,7 +608,7 @@ const Config = {
         textEnd: 'התשובה: בחייך הקדומים הצלחת בזכות הדרכה/הבנה רוחנית. העזר בכך גם בשלב זה בחייך.',
       },
       {
-        image: 'eyes/velved-md.jpg',
+        image: 'mandalas/O.jpg',
         id: 'O',
         title: 'מנדלת משברי גיל / השפעה של מעברים',
         text:
@@ -595,7 +616,7 @@ const Config = {
         textEnd: 'התשובה: תשובה אחת מדויקת תביא מענה לכל שאר השאלות והתהיות.',
       },
       {
-        image: 'eyes/velved-md.jpg',
+        image: 'mandalas/P.jpg',
         id: 'P',
         title: 'תרשים הפירמידה',
         text:
@@ -604,7 +625,7 @@ const Config = {
           'התשובה: קיבלת את הכלים, התשובות והאפשרויות למלא את החסכים מן העבר וכך לסלול את דרכך לבטחה.',
       },
       {
-        image: 'eyes/velved-md.jpg',
+        image: 'mandalas/Q.jpg',
         id: 'Q',
         title: 'תרשים הקשר בין הסביבה לאדם / השפעת הסביבה על האדם',
         text:
@@ -613,7 +634,7 @@ const Config = {
           'התשובה: הנך רוכש ומפנים מהסביבה בה הנך נימצא עכשיו או שתימצא בעתיד מידע, דפוסים הרגלים ומיומנויות חדשים.',
       },
       {
-        image: 'eyes/velved-md.jpg',
+        image: 'mandalas/S.jpg',
         id: 'R',
         title: 'תרשים הקשר בין האדם לסביבה / השפעת האדם על הסביבה',
         text:
@@ -621,7 +642,7 @@ const Config = {
         textEnd: 'התשובה: הנך בעל השפעה והשראה על סביבתך. דברים יסתדרו מתוכך או מההשפעה שלך.',
       },
       {
-        image: 'eyes/velved-md.jpg',
+        image: 'mandalas/T.jpg',
         id: 'S',
         title: 'תרשים המחיצות באישיות האדם',
         text:
