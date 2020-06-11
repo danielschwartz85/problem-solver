@@ -8,7 +8,7 @@ class MandalasScreen extends React.Component {
     return (
       <White>
         <Grid container spacing={1}>
-          <MandalaCard shuffelSpeed={250} />
+          <MandalaCard mandalaShuffelSpeed={250} colorShuffelSpeed={1000} />
           <Grid item xs={12} sm={12}></Grid>
         </Grid>
       </White>
