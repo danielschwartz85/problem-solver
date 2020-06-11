@@ -184,13 +184,12 @@ class MandalaCard extends React.Component {
 
     return (
       <Card className={classes.root}>
-        <CardActionArea>
+        <CardActionArea onClick={this.onImageClick}>
           <div style={layoutStyle}></div>
           <CardMedia
             ref={this._mandalaElem}
             className={classes.media}
             image={mandala.image}
-            onClick={this.onImageClick}
             style={imageStyle}
           />
           {content}
