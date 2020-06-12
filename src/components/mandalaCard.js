@@ -170,9 +170,7 @@ class MandalaCard extends React.Component {
       : Config.mandalasScreen.colorSelectText;
     let buttonColor = isImageColored ? this.currentColor.code : 'black';
     if (isImageColored) {
-      buttonColor = !['#fff101', '#ffffff'].includes(this.currentColor.code)
-        ? this.currentColor.code
-        : 'gray';
+      buttonColor = this.currentColor.code !== '#ffffff' ? this.currentColor.code : 'gray';
     } else {
       buttonColor = 'black';
     }
