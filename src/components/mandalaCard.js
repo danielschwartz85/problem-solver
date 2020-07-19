@@ -44,12 +44,13 @@ class MandalaCard extends React.Component {
     this.state = {
       mandalas,
       colors,
-      mandalaIndex: parseInt(Math.random() * 10) % mandalas.length,
-      colorIndex: parseInt(Math.random() * 10) % colors.length,
+      mandalaIndex: String(Math.random()).substr(2, 1) % mandalas.length,
+      colorIndex: String(Math.random()).substr(2, 1) % colors.length,
       mode: 'mandala-shuffel',
       showVerbs: false,
     };
     this._mandalaElem = React.createRef();
+    this._actionsElement = null;
   }
 
   componentDidMount() {
@@ -78,7 +79,9 @@ class MandalaCard extends React.Component {
     }
     if (this._isMode('color-shuffel')) {
       this._stopShuffel();
-      this.setState({mode: 'color-selected'});
+      this.setState({mode: 'color-selected', showVerbs: true});
+      this._actionsElement &&
+        this._actionsElement.scrollIntoView({behavior: 'smooth', block: 'start'});
     }
     if (this._isMode('color-selected')) {
       this.setState({mode: 'color-shuffel', showVerbs: false});
@@ -91,13 +94,11 @@ class MandalaCard extends React.Component {
   };
 
   onColorButtonClick = () => {
-    this._mandalaElem.current.scrollIntoView({behavior: 'smooth', block: 'center'});
     this.setState({mode: 'color-shuffel'});
     this._startColorShuffel();
   };
 
   onRestartButtonClick = () => {
-    this._mandalaElem.current.scrollIntoView({behavior: 'smooth', block: 'center'});
     this._stopShuffel();
     this._startMandalaShuffel();
     this.setState({mode: 'mandala-shuffel', showVerbs: false});
@@ -107,11 +108,17 @@ class MandalaCard extends React.Component {
     this.setState(({showVerbs}) => ({showVerbs: !showVerbs}));
   };
 
+  setActionsElement = actionsElement => {
+    this._actionsElement = actionsElement;
+  };
+
   _startMandalaShuffel = () => {
+    this._mandalaElem.current.scrollIntoView({behavior: 'smooth', block: 'center'});
     this._cancelShuffelId = setInterval(this._mandalaShuffel, this.props.mandalaShuffelSpeed);
   };
 
   _startColorShuffel = () => {
+    this._mandalaElem.current.scrollIntoView({behavior: 'smooth', block: 'center'});
     this._cancelShuffelId = setInterval(this._colorShuffel, this.props.colorShuffelSpeed);
   };
 
@@ -189,6 +196,7 @@ class MandalaCard extends React.Component {
     const cardActions = !this._isMode('mandala-shuffel') && (
       <CardActions>
         <Button
+          ref={this.setActionsElement}
           size="small"
           className={classes.button}
           color="primary"
@@ -205,7 +213,7 @@ class MandalaCard extends React.Component {
       </CardActions>
     );
 
-    const imageStyle = isImageColored ? {opacity: '25%'} : {};
+    const imageStyle = isImageColored ? {opacity: '15%'} : {};
     const imageRect =
       this._mandalaElem.current && this._mandalaElem.current.getBoundingClientRect();
     const layoutStyle = isImageColored
@@ -214,7 +222,7 @@ class MandalaCard extends React.Component {
           width: imageRect.width,
           height: imageRect.height,
           position: 'absolute',
-          boxShadow: `inset 0px 0px 2px 2px rgba(255,255,255,1)`,
+          boxShadow: `inset 0px 0px 3px 0px rgba(255,255,255,1)`,
         }
       : {};
 
