@@ -1,6 +1,5 @@
-import React from 'react';
-import PropTypes from 'prop-types';
-import {withStyles} from '@material-ui/core/styles';
+import React, {useMemo} from 'react';
+import {makeStyles} from '@material-ui/core/styles';
 import CardHeader from '@material-ui/core/CardHeader';
 import CardContent from '@material-ui/core/CardContent';
 import CardMedia from '@material-ui/core/CardMedia';
@@ -15,75 +14,72 @@ import Switch from '@material-ui/core/Switch';
 import Utils from '../utils';
 import {LightGreen} from './themes';
 
-const styles = theme => ({
+const useStyles = makeStyles({
   media: {
     height: 194,
-  },
-  heading: {
-    fontSize: theme.typography.pxToRem(15),
-    fontWeight: theme.typography.fontWeightRegular,
   },
   switch: {
     float: 'right',
   },
 });
 
-class EyeTypeCard extends React.Component {
-  onChange = event => {
-    this.props.onChange(event.target.checked);
+// React seems to re-render EyeTypeCard even though the props are the same and 'areEqualCards' returns true
+// This might be unsolvable since React deciedes when to render after all my recomendations.
+const areEqualCards = (prevProps, nextProps) => prevProps.selected === nextProps.selected;
+
+const EyeTypeCard = React.memo(props => {
+  console.log('props', props.name);
+  const classes = useStyles();
+  const onChange = event => {
+    props.onChange(event.target.checked);
   };
 
-  render() {
-    const {classes} = this.props;
-    const contentPanels = ['color', 'description', 'actions']
-      .filter(k => this.props[k] && this.props[k] !== '')
-      .map((key, i) => (
-        <ExpansionPanel key={`${key}-${i}`}>
-          <ExpansionPanelSummary expandIcon={<ExpandMoreIcon />}>
-            <Typography className={classes.heading}>
-              {Config.eyeTypesScreen.headers[key]}
-            </Typography>
-          </ExpansionPanelSummary>
-          <ExpansionPanelDetails>
-            <Typography>
-              {!Array.isArray(this.props[key])
-                ? this.props[key]
-                : Utils.joinWithCommas(this.props[key])}
-            </Typography>
-          </ExpansionPanelDetails>
-        </ExpansionPanel>
-      ));
+  const contentPanels = useMemo(
+    () =>
+      ['color', 'description', 'actions']
+        .filter(k => props[k] && props[k] !== '')
+        .map((key, i) => (
+          <ExpansionPanel key={`${key}-${i}`}>
+            <ExpansionPanelSummary expandIcon={<ExpandMoreIcon />}>
+              <Typography className={classes.heading}>
+                {Config.eyeTypesScreen.headers[key]}
+              </Typography>
+            </ExpansionPanelSummary>
+            <ExpansionPanelDetails>
+              <Typography>
+                {!Array.isArray(props[key]) ? props[key] : Utils.joinWithCommas(props[key])}
+              </Typography>
+            </ExpansionPanelDetails>
+          </ExpansionPanel>
+        )),
+    [props.color, props.description, props.actions],
+  );
 
-    const title = (
-      <div>
-        <span>{this.props.name}</span>
-        <Switch
-          className={classes.switch}
-          checked={this.props.selected}
-          onChange={this.onChange}
-          value="1"
-          color="secondary"
-        />
-      </div>
-    );
+  const title = (
+    <div>
+      <span>{props.name}</span>
+      <Switch
+        className={classes.switch}
+        checked={props.selected}
+        onChange={onChange}
+        value="1"
+        color="secondary"
+      />
+    </div>
+  );
 
-    return (
-      <LightGreen>
-        <Card>
-          <CardHeader title={title} />
-          <CardMedia className={classes.media} image={this.props.image} />
-          <CardContent>
-            <Typography component="p">{this.props.origin}</Typography>
-          </CardContent>
-          {contentPanels}
-        </Card>
-      </LightGreen>
-    );
-  }
-}
+  return (
+    <LightGreen>
+      <Card>
+        <CardHeader title={title} />
+        <CardMedia className={classes.media} image={props.image} />
+        <CardContent>
+          <Typography component="p">{props.origin}</Typography>
+        </CardContent>
+        {contentPanels}
+      </Card>
+    </LightGreen>
+  );
+}, areEqualCards);
 
-EyeTypeCard.propTypes = {
-  classes: PropTypes.object.isRequired,
-};
-
-export default withStyles(styles)(EyeTypeCard);
+export default EyeTypeCard;
