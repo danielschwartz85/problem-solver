@@ -5,6 +5,7 @@ import Card from '@material-ui/core/Card';
 import CardActionArea from '@material-ui/core/CardActionArea';
 import CardContent from '@material-ui/core/CardContent';
 import CardMedia from '@material-ui/core/CardMedia';
+import CardHeader from '@material-ui/core/CardHeader';
 import CardActions from '@material-ui/core/CardActions';
 import Tooltip from '@material-ui/core/Tooltip';
 import Button from '@material-ui/core/Button';
@@ -46,7 +47,7 @@ class MandalaCard extends React.Component {
       colors,
       mandalaIndex: String(Math.random()).substr(2, 1) % mandalas.length,
       colorIndex: String(Math.random()).substr(2, 1) % colors.length,
-      mode: 'mandala-shuffel',
+      mode: 'start',
       showVerbs: false,
     };
     this._mandalaElem = React.createRef();
@@ -73,6 +74,9 @@ class MandalaCard extends React.Component {
   }
 
   onImageClick = () => {
+    if (this._isMode('start')) {
+      this.setState({mode: 'mandala-shuffel'});
+    }
     if (this._isMode('mandala-shuffel')) {
       this._stopShuffel();
       this.setState({mode: 'mandala-selected'});
@@ -139,7 +143,8 @@ class MandalaCard extends React.Component {
   };
 
   _isMode(mode) {
-    return this.state.mode === mode;
+    const modes = mode.constructor.name === 'Array' ? mode : [mode];
+    return modes.includes(this.state.mode);
   }
 
   get currentColor() {
@@ -156,7 +161,7 @@ class MandalaCard extends React.Component {
     const mandala = mandalas[mandalaIndex];
 
     const content = (
-      <Collapse in={!this._isMode('mandala-shuffel')}>
+      <Collapse in={!this._isMode(['mandala-shuffel', 'start'])}>
         <CardContent>
           <Typography gutterBottom variant="h5" component="h2">
             {mandala.title}
@@ -193,7 +198,7 @@ class MandalaCard extends React.Component {
         <ExpandMoreIcon />
       </IconButton>
     );
-    const cardActions = !this._isMode('mandala-shuffel') && (
+    const cardActions = !this._isMode(['mandala-shuffel', 'start']) && (
       <CardActions>
         <Button
           ref={this.setActionsElement}
@@ -229,12 +234,13 @@ class MandalaCard extends React.Component {
     // TODO - change style to adding classses way - o.w. this slows down React
     return (
       <Card className={classes.root}>
+        {this._isMode('start') && <CardHeader subheader={Config.mandalasScreen.mainText} />}
         <CardActionArea onClick={this.onImageClick}>
           <div style={layoutStyle}></div>
           <CardMedia
             ref={this._mandalaElem}
             className={classes.media}
-            image={mandala.image}
+            image={this._isMode('start') ? Config.mandalasScreen.symbolImage : mandala.image}
             style={imageStyle}
           />
           {content}

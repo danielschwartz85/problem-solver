@@ -466,6 +466,8 @@ const Config = {
   mandalasScreen: {
     againText: 'בחר קלף חדש',
     colorSelectText: 'בחר צבע',
+    symbolImage: 'mandalas/symbol.jpg',
+    mainText: 'לחץ לבחירת מנדלה...',
     mandalas: [
       {
         image: 'mandalas/blank.jpg',
