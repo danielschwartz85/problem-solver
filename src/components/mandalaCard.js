@@ -40,13 +40,12 @@ const styles = theme => ({
 class MandalaCard extends React.Component {
   constructor() {
     super();
-    const {mandalas, colors} = Config.mandalasScreen;
-    // TODO - switch state to redux
+    this._mandalas = Config.mandalasScreen.mandalas;
+    this._colors = Config.mandalasScreen.colors;
+    // TODO - switch state to redux`
     this.state = {
-      mandalas,
-      colors,
-      mandalaIndex: String(Math.random()).substr(2, 1) % mandalas.length,
-      colorIndex: String(Math.random()).substr(2, 1) % colors.length,
+      mandalaIndex: String(Math.random()).substr(2, 1) % this._mandalas.length,
+      colorIndex: String(Math.random()).substr(2, 1) % this._colors.length,
       mode: 'start',
       showVerbs: false,
     };
@@ -131,14 +130,14 @@ class MandalaCard extends React.Component {
   };
 
   _mandalaShuffel = () => {
-    this.setState(({mandalas, mandalaIndex}) => ({
-      mandalaIndex: (mandalaIndex + 1) % mandalas.length,
+    this.setState(({mandalaIndex}) => ({
+      mandalaIndex: (mandalaIndex + 1) % this._mandalas.length,
     }));
   };
 
   _colorShuffel = () => {
-    this.setState(({colors, colorIndex}) => ({
-      colorIndex: (colorIndex + 1) % colors.length,
+    this.setState(({colorIndex}) => ({
+      colorIndex: (colorIndex + 1) % this._colors.length,
     }));
   };
 
@@ -148,7 +147,7 @@ class MandalaCard extends React.Component {
   }
 
   get currentColor() {
-    return this.state.colors[this.state.colorIndex];
+    return this._colors[this.state.colorIndex];
   }
 
   get mode() {
@@ -157,8 +156,8 @@ class MandalaCard extends React.Component {
 
   render() {
     const {classes} = this.props;
-    const {mandalas, mandalaIndex} = this.state;
-    const mandala = mandalas[mandalaIndex];
+    const {mandalaIndex} = this.state;
+    const mandala = this._mandalas[mandalaIndex];
 
     const content = (
       <Collapse in={!this._isMode(['mandala-shuffel', 'start'])}>
