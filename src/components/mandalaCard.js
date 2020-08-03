@@ -55,6 +55,11 @@ class MandalaCard extends React.Component {
 
   componentDidMount() {
     this._startMandalaShuffel();
+    // pre load images
+    for (const {image} of this._mandalas) {
+      const img = new Image();
+      img.src = image;
+    }
   }
 
   componentWillUnmount() {
