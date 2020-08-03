@@ -42,7 +42,7 @@ class MandalaCard extends React.Component {
     super();
     this._mandalas = Config.mandalasScreen.mandalas;
     this._colors = Config.mandalasScreen.colors;
-    // TODO - switch state to redux`
+    // TODO - switch state to redux
     this.state = {
       mandalaIndex: String(Math.random()).substr(2, 1) % this._mandalas.length,
       colorIndex: String(Math.random()).substr(2, 1) % this._colors.length,
@@ -55,7 +55,7 @@ class MandalaCard extends React.Component {
 
   componentDidMount() {
     this._startMandalaShuffel();
-    // pre load images
+    // preload images
     for (const {image} of this._mandalas) {
       const img = new Image();
       img.src = image;
