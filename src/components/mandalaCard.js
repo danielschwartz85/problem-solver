@@ -97,7 +97,7 @@ class MandalaCard extends React.Component {
       this._startColorShuffel();
     }
     if (this._isMode('mandala-selected')) {
-      this.setState({mode: 'mandala-shuffel'});
+      this.setState({mode: 'mandala-shuffel', showMore: false});
       this._startMandalaShuffel();
     }
   };
