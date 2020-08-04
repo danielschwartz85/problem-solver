@@ -5,7 +5,6 @@ import Card from '@material-ui/core/Card';
 import CardActionArea from '@material-ui/core/CardActionArea';
 import CardContent from '@material-ui/core/CardContent';
 import CardMedia from '@material-ui/core/CardMedia';
-import CardHeader from '@material-ui/core/CardHeader';
 import CardActions from '@material-ui/core/CardActions';
 import Tooltip from '@material-ui/core/Tooltip';
 import Button from '@material-ui/core/Button';
@@ -47,14 +46,12 @@ class MandalaCard extends React.Component {
       mandalaIndex: String(Math.random()).substr(2, 1) % this._mandalas.length,
       colorIndex: String(Math.random()).substr(2, 1) % this._colors.length,
       mode: 'start',
-      showVerbs: false,
+      showMore: false,
     };
     this._mandalaElem = React.createRef();
-    this._actionsElement = null;
   }
 
   componentDidMount() {
-    this._startMandalaShuffel();
     // preload images
     if (window._mandalaCached) {
       return;
@@ -84,6 +81,7 @@ class MandalaCard extends React.Component {
 
   onImageClick = () => {
     if (this._isMode('start')) {
+      this._startMandalaShuffel();
       this.setState({mode: 'mandala-shuffel'});
     }
     if (this._isMode('mandala-shuffel')) {
@@ -92,12 +90,10 @@ class MandalaCard extends React.Component {
     }
     if (this._isMode('color-shuffel')) {
       this._stopShuffel();
-      this.setState({mode: 'color-selected', showVerbs: true});
-      this._actionsElement &&
-        this._actionsElement.scrollIntoView({behavior: 'smooth', block: 'start'});
+      this.setState({mode: 'color-selected'});
     }
     if (this._isMode('color-selected')) {
-      this.setState({mode: 'color-shuffel', showVerbs: false});
+      this.setState({mode: 'color-shuffel'});
       this._startColorShuffel();
     }
     if (this._isMode('mandala-selected')) {
@@ -113,12 +109,11 @@ class MandalaCard extends React.Component {
 
   onRestartButtonClick = () => {
     this._stopShuffel();
-    this._startMandalaShuffel();
-    this.setState({mode: 'mandala-shuffel', showVerbs: false});
+    this.setState({mode: 'start', showMore: false});
   };
 
-  onShowVerbsClick = () => {
-    this.setState(({showVerbs}) => ({showVerbs: !showVerbs}));
+  onShowMoreClick = () => {
+    this.setState(({showMore}) => ({showMore: !showMore}));
   };
 
   setActionsElement = actionsElement => {
@@ -170,43 +165,22 @@ class MandalaCard extends React.Component {
     const mandala = this._mandalas[mandalaIndex];
 
     const content = (
-      <Collapse in={!this._isMode(['mandala-shuffel', 'start'])}>
+      <Collapse in={!this._isMode('mandala-shuffel')}>
         <CardContent>
-          <Typography gutterBottom variant="h5" component="h2">
-            {mandala.title}
-          </Typography>
-          <Typography variant="body2" color="textSecondary" component="p">
-            {mandala.text}
+          <Typography gutterBottom>
+            {this._isMode('start') ? Config.mandalasScreen.mainText : mandala.title}
           </Typography>
           <Typography variant="subtitle2" color="textPrimary" component="p">
-            {mandala.textEnd}
+            {!this._isMode(['start', 'mandala-shuffel']) && mandala.textEnd}
+          </Typography>
+          <Typography color="textSecondary">
+            {this._isMode('color-selected') && this.currentColor.verbs.join(', ')}
           </Typography>
         </CardContent>
       </Collapse>
     );
 
     const isImageColored = this._isMode('color-shuffel') || this._isMode('color-selected');
-    const buttonText = isImageColored
-      ? this.currentColor.name
-      : Config.mandalasScreen.colorSelectText;
-    let buttonColor = isImageColored ? this.currentColor.code : 'black';
-    if (isImageColored) {
-      buttonColor = this.currentColor.code !== '#ffffff' ? this.currentColor.code : 'gray';
-    } else {
-      buttonColor = 'black';
-    }
-
-    const showVerbsButton = this._isMode('color-selected') && (
-      <IconButton
-        className={clsx(classes.expand, {
-          [classes.expandOpen]: this.state.showVerbs,
-        })}
-        style={{color: buttonColor}}
-        onClick={this.onShowVerbsClick}
-        aria-expanded={this.state.showVerbs}>
-        <ExpandMoreIcon />
-      </IconButton>
-    );
     const cardActions = !this._isMode(['mandala-shuffel', 'start']) && (
       <CardActions>
         <Button
@@ -215,15 +189,22 @@ class MandalaCard extends React.Component {
           className={classes.button}
           color="primary"
           onClick={this.onColorButtonClick}
-          disabled={this._isMode('color-selected')}>
-          {buttonText}
+          disabled={this._isMode('color-shuffel')}>
+          {Config.mandalasScreen.colorSelectText}
         </Button>
         <Tooltip title={Config.mandalasScreen.againText}>
           <IconButton onClick={this.onRestartButtonClick}>
             <RefreshIcon />
           </IconButton>
         </Tooltip>
-        {showVerbsButton}
+        <IconButton
+          className={clsx(classes.expand, {
+            [classes.expandOpen]: this.state.showMore,
+          })}
+          onClick={this.onShowMoreClick}
+          aria-expanded={this.state.showMore}>
+          <ExpandMoreIcon />
+        </IconButton>
       </CardActions>
     );
 
@@ -243,7 +224,6 @@ class MandalaCard extends React.Component {
     // TODO - change style to adding classses way - o.w. this slows down React
     return (
       <Card className={classes.root}>
-        {this._isMode('start') && <CardHeader subheader={Config.mandalasScreen.mainText} />}
         <CardActionArea onClick={this.onImageClick}>
           <div style={layoutStyle}></div>
           <CardMedia
@@ -255,9 +235,9 @@ class MandalaCard extends React.Component {
           {content}
         </CardActionArea>
         {cardActions}
-        <Collapse in={this.state.showVerbs} timeout="auto" unmountOnExit>
+        <Collapse in={this.state.showMore} timeout="auto" unmountOnExit>
           <CardContent>
-            <Typography paragraph>{this.currentColor.verbs.join(', ')}</Typography>
+            <Typography paragraph>{mandala.text}</Typography>
           </CardContent>
         </Collapse>
       </Card>
